@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rebite — Selamat Datang</title>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,700;1,700&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --color-dark-brown: #2E2910;
+            --color-brunswick: #2C5745;
+            --color-vanilla: #EBE3A7;
+            --color-tangerine: #EB7D00;
+            --color-bg-light: #F7F5EB;
+            --color-white: #FFFFFF;
+            --color-muted: #736E58;
+            --color-border: #D1C9A0;
+            --font-main: 'Plus Jakarta Sans', -apple-system, sans-serif;
+            --font-display: 'Playfair Display', Georgia, serif;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            font-family: var(--font-main);
+            background-color: #E2DFD2;
+            color: var(--color-dark-brown);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 20px 0;
+        }
+
+        /* Viewport Frame Presisi (440px x 840px) */
+        .app-viewport {
+            width: 100%;
+            max-width: 440px;
+            height: 840px;
+            background-color: var(--color-bg-light);
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            overflow: hidden;
+            border-radius: 32px;
+            border: 1px solid var(--color-border);
+            box-shadow: 0 24px 60px rgba(46, 41, 16, 0.15);
+        }
+
+        /* Background Blob & Foliage Decor */
+        .bg-decor {
+            position: absolute;
+            pointer-events: none;
+            z-index: 1;
+            opacity: 0.75;
+        }
+        
+        .blob-top-right {
+            top: -60px;
+            right: -60px;
+            width: 220px;
+            height: 220px;
+            background: radial-gradient(circle, rgba(235, 125, 0, 0.2) 0%, rgba(235, 227, 167, 0) 70%);
+            border-radius: 50%;
+        }
+
+        .blob-bottom-left {
+            bottom: -80px;
+            left: -80px;
+            width: 260px;
+            height: 260px;
+            background: radial-gradient(circle, rgba(44, 87, 69, 0.15) 0%, rgba(235, 227, 167, 0) 75%);
+            border-radius: 50%;
+        }
+
+        /* Top Bar Header */
+        .top-bar {
+            padding: 24px 24px 8px 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 10;
+        }
+
+        .brand-logo-img {
+            width: 44px;
+            height: 44px;
+            object-fit: contain;
+            border-radius: 50%;
+            border: 2px solid var(--color-border);
+            background-color: var(--color-vanilla);
+            box-shadow: 0 4px 12px rgba(46, 41, 16, 0.08);
+            transition: transform 0.3s ease;
+        }
+
+        .brand-logo-img:hover {
+            transform: scale(1.05) rotate(-3deg);
+        }
+
+        .skip-btn {
+            background-color: rgba(115, 110, 88, 0.1);
+            border: none;
+            font-family: var(--font-main);
+            font-size: 0.8rem;
+            font-weight: 800;
+            color: var(--color-dark-brown);
+            cursor: pointer;
+            padding: 8px 18px;
+            border-radius: 20px;
+            transition: all 0.2s;
+            letter-spacing: 0.02em;
+        }
+
+        .skip-btn:hover {
+            background-color: rgba(115, 110, 88, 0.2);
+            transform: translateY(-1px);
+        }
+
+        /* Carousel Slides Wrapper */
+        .carousel-outer {
+            flex: 1;
+            overflow: hidden;
+            position: relative;
+            z-index: 2;
+        }
+
+        .carousel-container {
+            display: flex;
+            height: 100%;
+            transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+            width: 300%;
+        }
+
+        .slide {
+            width: 33.333%;
+            padding: 10px 24px 24px 24px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-between;
+            text-align: center;
+        }
+
+        /* Illustration Visual Box */
+        .illustration-card {
+            width: 100%;
+            height: 320px;
+            background-color: var(--color-white);
+            border: 1px solid var(--color-border);
+            border-radius: 28px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            box-shadow: 0 12px 36px rgba(46, 41, 16, 0.05);
+            overflow: hidden;
+            margin-bottom: 20px;
+        }
+
+        /* Canvas Pattern & Natural Decor inside card */
+        .card-pattern {
+            position: absolute;
+            inset: 0;
+            background-image: radial-gradient(circle at 50% 50%, var(--color-bg-light) 1.5px, transparent 1.5px);
+            background-size: 16px 16px;
+            opacity: 0.5;
+            z-index: 1;
+        }
+
+        .nature-decor {
+            position: absolute;
+            z-index: 2;
+            color: var(--color-border);
+            opacity: 0.4;
+        }
+
+        .illust-container {
+            position: relative;
+            z-index: 3;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .graphic-badge {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            background-color: var(--color-tangerine);
+            color: var(--color-white);
+            font-size: 0.65rem;
+            font-weight: 800;
+            padding: 5px 12px;
+            border-radius: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            box-shadow: 0 6px 16px rgba(235, 125, 0, 0.25);
+            z-index: 4;
+        }
+
+        /* Slide Typography */
+        .slide-text-box {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            padding: 0 8px;
+            margin-bottom: 8px;
+        }
+
+        .slide-tag {
+            font-size: 0.72rem;
+            font-weight: 800;
+            color: var(--color-tangerine);
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+        }
+
+        .slide-title {
+            font-family: var(--font-display);
+            font-size: 1.6rem;
+            color: var(--color-dark-brown);
+            line-height: 1.25;
+            font-weight: 700;
+        }
+
+        .slide-title em {
+            font-style: italic;
+            color: var(--color-brunswick);
+        }
+
+        .slide-desc {
+            font-size: 0.82rem;
+            color: var(--color-muted);
+            line-height: 1.5;
+            font-weight: 500;
+        }
+
+        /* Controls Section */
+        .controls-footer {
+            padding: 12px 24px 32px 24px;
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+            background-color: var(--color-bg-light);
+            position: relative;
+            z-index: 10;
+        }
+
+        /* Indicator Dots */
+        .dots-indicator {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 6px;
+            margin-bottom: 6px;
+        }
+
+        .dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background-color: var(--color-border);
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        .dot.active {
+            width: 24px;
+            border-radius: 10px;
+            background-color: var(--color-brunswick);
+        }
+
+        /* Buttons */
+        .btn-primary {
+            width: 100%;
+            padding: 16px;
+            background-color: var(--color-brunswick);
+            color: var(--color-vanilla);
+            border: none;
+            border-radius: 16px;
+            font-family: var(--font-main);
+            font-size: 0.95rem;
+            font-weight: 800;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            box-shadow: 0 8px 20px rgba(44, 87, 69, 0.22);
+            transition: all 0.25s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        .btn-primary:hover {
+            background-color: #234637;
+            transform: translateY(-2px);
+            box-shadow: 0 12px 24px rgba(44, 87, 69, 0.3);
+        }
+
+        .btn-primary:active {
+            transform: translateY(0);
+        }
+
+        .btn-secondary {
+            width: 100%;
+            padding: 14px;
+            background-color: transparent;
+            color: var(--color-dark-brown);
+            border: 2px solid var(--color-border);
+            border-radius: 16px;
+            font-family: var(--font-main);
+            font-size: 0.9rem;
+            font-weight: 800;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-align: center;
+            text-decoration: none;
+            opacity: 0;
+            transform: translateY(10px);
+            pointer-events: none;
+            height: 0;
+            overflow: hidden;
+            margin: 0;
+            padding: 0;
+        }
+
+        .btn-secondary.visible {
+            opacity: 1;
+            transform: translateY(0);
+            pointer-events: auto;
+            height: auto;
+            padding: 14px;
+            margin-top: 2px;
+        }
+
+        .btn-secondary:hover {
+            background-color: var(--color-vanilla);
+        }
+    </style>
+</head>
+<body>
+
+    <main class="app-viewport">
+        <!-- Decor blobs -->
+        <div class="bg-decor blob-top-right"></div>
+        <div class="bg-decor blob-bottom-left"></div>
+
+        <!-- Top Navigation Bar with Logo -->
+        <header class="top-bar">
+            <img src="assets/logo.jpe" alt="Rebite Logo" class="brand-logo-img" onerror="this.onerror=null; this.src='https://via.placeholder.com/100/EBE3A7/2C5745?text=ReBite';">
+            <button class="skip-btn" onclick="goToLogin()">Lewati</button>
+        </header>
+
+        <!-- Carousel Area -->
+        <div class="carousel-outer">
+            <div class="carousel-container" id="carousel">
+                
+                <!-- Slide 1 -->
+                <div class="slide">
+                    <div class="illustration-card">
+                        <div class="card-pattern"></div>
+                        <!-- Background botanical motifs -->
+                        <svg class="nature-decor" style="left:12px; top:12px;" width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c2.5 0 5-1 6.5-2.5l-3-3"/></svg>
+                        <svg class="nature-decor" style="right:12px; bottom:12px;" width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="0.8"><path d="M12 2a15.3 15.3 0 0 1 4 7c.5 1.5.5 3 0 4.5-.3.8-.8 1.5-1.5 2-1.2.9-2.8 1.5-4.5 1.5a6 6 0 0 1-6-6c0-4 3.5-7.5 8-9z"/></svg>
+                        
+                        <span class="graphic-badge">Food Rescue</span>
+                        
+                        <!-- Rich multilayered illustration: Eco-Bag with items -->
+                        <div class="illust-container">
+                            <svg width="180" height="180" viewBox="0 0 200 200" fill="none">
+                                <circle cx="100" cy="115" r="55" fill="var(--color-vanilla)" opacity="0.3"/>
+                                <!-- Flour / Bread & Veggies popping from Bag -->
+                                <path d="M75 55c0-12 8-20 12-20s8 8 8 20l-4 30h-12z" fill="#D2B48C"/>
+                                <rect x="105" y="45" width="14" height="45" rx="3" fill="#CD7F32" transform="rotate(15 105 45)"/>
+                                <path d="M120 70c0-15 15-25 10-35s-20 10-15 25c2 6 5 10 5 10z" fill="#228B22" opacity="0.95"/>
+                                <circle cx="78" cy="72" r="14" fill="#E65100"/>
+                                <path d="M78 58v3m3-3-3 3" stroke="#228B22" stroke-width="2"/>
+                                <!-- Eco-Bag Body -->
+                                <path d="M60 85h80l-8 75H68z" fill="#E5D9B6" stroke="var(--color-dark-brown)" stroke-width="3"/>
+                                <!-- Strap left -->
+                                <path d="M85 85c0-20 30-20 30 0" fill="none" stroke="var(--color-brunswick)" stroke-width="4.5" stroke-linecap="round"/>
+                                <circle cx="100" cy="115" r="28" fill="var(--color-white)" opacity="0.9" stroke="var(--color-dark-brown)" stroke-width="1.5"/>
+                                <!-- Badge "Rescue" design -->
+                                <circle cx="100" cy="115" r="22" fill="var(--color-brunswick)"/>
+                                <path d="M92 113h16M92 118h16M100 106v14" stroke="var(--color-vanilla)" stroke-width="2" stroke-linecap="round"/>
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="slide-text-box">
+                        <span class="slide-tag">Langkah 01 / 03</span>
+                        <h2 class="slide-title">Selamatkan Makanan <em>Surplus Terbaik</em></h2>
+                        <p class="slide-desc">Hubungkan pencari makanan dengan restoran partner yang memiliki sisa makanan layak makan dengan diskon besar atau gratis.</p>
+                    </div>
+                </div>
+
+                <!-- Slide 2 -->
+                <div class="slide">
+                    <div class="illustration-card">
+                        <div class="card-pattern"></div>
+                        <span class="graphic-badge">Adil & Anonim</span>
+                        
+                        <!-- Rich Illustration: Lock & Tag Protection with quota count -->
+                        <div class="illust-container">
+                            <svg width="180" height="180" viewBox="0 0 200 200" fill="none">
+                                <circle cx="100" cy="100" r="55" fill="var(--color-vanilla)" opacity="0.35"/>
+                                <rect x="55" y="80" width="90" height="70" rx="16" fill="var(--color-white)" stroke="var(--color-dark-brown)" stroke-width="3"/>
+                                <!-- Vault lock mechanism visual -->
+                                <circle cx="100" cy="115" r="20" fill="var(--color-tangerine)" opacity="0.12"/>
+                                <circle cx="100" cy="115" r="10" stroke="var(--color-dark-brown)" stroke-width="2.5" fill="none"/>
+                                <path d="M100 120v14" stroke="var(--color-dark-brown)" stroke-width="3" stroke-linecap="round"/>
+                                <!-- Top Loop -->
+                                <path d="M72 80V58c0-16 12-28 28-28s28 12 28 28v22" fill="none" stroke="var(--color-brunswick)" stroke-width="5" stroke-linecap="round"/>
+                                <!-- Badges / Quotas -->
+                                <rect x="15" y="102" width="52" height="24" rx="8" fill="var(--color-tangerine)" stroke="var(--color-dark-brown)" stroke-width="1.5"/>
+                                <text x="41" y="117" fill="var(--color-white)" font-size="8" font-weight="900" text-anchor="middle" font-family="sans-serif">ANONIM</text>
+                                
+                                <circle cx="158" cy="80" r="16" fill="var(--color-vanilla)" stroke="var(--color-dark-brown)" stroke-width="1.5"/>
+                                <text x="158" y="84" fill="var(--color-dark-brown)" font-size="10" font-weight="800" text-anchor="middle" font-family="sans-serif">3/3</text>
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="slide-text-box">
+                        <span class="slide-tag">Langkah 02 / 03</span>
+                        <h2 class="slide-title">Label Anonim & <em>Batas Kuota</em></h2>
+                        <p class="slide-desc">Privasi kualitas terjamin dengan label kategori anonim. Sistem limit klaim harian memastikan distribusi makanan merata.</p>
+                    </div>
+                </div>
+
+                <!-- Slide 3 -->
+                <div class="slide">
+                    <div class="illustration-card">
+                        <div class="card-pattern"></div>
+                        <span class="graphic-badge">Delivery Sidejob</span>
+                        
+                        <!-- Rich Illustration: Volunteer Delivery Truck Route -->
+                        <div class="illust-container">
+                            <svg width="180" height="180" viewBox="0 0 200 200" fill="none">
+                                <circle cx="100" cy="100" r="55" fill="var(--color-vanilla)" opacity="0.3"/>
+                                <!-- Delivery Route -->
+                                <path d="M40 125c15 0 30-15 45-15s25 15 50 15 25-15 40-15" stroke="var(--color-border)" stroke-width="2.5" stroke-dasharray="4 4" stroke-linecap="round"/>
+                                <!-- Volunteer Delivery Truck Graphic -->
+                                <rect x="52" y="70" width="58" height="38" rx="6" fill="var(--color-brunswick)" stroke="var(--color-dark-brown)" stroke-width="3"/>
+                                <path d="M110 78h22l14 14v16H110V78z" fill="#FFF" stroke="var(--color-dark-brown)" stroke-width="3"/>
+                                <circle cx="70" cy="116" r="11" fill="var(--color-vanilla)" stroke="var(--color-dark-brown)" stroke-width="3"/>
+                                <circle cx="124" cy="116" r="11" fill="var(--color-vanilla)" stroke="var(--color-dark-brown)" stroke-width="3"/>
+                                <path d="M114 96h14M81 70v14" stroke="var(--color-dark-brown)" stroke-width="2"/>
+                                <!-- Reward Voucher Overlay -->
+                                <g transform="translate(112, 42)">
+                                    <rect width="45" height="26" rx="6" fill="var(--color-tangerine)" stroke="var(--color-dark-brown)" stroke-width="1.5"/>
+                                    <text x="22.5" y="16" fill="var(--color-white)" font-size="8" font-weight="900" text-anchor="middle" font-family="sans-serif">+POIN</text>
+                                </g>
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="slide-text-box">
+                        <span class="slide-tag">Langkah 03 / 03</span>
+                        <h2 class="slide-title">Bantu Antar & <em>Dapatkan Reward</em></h2>
+                        <p class="slide-desc">Jadilah kurir relawan untuk mengantarkan donasi makanan ke titik panti/homeless dan dapatkan poin serta voucher diskon.</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Controls Footer -->
+        <footer class="controls-footer">
+            <div class="dots-indicator">
+                <span class="dot active" onclick="goToSlide(0)"></span>
+                <span class="dot" onclick="goToSlide(1)"></span>
+                <span class="dot" onclick="goToSlide(2)"></span>
+            </div>
+
+            <button class="btn-primary" id="nextBtn" onclick="nextSlide()">
+                <span id="btnText">Selanjutnya</span>
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </button>
+
+            <a href="signup.html" class="btn-secondary" id="signupBtn">Daftar Akun Baru</a>
+        </footer>
+    </main>
+
+    <script>
+        let currentSlide = 0;
+        const carousel = document.getElementById('carousel');
+        const dots = document.querySelectorAll('.dot');
+        const btnText = document.getElementById('btnText');
+        const signupBtn = document.getElementById('signupBtn');
+
+        function updateSlide() {
+            carousel.style.transform = `translateX(-${currentSlide * 33.333}%)`;
+            
+            dots.forEach((dot, index) => {
+                dot.classList.toggle('active', index === currentSlide);
+            });
+
+            if (currentSlide === 2) {
+                btnText.textContent = "Mulai Sekarang";
+                signupBtn.classList.add('visible');
+            } else {
+                btnText.textContent = "Selanjutnya";
+                signupBtn.classList.remove('visible');
+            }
+        }
+
+        function nextSlide() {
+            if (currentSlide < 2) {
+                currentSlide++;
+                updateSlide();
+            } else {
+                goToLogin();
+            }
+        }
+
+        function goToSlide(index) {
+            currentSlide = index;
+            updateSlide();
+        }
+
+        function goToLogin() {
+            window.location.href = "index.html";
+        }
+
+        // Swipe Gesture Support
+        let startX = 0;
+        carousel.addEventListener('touchstart', (e) => {
+            startX = e.touches[0].clientX;
+        });
+
+        carousel.addEventListener('touchend', (e) => {
+            let endX = e.changedTouches[0].clientX;
+            let diffX = startX - endX;
+            if (Math.abs(diffX) > 60) {
+                if (diffX > 0 && currentSlide < 2) {
+                    currentSlide++;
+                } else if (diffX < 0 && currentSlide > 0) {
+                    currentSlide--;
+                }
+                updateSlide();
+            }
+        });
+    </script>
+</body>
+</html>

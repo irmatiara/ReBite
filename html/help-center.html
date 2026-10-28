@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rebite — Pusat Bantuan & Keamanan Pangan</title>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,700;1,700&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --color-dark-brown: #2E2910;
+            --color-brunswick: #2C5745;
+            --color-vanilla: #EBE3A7;
+            --color-tangerine: #EB7D00;
+            --color-bg-light: #F7F5EB;
+            --color-white: #FFFFFF;
+            --color-muted: #736E58;
+            --color-border: #D1C9A0;
+            --font-main: 'Plus Jakarta Sans', -apple-system, sans-serif;
+            --font-display: 'Playfair Display', Georgia, serif;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            font-family: var(--font-main);
+            background-color: #E2DFD2;
+            color: var(--color-dark-brown);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 20px 0;
+        }
+
+        /* Frame Viewport 440px x 840px */
+        .app-viewport {
+            width: 100%;
+            max-width: 440px;
+            height: 840px;
+            background-color: var(--color-bg-light);
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            overflow: hidden;
+            border-radius: 32px;
+            border: 1px solid var(--color-border);
+            box-shadow: 0 24px 60px rgba(46, 41, 16, 0.15);
+        }
+
+        /* Top Header */
+        .page-header {
+            background-color: var(--color-brunswick);
+            color: var(--color-vanilla);
+            padding: 20px 20px 16px 20px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            z-index: 10;
+        }
+
+        .btn-back {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background-color: rgba(235, 227, 167, 0.15);
+            border: 1px solid var(--color-vanilla);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--color-white);
+            text-decoration: none;
+            transition: background 0.2s;
+        }
+
+        .btn-back:active {
+            background-color: rgba(235, 227, 167, 0.3);
+        }
+
+        .header-title-box p {
+            font-size: 0.68rem;
+            color: var(--color-vanilla);
+            opacity: 0.85;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        .header-title-box h1 {
+            font-size: 1.05rem;
+            font-weight: 800;
+            color: var(--color-white);
+        }
+
+        /* Scrollable Area */
+        .content-scroll {
+            flex: 1;
+            overflow-y: auto;
+            padding: 18px 20px 30px 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            scrollbar-width: none;
+        }
+
+        .content-scroll::-webkit-scrollbar { display: none; }
+
+        /* Search Input */
+        .search-box {
+            position: relative;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 14px 16px 14px 44px;
+            background-color: var(--color-white);
+            border: 1px solid var(--color-border);
+            border-radius: 16px;
+            font-family: var(--font-main);
+            font-size: 0.85rem;
+            color: var(--color-dark-brown);
+            outline: none;
+            box-shadow: 0 4px 12px rgba(46, 41, 16, 0.04);
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--color-muted);
+        }
+
+        /* Category Chips */
+        .category-chips {
+            display: flex;
+            gap: 8px;
+            overflow-x: auto;
+            padding-bottom: 4px;
+            scrollbar-width: none;
+        }
+
+        .category-chips::-webkit-scrollbar { display: none; }
+
+        .chip-btn {
+            white-space: nowrap;
+            padding: 8px 14px;
+            background-color: var(--color-white);
+            border: 1px solid var(--color-border);
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: var(--color-muted);
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .chip-btn.active {
+            background-color: var(--color-vanilla);
+            color: var(--color-dark-brown);
+            border-color: var(--color-brunswick);
+        }
+
+        /* Quality Policy Highlight Card */
+        .policy-card {
+            background-color: var(--color-white);
+            border: 1px solid var(--color-border);
+            border-radius: 20px;
+            padding: 16px;
+            display: flex;
+            gap: 12px;
+            box-shadow: 0 4px 12px rgba(46, 41, 16, 0.04);
+        }
+
+        .policy-icon-box {
+            width: 42px;
+            height: 42px;
+            border-radius: 14px;
+            background-color: rgba(44, 87, 69, 0.1);
+            color: var(--color-brunswick);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .policy-text-title {
+            font-size: 0.88rem;
+            font-weight: 800;
+            color: var(--color-dark-brown);
+            margin-bottom: 4px;
+        }
+
+        .policy-text-desc {
+            font-size: 0.78rem;
+            color: var(--color-muted);
+            line-height: 1.45;
+        }
+
+        /* FAQ Accordion List */
+        .faq-section-title {
+            font-size: 0.78rem;
+            font-weight: 800;
+            color: var(--color-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-top: 4px;
+        }
+
+        .accordion-item {
+            background-color: var(--color-white);
+            border: 1px solid var(--color-border);
+            border-radius: 16px;
+            overflow: hidden;
+            transition: all 0.2s ease;
+        }
+
+        .accordion-header {
+            width: 100%;
+            padding: 14px 16px;
+            background: none;
+            border: none;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-family: var(--font-main);
+            font-size: 0.85rem;
+            font-weight: 800;
+            color: var(--color-dark-brown);
+            text-align: left;
+            cursor: pointer;
+            gap: 10px;
+        }
+
+        .accordion-icon {
+            transition: transform 0.3s ease;
+            color: var(--color-muted);
+            flex-shrink: 0;
+        }
+
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease, padding 0.3s ease;
+            padding: 0 16px;
+            font-size: 0.78rem;
+            color: var(--color-muted);
+            line-height: 1.5;
+            background-color: var(--color-bg-light);
+            border-top: 0px solid transparent;
+        }
+
+        .accordion-item.open .accordion-icon {
+            transform: rotate(180deg);
+            color: var(--color-tangerine);
+        }
+
+        .accordion-item.open .accordion-content {
+            max-height: 200px;
+            padding: 12px 16px 16px 16px;
+            border-top: 1px dashed var(--color-border);
+        }
+
+        /* Support Action Footer Box */
+        .contact-box {
+            background-color: var(--color-vanilla);
+            border: 1px solid var(--color-border);
+            border-radius: 20px;
+            padding: 18px;
+            text-align: center;
+            margin-top: 8px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .contact-title {
+            font-size: 0.95rem;
+            font-weight: 800;
+            color: var(--color-dark-brown);
+        }
+
+        .contact-desc {
+            font-size: 0.78rem;
+            color: var(--color-muted);
+            line-height: 1.4;
+        }
+
+        .btn-contact {
+            width: 100%;
+            padding: 12px;
+            background-color: var(--color-brunswick);
+            color: var(--color-vanilla);
+            border: none;
+            border-radius: 14px;
+            font-size: 0.85rem;
+            font-weight: 800;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        /* Modal Contact Form */
+        .modal-overlay {
+            position: absolute;
+            inset: 0;
+            background: rgba(46, 41, 16, 0.65);
+            backdrop-filter: blur(4px);
+            z-index: 100;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .modal-card {
+            background: var(--color-white);
+            border-radius: 24px;
+            padding: 24px;
+            width: 100%;
+            max-width: 360px;
+            border: 1px solid var(--color-border);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            text-align: left;
+            margin-bottom: 12px;
+        }
+
+        .form-label {
+            font-size: 0.72rem;
+            font-weight: 800;
+            color: var(--color-muted);
+            text-transform: uppercase;
+        }
+
+        .form-textarea {
+            width: 100%;
+            height: 90px;
+            padding: 10px 12px;
+            border: 1px solid var(--color-border);
+            border-radius: 12px;
+            font-family: var(--font-main);
+            font-size: 0.8rem;
+            resize: none;
+            outline: none;
+        }
+
+        .btn-send {
+            background-color: var(--color-tangerine);
+            color: var(--color-white);
+            border: none;
+            width: 100%;
+            padding: 12px;
+            border-radius: 14px;
+            font-weight: 800;
+            font-size: 0.88rem;
+            cursor: pointer;
+            margin-top: 6px;
+        }
+    </style>
+</head>
+<body>
+
+    <main class="app-viewport">
+        <!-- Top Header -->
+        <header class="page-header">
+            <a href="profile-claimer.html" class="btn-back">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+            </a>
+            <div class="header-title-box">
+                <p>Pusat Informasi</p>
+                <h1>Bantuan & Keamanan Pangan</h1>
+            </div>
+        </header>
+
+        <!-- Scroll Content -->
+        <div class="content-scroll">
+            
+            <!-- Search Bar -->
+            <div class="search-box">
+                <svg class="search-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                <input type="text" class="search-input" placeholder="Cari topik bantuan atau kendala..." onkeyup="filterFaq(this.value)">
+            </div>
+
+            <!-- Filter Chips -->
+            <div class="category-chips">
+                <button class="chip-btn active" onclick="filterCategory('all', this)">Semua Topik</button>
+                <button class="chip-btn" onclick="filterCategory('kuota', this)">Limit Kuota</button>
+                <button class="chip-btn" onclick="filterCategory('anonim', this)">Label Anonim</button>
+                <button class="chip-btn" onclick="filterCategory('sidejob', this)">Sidejob Delivery</button>
+            </div>
+
+            <!-- Standard Quality & Safety Highlight -->
+            <div class="policy-card">
+                <div class="policy-icon-box">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                </div>
+                <div>
+                    <div class="policy-text-title">Jaminan Standar Higienis</div>
+                    <div class="policy-text-desc">Setiap mitra restoran wajib mematuhi panduan Quality Control Rebite. Makanan dikemas aman dan siap dikonsumsi.</div>
+                </div>
+            </div>
+
+            <div class="faq-section-title">Pertanyaan Sering Diajukan (FAQ)</div>
+
+            <!-- Accordion Items -->
+            <div id="faqList" style="display: flex; flex-direction: column; gap: 10px;">
+                
+                <div class="accordion-item" data-category="kuota">
+                    <button class="accordion-header" onclick="toggleAccordion(this)">
+                        <span>Bagaimana cara kerja limit kuota harian?</span>
+                        <svg class="accordion-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+                    </button>
+                    <div class="accordion-content">
+                        Setiap akun Claimer mendapatkan batas maksimal 3 klaim makanan per hari. Limit ini bertujuan untuk menjamin keadilan distribusi agar seluruh masyarakat yang membutuhkan dapat menikmati manfaat surplus makanan. Kuota akan direset otomatis setiap pukul 00:00 WIB.
+                    </div>
+                </div>
+
+                <div class="accordion-item" data-category="anonim">
+                    <button class="accordion-header" onclick="toggleAccordion(this)">
+                        <span>Mengapa nama spesifik makanan disamarkan?</span>
+                        <svg class="accordion-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+                    </button>
+                    <div class="accordion-content">
+                        Rebite menerapkan Prinsip Label Anonim (seperti Karbohidrat, Protein, Roti/Pastry) untuk menjaga privasi serta martabat penerima dan mitra restoran. Kebijakan ini juga efektif mencegah pemborosan selektif.
+                    </div>
+                </div>
+
+                <div class="accordion-item" data-category="sidejob">
+                    <button class="accordion-header" onclick="toggleAccordion(this)">
+                        <span>Bagaimana cara mendapatkan voucher dari Sidejob?</span>
+                        <svg class="accordion-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+                    </button>
+                    <div class="accordion-content">
+                        Kamu bisa memilih Misi Sidejob Delivery di menu "Sidejob", mengambil makanan dari restoran, dan mengantarkannya ke titik homeless atau panti sasaran. Setelah verifikasi lokasi selesai, poin reward dan voucher diskon akan masuk ke akunmu.
+                    </div>
+                </div>
+
+                <div class="accordion-item" data-category="anonim">
+                    <button class="accordion-header" onclick="toggleAccordion(this)">
+                        <span>Bagaimana jika makanan yang diterima kurang layak?</span>
+                        <svg class="accordion-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+                    </button>
+                    <div class="accordion-content">
+                        Kamu dapat melaporkan kejanggalan kualitas langsung melalui tombol "Bantuan" pada tiket klaim riwayat. Tim Quality Control Rebite akan meninjau laporan dalam waktu maksimal 1x24 jam dan memulihkan kuota klaim kamu.
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Contact Support Section -->
+            <div class="contact-box">
+                <div class="contact-title">Masih Membutuhkan Bantuan?</div>
+                <div class="contact-desc">Tim layanan dukungan Rebite siap membantu kendala operasional, laporan makanan, atau pertanyaan seputar kemitraan.</div>
+                <button class="btn-contact" onclick="openSupportModal()">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+                    <span>Hubungi Tim Kendala</span>
+                </button>
+            </div>
+
+        </div>
+
+        <!-- Support Modal Form -->
+        <div class="modal-overlay" id="supportModal">
+            <div class="modal-card">
+                <h3 style="color: var(--color-dark-brown); margin-bottom: 6px; text-align: center;">Kirim Laporan / Bantuan</h3>
+                <p style="font-size: 0.78rem; color: var(--color-muted); text-align: center; margin-bottom: 16px;">Jelaskan kendala yang Kamu alami secara singkat.</p>
+
+                <div class="form-group">
+                    <label class="form-label">Kategori Kendala</label>
+                    <select style="width: 100%; padding: 10px; border: 1px solid var(--color-border); border-radius: 12px; font-family: var(--font-main); font-size: 0.8rem; outline: none;">
+                        <option>Gagal Pindai QR Tiket</option>
+                        <option>Kualitas Makanan Tidak Sesuai</option>
+                        <option>Kendala Misi Sidejob</option>
+                        <option>Pertanyaan Akun / Pertanyaan Umum</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Pesan / Laporan</label>
+                    <textarea class="form-textarea" placeholder="Tuliskan detail kendala di sini..."></textarea>
+                </div>
+
+                <button class="btn-send" onclick="sendSupportForm()">Kirim Pesan Bantuan</button>
+                <button onclick="closeSupportModal()" style="background: none; border: none; color: var(--color-muted); font-size: 0.8rem; font-weight: 700; width: 100%; margin-top: 12px; cursor: pointer;">Batal</button>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        function toggleAccordion(button) {
+            const item = button.parentElement;
+            const isOpen = item.classList.contains('open');
+            
+            document.querySelectorAll('.accordion-item').forEach(el => {
+                el.classList.remove('open');
+            });
+
+            if (!isOpen) {
+                item.classList.add('open');
+            }
+        }
+
+        function filterCategory(cat, btn) {
+            document.querySelectorAll('.chip-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+
+            document.querySelectorAll('.accordion-item').forEach(item => {
+                if (cat === 'all' || item.getAttribute('data-category') === cat) {
+                    item.style.display = 'block';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        }
+
+        function filterFaq(query) {
+            const q = query.toLowerCase();
+            document.querySelectorAll('.accordion-item').forEach(item => {
+                const text = item.textContent.toLowerCase();
+                item.style.display = text.includes(q) ? 'block' : 'none';
+            });
+        }
+
+        function openSupportModal() {
+            document.getElementById('supportModal').style.display = 'flex';
+        }
+
+        function closeSupportModal() {
+            document.getElementById('supportModal').style.display = 'none';
+        }
+
+        function sendSupportForm() {
+            alert('Laporan Anda berhasil dikirim. Tim Rebite akan merespons melalui notifikasi/email.');
+            closeSupportModal();
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,914 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rebite — Dashboard Mitra Restoran</title>
+    
+    <!-- Google Fonts & Leaflet Maps CSS -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --color-dark-brown: #2E2910;
+            --color-brunswick: #2C5745;
+            --color-brunswick-dark: #1E3F32;
+            --color-vanilla: #EBE3A7;
+            --color-vanilla-soft: #FAF7E8;
+            --color-tangerine: #EB7D00;
+            --color-tangerine-hover: #D47000;
+            --color-bg-light: #F7F5EB;
+            --color-white: #FFFFFF;
+            --color-muted: #736E58;
+            --color-border: #D1C9A0;
+            --color-green-status: #16A34A;
+            --font-main: 'Plus Jakarta Sans', -apple-system, sans-serif;
+            --font-display: 'Playfair Display', Georgia, serif;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            font-family: var(--font-main);
+            background-color: var(--color-bg-light);
+            color: var(--color-dark-brown);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 20px 0;
+        }
+
+        .app-viewport {
+            width: 100%;
+            max-width: 440px;
+            height: 840px;
+            background-color: var(--color-bg-light);
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            overflow: hidden;
+            border-radius: 32px;
+            border: 1px solid var(--color-border);
+            box-shadow: 0 16px 48px rgba(46, 41, 16, 0.12);
+        }
+
+        .dashboard-header {
+            background-color: var(--color-brunswick);
+            color: var(--color-vanilla);
+            padding: 16px 20px 14px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 20;
+            box-shadow: 0 2px 10px rgba(44, 87, 69, 0.15);
+            flex-shrink: 0;
+        }
+
+        .user-profile {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: var(--color-vanilla);
+            border: 2px solid var(--color-tangerine);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            color: var(--color-brunswick);
+            font-size: 1.05rem;
+        }
+
+        .user-meta {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .role-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            background-color: rgba(235, 125, 0, 0.25);
+            border: 1px solid var(--color-tangerine);
+            color: var(--color-vanilla);
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-size: 0.65rem;
+            font-weight: 800;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            width: fit-content;
+            margin-bottom: 2px;
+        }
+
+        .role-badge svg {
+            width: 11px;
+            height: 11px;
+            stroke: var(--color-tangerine);
+            fill: none;
+            stroke-width: 2.2;
+        }
+
+        .user-name {
+            font-size: 0.95rem;
+            font-weight: 800;
+            color: var(--color-white);
+            line-height: 1.2;
+        }
+
+        /* Store Status Toggle Pill */
+        .store-status-toggle {
+            background: rgba(255, 255, 255, 0.12);
+            border: 1px solid rgba(235, 227, 167, 0.4);
+            padding: 5px 10px;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background-color: var(--color-green-status);
+            box-shadow: 0 0 8px var(--color-green-status);
+        }
+
+        .status-text {
+            font-size: 0.68rem;
+            font-weight: 800;
+            color: var(--color-white);
+            text-transform: uppercase;
+            letter-spacing: 0.03em;
+        }
+
+        .scrollable-content {
+            flex: 1;
+            overflow-y: auto;
+            padding: 14px 16px 80px 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            scrollbar-width: thin;
+            scrollbar-color: var(--color-border) transparent;
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .section-title {
+            font-size: 0.92rem;
+            font-weight: 800;
+            color: var(--color-dark-brown);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .section-title svg {
+            width: 16px;
+            height: 16px;
+            stroke: var(--color-tangerine);
+            fill: none;
+            stroke-width: 2.2;
+        }
+
+        .item-count-badge {
+            font-size: 0.72rem;
+            font-weight: 800;
+            color: var(--color-brunswick);
+            background-color: var(--color-vanilla);
+            padding: 3px 8px;
+            border-radius: 8px;
+        }
+
+        /* Impact Stats Grid */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 8px;
+        }
+
+        .stat-card {
+            background-color: var(--color-white);
+            border: 1px solid var(--color-border);
+            border-radius: 16px;
+            padding: 10px 8px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+            box-shadow: 0 2px 8px rgba(46, 41, 16, 0.04);
+        }
+
+        .stat-icon-wrapper {
+            width: 28px;
+            height: 28px;
+            border-radius: 8px;
+            background-color: var(--color-vanilla-soft);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 2px;
+        }
+
+        .stat-icon-wrapper svg {
+            width: 15px;
+            height: 15px;
+            stroke: var(--color-brunswick);
+            fill: none;
+            stroke-width: 2.2;
+        }
+
+        .stat-value {
+            font-size: 1.05rem;
+            font-weight: 800;
+            color: var(--color-dark-brown);
+            line-height: 1.1;
+        }
+
+        .stat-label {
+            font-size: 0.64rem;
+            font-weight: 700;
+            color: var(--color-muted);
+            line-height: 1.25;
+        }
+
+        .action-bar {
+            display: flex;
+            gap: 8px;
+        }
+
+        .btn-quick-action {
+            flex: 1;
+            padding: 12px 10px;
+            border-radius: 14px;
+            font-family: var(--font-main);
+            font-size: 0.8rem;
+            font-weight: 800;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            transition: all 0.2s ease;
+            border: none;
+        }
+
+        .btn-quick-primary {
+            background-color: var(--color-tangerine);
+            color: var(--color-white);
+            box-shadow: 0 4px 12px rgba(235, 125, 0, 0.25);
+        }
+
+        .btn-quick-primary:hover {
+            background-color: var(--color-tangerine-hover);
+        }
+
+        .btn-quick-secondary {
+            background-color: var(--color-brunswick);
+            color: var(--color-vanilla);
+            box-shadow: 0 4px 12px rgba(44, 87, 69, 0.2);
+        }
+
+        .btn-quick-secondary:hover {
+            background-color: var(--color-brunswick-dark);
+        }
+
+        .btn-quick-action svg {
+            width: 16px;
+            height: 16px;
+            stroke: currentColor;
+            fill: none;
+            stroke-width: 2.5;
+        }
+
+        .postings-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .post-card {
+            background-color: var(--color-white);
+            border: 1px solid var(--color-border);
+            border-radius: 20px;
+            padding: 14px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            box-shadow: 0 4px 14px rgba(46, 41, 16, 0.05);
+        }
+
+        .post-card-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .post-type-tag {
+            font-size: 0.68rem;
+            font-weight: 800;
+            padding: 4px 9px;
+            border-radius: 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.03em;
+        }
+
+        .post-type-tag.free {
+            background-color: rgba(235, 125, 0, 0.12);
+            color: var(--color-tangerine);
+            border: 1px solid rgba(235, 125, 0, 0.3);
+        }
+
+        .post-type-tag.homeless {
+            background-color: rgba(44, 87, 69, 0.12);
+            color: var(--color-brunswick);
+            border: 1px solid rgba(44, 87, 69, 0.3);
+        }
+
+        .post-type-tag.pet {
+            background-color: var(--color-vanilla);
+            color: var(--color-dark-brown);
+            border: 1px solid var(--color-border);
+        }
+
+        .post-time-badge {
+            font-size: 0.7rem;
+            font-weight: 700;
+            color: var(--color-muted);
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .post-time-badge svg {
+            width: 13px;
+            height: 13px;
+            stroke: currentColor;
+            fill: none;
+            stroke-width: 2;
+        }
+
+        .post-title {
+            font-size: 0.96rem;
+            font-weight: 800;
+            color: var(--color-dark-brown);
+            line-height: 1.3;
+        }
+
+        .post-details-row {
+            font-size: 0.78rem;
+            color: var(--color-muted);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-weight: 600;
+        }
+
+        .post-details-row svg {
+            width: 14px;
+            height: 14px;
+            stroke: var(--color-tangerine);
+            fill: none;
+            stroke-width: 2.2;
+            flex-shrink: 0;
+        }
+
+        /* Progress Bar for Claims */
+        .progress-box {
+            background-color: var(--color-vanilla-soft);
+            border-radius: 12px;
+            padding: 8px 10px;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .progress-header {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.72rem;
+            font-weight: 800;
+            color: var(--color-dark-brown);
+        }
+
+        .progress-bar-bg {
+            width: 100%;
+            height: 7px;
+            background-color: var(--color-border);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .progress-bar-fill {
+            height: 100%;
+            background-color: var(--color-brunswick);
+            border-radius: 10px;
+        }
+
+        /* Courier Status Bar */
+        .courier-status-box {
+            background-color: rgba(44, 87, 69, 0.08);
+            border: 1px solid rgba(44, 87, 69, 0.2);
+            border-radius: 12px;
+            padding: 8px 10px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-size: 0.74rem;
+            font-weight: 700;
+            color: var(--color-brunswick);
+        }
+
+        .courier-info {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .courier-info svg {
+            width: 15px;
+            height: 15px;
+            stroke: currentColor;
+            fill: none;
+            stroke-width: 2.2;
+        }
+
+        .post-card-actions {
+            display: flex;
+            gap: 8px;
+            margin-top: 2px;
+        }
+
+        .btn-card-secondary {
+            flex: 1;
+            background-color: var(--color-bg-light);
+            border: 1px solid var(--color-border);
+            color: var(--color-dark-brown);
+            padding: 8px;
+            border-radius: 10px;
+            font-family: var(--font-main);
+            font-size: 0.75rem;
+            font-weight: 800;
+            cursor: pointer;
+            text-align: center;
+            transition: all 0.2s ease;
+        }
+
+        .btn-card-secondary:hover {
+            background-color: var(--color-vanilla);
+        }
+
+        .btn-card-primary {
+            flex: 1;
+            background-color: var(--color-brunswick);
+            color: var(--color-vanilla);
+            border: none;
+            padding: 8px;
+            border-radius: 10px;
+            font-family: var(--font-main);
+            font-size: 0.75rem;
+            font-weight: 800;
+            cursor: pointer;
+            text-align: center;
+            transition: all 0.2s ease;
+        }
+
+        .btn-card-primary:hover {
+            background-color: var(--color-brunswick-dark);
+        }
+
+        .bottom-nav {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 62px;
+            background-color: var(--color-white);
+            border-top: 1px solid var(--color-border);
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            z-index: 100;
+        }
+
+        .nav-link {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 3px;
+            color: var(--color-muted);
+            text-decoration: none;
+            font-size: 0.68rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: color 0.2s ease;
+        }
+
+        .nav-link.active {
+            color: var(--color-tangerine);
+        }
+
+        .nav-link svg {
+            width: 20px;
+            height: 20px;
+            stroke: currentColor;
+            fill: none;
+            stroke-width: 2.2;
+        }
+
+        /* QR Scanner Modal */
+        .modal-overlay {
+            position: absolute;
+            inset: 0;
+            background: rgba(46, 41, 16, 0.75);
+            backdrop-filter: blur(4px);
+            z-index: 500;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .modal-card {
+            background-color: var(--color-white);
+            border-radius: 24px;
+            padding: 22px 20px;
+            width: 100%;
+            max-width: 360px;
+            text-align: center;
+            border: 1px solid var(--color-border);
+            box-shadow: 0 20px 48px rgba(0,0,0,0.25);
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .modal-title {
+            font-size: 1.05rem;
+            font-weight: 800;
+            color: var(--color-dark-brown);
+        }
+
+        .modal-close-icon {
+            background: none;
+            border: none;
+            color: var(--color-muted);
+            cursor: pointer;
+            padding: 4px;
+            display: flex;
+        }
+
+        .modal-close-icon svg {
+            width: 20px;
+            height: 20px;
+            stroke: currentColor;
+            fill: none;
+            stroke-width: 2.2;
+        }
+
+        .scanner-frame {
+            width: 200px;
+            height: 200px;
+            background-color: #1a1a1a;
+            border-radius: 16px;
+            margin: 4px auto;
+            position: relative;
+            overflow: hidden;
+            border: 2px solid var(--color-tangerine);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .scanner-grid {
+            position: absolute;
+            inset: 0;
+            background-image: linear-gradient(rgba(235, 125, 0, 0.15) 1px, transparent 1px),
+                              linear-gradient(90deg, rgba(235, 125, 0, 0.15) 1px, transparent 1px);
+            background-size: 20px 20px;
+        }
+
+        .scanner-line {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: var(--color-tangerine);
+            box-shadow: 0 0 10px var(--color-tangerine);
+            animation: scanAnim 2.2s ease-in-out infinite alternate;
+        }
+
+        @keyframes scanAnim {
+            0% { top: 10%; }
+            100% { top: 88%; }
+        }
+
+        .manual-input-box {
+            display: flex;
+            gap: 6px;
+            margin-top: 4px;
+        }
+
+        .manual-input {
+            flex: 1;
+            padding: 10px;
+            border-radius: 10px;
+            border: 1px solid var(--color-border);
+            font-family: monospace;
+            font-size: 0.82rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            outline: none;
+        }
+
+        .btn-verify-claim {
+            background-color: var(--color-brunswick);
+            color: var(--color-vanilla);
+            border: none;
+            padding: 10px 14px;
+            border-radius: 10px;
+            font-weight: 800;
+            font-size: 0.8rem;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+    <main class="app-viewport">
+        
+        <!-- Header Viewport -->
+        <header class="dashboard-header">
+            <div class="user-profile">
+                <div class="user-avatar">R</div>
+                <div class="user-meta">
+                    <div class="role-badge">
+                        <svg viewBox="0 0 24 24"><path d="M3 21h18M3 7v1a3 3 0 0 0 6 0V7m0 1a3 3 0 0 0 6 0V7m0 1a3 3 0 0 0 6 0V7H3m1 14V11m16 10V11"/><path d="M5 4h14l1 3H4l1-3z"/></svg>
+                        <span>Mitra Restoran</span>
+                    </div>
+                    <div class="user-name">Nama Restoran</div>
+                </div>
+            </div>
+            
+            <div class="store-status-toggle" onclick="toggleStoreStatus()" id="storeStatusBtn">
+                <div class="status-dot"></div>
+                <span class="status-text" id="statusText">Toko Buka</span>
+            </div>
+        </header>
+
+        <div class="scrollable-content">
+
+            <!-- Impact Stats Summary Grid -->
+            <section class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon-wrapper">
+                        <svg viewBox="0 0 24 24"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+                    </div>
+                    <div class="stat-value">142</div>
+                    <div class="stat-label">Porsi Terselamatkan</div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon-wrapper">
+                        <svg viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
+                    </div>
+                    <div class="stat-value">18</div>
+                    <div class="stat-label">Misi Sidejob Homeless</div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon-wrapper">
+                        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>
+                    </div>
+                    <div class="stat-value">5</div>
+                    <div class="stat-label">Sisa Kuota Post Hari Ini</div>
+                </div>
+            </section>
+
+            <!-- Quick Action Bar -->
+            <section class="action-bar">
+                <button class="btn-quick-action btn-quick-primary" onclick="alert('Membuka Formulir Post Surplus Baru...')">
+                    <svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                    <span>+ Post Surplus Baru</span>
+                </button>
+                <button class="btn-quick-action btn-quick-secondary" onclick="openScannerModal()">
+                    <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+                    <span>Scan QR Claimer</span>
+                </button>
+            </section>
+
+            <div class="section-header">
+                <div class="section-title">
+                    <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+                    <span>Postingan Surplus Aktif</span>
+                </div>
+                <span class="item-count-badge">3 Post Aktif</span>
+            </div>
+
+            <!-- Active Postings Container -->
+            <div class="postings-list">
+                
+                <!-- Active Post 1: Free Food / Deep Discount -->
+                <article class="post-card">
+                    <div class="post-card-top">
+                        <span class="post-type-tag free">Free Food / Deep Discount</span>
+                        <div class="post-time-badge">
+                            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                            <span>16:30 - 18:00 WIB</span>
+                        </div>
+                    </div>
+                    
+                    <h3 class="post-title">Paket Nasi & Lauk Surplus Harian</h3>
+                    
+                    <div class="progress-box">
+                        <div class="progress-header">
+                            <span>Status Klaim Kuota</span>
+                            <span style="color: var(--color-brunswick);">12 / 15 Porsi Terklaim</span>
+                        </div>
+                        <div class="progress-bar-bg">
+                            <div class="progress-bar-fill" style="width: 80%;"></div>
+                        </div>
+                    </div>
+
+                    <div class="post-card-actions">
+                        <button class="btn-card-secondary" onclick="alert('Membuka Edit Kuota...')">Edit Kuota</button>
+                        <button class="btn-card-primary" onclick="alert('Postingan ditutup sementara.')">Tutup Post</button>
+                    </div>
+                </article>
+
+                <!-- Active Post 2: Donasi Homeless + Sidejob Pickup -->
+                <article class="post-card">
+                    <div class="post-card-top">
+                        <span class="post-type-tag homeless">Donasi Homeless + Sidejob</span>
+                        <div class="post-time-badge">
+                            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                            <span>19:00 WIB</span>
+                        </div>
+                    </div>
+
+                    <h3 class="post-title">20 Box Makanan Siap Saji Donasi</h3>
+                    
+                    <div class="post-details-row">
+                        <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                        <span>Target: Titik Panti & Tunawisma Medan Kota</span>
+                    </div>
+
+                    <div class="courier-status-box">
+                        <div class="courier-info">
+                            <svg viewBox="0 0 24 24"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+                            <span>Kurir Bertugas (Driver #R-402)</span>
+                        </div>
+                        <span style="color: var(--color-tangerine); font-weight: 800;">Pickup</span>
+                    </div>
+
+                    <div class="post-card-actions">
+                        <button class="btn-card-secondary" onclick="alert('Membuka Lacak Kurir...')">Lacak Kurir</button>
+                        <button class="btn-card-primary" onclick="alert('Menampilkan Detail Misi...')">Detail Misi</button>
+                    </div>
+                </article>
+
+                <!-- Active Post 3: Pakan Ternak -->
+                <article class="post-card">
+                    <div class="post-card-top">
+                        <span class="post-type-tag pet">Pakan Ternak</span>
+                        <div class="post-time-badge">
+                            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                            <span>Self-Pickup</span>
+                        </div>
+                    </div>
+
+                    <h3 class="post-title">Sisa Sayuran & Kulit Buah Bersih</h3>
+
+                    <div class="post-details-row">
+                        <svg viewBox="0 0 24 24"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
+                        <span>Stok Tersedia: <strong>15 Kg</strong> (Diambil Peternak Langsung)</span>
+                    </div>
+
+                    <div class="post-card-actions">
+                        <button class="btn-card-secondary" onclick="alert('Membuka Update Stok...')">Update Stok</button>
+                        <button class="btn-card-primary" onclick="alert('Postingan pakan ternak selesai.')">Selesai</button>
+                    </div>
+                </article>
+
+            </div>
+
+        </div>
+
+        <!-- Fixed Restaurant Bottom Navigation -->
+        <nav class="bottom-nav">
+            <a class="nav-link active">
+                <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+                <span>Dashboard</span>
+            </a>
+            <a class="nav-link" onclick="alert('Navigasi ke Form Post Surplus...')">
+                <svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                <span>Post Surplus</span>
+            </a>
+            <a class="nav-link" onclick="alert('Navigasi ke Misi Sidejob...')">
+                <svg viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
+                <span>Sidejob</span>
+            </a>
+            <a class="nav-link" onclick="alert('Navigasi ke Riwayat Donasi...')">
+                <svg viewBox="0 0 24 24"><path d="M12 8v4l3 3"/><circle cx="12" cy="12" r="9"/></svg>
+                <span>Riwayat</span>
+            </a>
+            <a class="nav-link" onclick="alert('Navigasi ke Profil Restoran...')">
+                <svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                <span>Profil</span>
+            </a>
+        </nav>
+
+        <!-- Interactive QR Verification Modal -->
+        <div class="modal-overlay" id="scannerModal">
+            <div class="modal-card">
+                <div class="modal-header">
+                    <h3 class="modal-title">Scan QR Tiket Claimer</h3>
+                    <button class="modal-close-icon" onclick="closeScannerModal()">
+                        <svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+                    </button>
+                </div>
+
+                <p style="font-size: 0.78rem; color: var(--color-muted);">Pindai QR code pada ponsel Claimer atau masukkan kode secara manual.</p>
+
+                <!-- Simulated Camera Viewfinder -->
+                <div class="scanner-frame">
+                    <div class="scanner-grid"></div>
+                    <div class="scanner-line"></div>
+                    <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="rgba(235, 227, 167, 0.4)" stroke-width="1.5"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
+                </div>
+
+                <!-- Manual Input Fallback -->
+                <div class="manual-input-box">
+                    <input type="text" id="manualCodeInput" class="manual-input" placeholder="REBITE-8829-MEDAN">
+                    <button class="btn-verify-claim" onclick="verifyClaimCode()">Verifikasi</button>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <script>
+        let isStoreOpen = true;
+
+        function toggleStoreStatus() {
+            isStoreOpen = !isStoreOpen;
+            const statusDot = document.querySelector('.status-dot');
+            const statusText = document.getElementById('statusText');
+
+            if (isStoreOpen) {
+                statusDot.style.backgroundColor = 'var(--color-green-status)';
+                statusDot.style.boxShadow = '0 0 8px var(--color-green-status)';
+                statusText.textContent = 'Toko Buka';
+            } else {
+                statusDot.style.backgroundColor = '#DC2626';
+                statusDot.style.boxShadow = '0 0 8px #DC2626';
+                statusText.textContent = 'Toko Tutup';
+            }
+        }
+
+        function openScannerModal() {
+            document.getElementById('scannerModal').style.display = 'flex';
+        }
+
+        function closeScannerModal() {
+            document.getElementById('scannerModal').style.display = 'none';
+        }
+
+        function verifyClaimCode() {
+            const input = document.getElementById('manualCodeInput').value || 'REBITE-8829-MEDAN';
+            alert(`Verifikasi Berhasil!\nKode: ${input}\nStatus: Kuota 1 Porsi Valid untuk diambil.`);
+            closeScannerModal();
+        }
+    </script>
+</body>
+</html>

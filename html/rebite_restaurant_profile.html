@@ -1,0 +1,1039 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rebite — Profil Restoran</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --color-dark-brown: #2E2910;
+            --color-brunswick: #2C5745;
+            --color-brunswick-dark: #1E3F32;
+            --color-vanilla: #EBE3A7;
+            --color-vanilla-soft: #FAF7E8;
+            --color-tangerine: #EB7D00;
+            --color-tangerine-hover: #D47000;
+            --color-bg-light: #F7F5EB;
+            --color-white: #FFFFFF;
+            --color-muted: #736E58;
+            --color-border: #D1C9A0;
+            --color-red-alert: #DC2626;
+            --color-green-active: #16A34A;
+            --font-main: 'Plus Jakarta Sans', -apple-system, sans-serif;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            font-family: var(--font-main);
+            background-color: var(--color-bg-light);
+            color: var(--color-dark-brown);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 20px 0;
+        }
+
+        /* App Viewport Frame (440px x 840px) */
+        .app-viewport {
+            width: 100%;
+            max-width: 440px;
+            height: 840px;
+            background-color: var(--color-bg-light);
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            overflow: hidden;
+            border-radius: 32px;
+            border: 1px solid var(--color-border);
+            box-shadow: 0 16px 48px rgba(46, 41, 16, 0.12);
+        }
+
+        /* Top Profile Header */
+        .profile-header {
+            background-color: var(--color-brunswick);
+            color: var(--color-vanilla);
+            padding: 20px 20px 18px 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+            position: relative;
+            box-shadow: 0 4px 14px rgba(44, 87, 69, 0.18);
+            flex-shrink: 0;
+        }
+
+        .header-top-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header-title {
+            font-size: 1.05rem;
+            font-weight: 800;
+            color: var(--color-white);
+            letter-spacing: 0.01em;
+        }
+
+        .role-pill {
+            background-color: rgba(235, 227, 167, 0.18);
+            border: 1px solid var(--color-vanilla);
+            color: var(--color-vanilla);
+            padding: 3px 10px;
+            border-radius: 12px;
+            font-size: 0.68rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .role-pill svg {
+            width: 12px;
+            height: 12px;
+            stroke: currentColor;
+            fill: none;
+            stroke-width: 2.2;
+        }
+
+        /* Store Hero Identity */
+        .store-hero {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .store-avatar-frame {
+            position: relative;
+            flex-shrink: 0;
+        }
+
+        .store-avatar {
+            width: 58px;
+            height: 58px;
+            border-radius: 18px;
+            background-color: var(--color-vanilla);
+            border: 2px solid var(--color-tangerine);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--color-brunswick);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .store-avatar svg {
+            width: 28px;
+            height: 28px;
+            stroke: currentColor;
+            fill: none;
+            stroke-width: 2;
+        }
+
+        .store-info {
+            display: flex;
+            flex-direction: column;
+            gap: 3px;
+        }
+
+        .store-name {
+            font-size: 1.15rem;
+            font-weight: 800;
+            color: var(--color-white);
+            line-height: 1.2;
+        }
+
+        .store-email {
+            font-size: 0.75rem;
+            color: var(--color-vanilla);
+            opacity: 0.85;
+            font-weight: 500;
+        }
+
+        .verified-badge {
+            margin-top: 2px;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            background-color: rgba(255, 255, 255, 0.14);
+            border: 1px solid rgba(235, 227, 167, 0.4);
+            color: var(--color-vanilla);
+            padding: 3px 9px;
+            border-radius: 10px;
+            font-size: 0.68rem;
+            font-weight: 700;
+            width: fit-content;
+        }
+
+        .verified-badge svg {
+            width: 12px;
+            height: 12px;
+            stroke: var(--color-tangerine);
+            fill: none;
+            stroke-width: 2.5;
+        }
+
+        /* Store Operational Status Card Banner */
+        .status-toggle-box {
+            background-color: rgba(0, 0, 0, 0.22);
+            border: 1px solid rgba(235, 227, 167, 0.25);
+            border-radius: 16px;
+            padding: 10px 14px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .status-toggle-info {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .status-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background-color: var(--color-green-active);
+            box-shadow: 0 0 8px var(--color-green-active);
+            transition: all 0.3s ease;
+        }
+
+        .status-dot.off {
+            background-color: var(--color-red-alert);
+            box-shadow: 0 0 8px var(--color-red-alert);
+        }
+
+        .status-text-title {
+            font-size: 0.78rem;
+            font-weight: 800;
+            color: var(--color-white);
+        }
+
+        .status-text-sub {
+            font-size: 0.68rem;
+            color: var(--color-vanilla);
+            opacity: 0.8;
+            font-weight: 500;
+        }
+
+        /* Switch UI Toggle Button */
+        .switch {
+            position: relative;
+            display: inline-block;
+            width: 44px;
+            height: 24px;
+            flex-shrink: 0;
+        }
+
+        .switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            inset: 0;
+            background-color: rgba(255, 255, 255, 0.25);
+            transition: .3s;
+            border-radius: 24px;
+            border: 1px solid rgba(235, 227, 167, 0.3);
+        }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 18px;
+            width: 18px;
+            left: 2px;
+            bottom: 2px;
+            background-color: var(--color-white);
+            transition: .3s;
+            border-radius: 50%;
+        }
+
+        input:checked + .slider {
+            background-color: var(--color-tangerine);
+            border-color: var(--color-tangerine);
+        }
+
+        input:checked + .slider:before {
+            transform: translateX(20px);
+        }
+
+        /* Scrollable Body Content */
+        .scrollable-content {
+            flex: 1;
+            overflow-y: auto;
+            padding: 16px 16px 80px 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            scrollbar-width: thin;
+            scrollbar-color: var(--color-border) transparent;
+        }
+
+        /* Quota Status Card */
+        .quota-card {
+            background-color: var(--color-white);
+            border: 1px solid var(--color-border);
+            border-radius: 20px;
+            padding: 14px 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            box-shadow: 0 4px 14px rgba(46, 41, 16, 0.05);
+        }
+
+        .quota-card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .quota-card-title {
+            font-size: 0.82rem;
+            font-weight: 800;
+            color: var(--color-dark-brown);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .quota-card-title svg {
+            width: 16px;
+            height: 16px;
+            stroke: var(--color-tangerine);
+            fill: none;
+            stroke-width: 2.2;
+        }
+
+        .quota-counter-badge {
+            font-size: 0.78rem;
+            font-weight: 800;
+            color: var(--color-brunswick);
+            background-color: var(--color-vanilla);
+            padding: 3px 9px;
+            border-radius: 8px;
+        }
+
+        .quota-progress-bg {
+            width: 100%;
+            height: 9px;
+            background-color: var(--color-bg-light);
+            border-radius: 10px;
+            border: 1px solid var(--color-border);
+            overflow: hidden;
+        }
+
+        .quota-progress-fill {
+            height: 100%;
+            width: 60%; /* 3/5 Quota Used */
+            background-color: var(--color-tangerine);
+            border-radius: 10px;
+            transition: width 0.3s ease;
+        }
+
+        .quota-subtext {
+            font-size: 0.72rem;
+            color: var(--color-muted);
+            font-weight: 600;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .quota-reset-time {
+            font-weight: 700;
+            color: var(--color-brunswick);
+        }
+
+        /* Impact Stats Grid (3 Columns) */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 8px;
+        }
+
+        .stat-card {
+            background-color: var(--color-white);
+            border: 1px solid var(--color-border);
+            border-radius: 16px;
+            padding: 12px 8px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+            box-shadow: 0 2px 8px rgba(46, 41, 16, 0.04);
+        }
+
+        .stat-icon-box {
+            width: 32px;
+            height: 32px;
+            border-radius: 10px;
+            background-color: var(--color-vanilla-soft);
+            border: 1px solid var(--color-border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 2px;
+            color: var(--color-brunswick);
+        }
+
+        .stat-icon-box svg {
+            width: 17px;
+            height: 17px;
+            stroke: currentColor;
+            fill: none;
+            stroke-width: 2.2;
+        }
+
+        .stat-value {
+            font-size: 1.05rem;
+            font-weight: 800;
+            color: var(--color-dark-brown);
+            line-height: 1.1;
+        }
+
+        .stat-label {
+            font-size: 0.64rem;
+            font-weight: 700;
+            color: var(--color-muted);
+            line-height: 1.2;
+        }
+
+        /* Settings Menu Section */
+        .menu-section {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .menu-section-title {
+            font-size: 0.75rem;
+            font-weight: 800;
+            color: var(--color-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            padding-left: 4px;
+        }
+
+        .menu-card {
+            background-color: var(--color-white);
+            border: 1px solid var(--color-border);
+            border-radius: 18px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(46, 41, 16, 0.03);
+        }
+
+        .menu-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 13px 16px;
+            text-decoration: none;
+            color: var(--color-dark-brown);
+            background: transparent;
+            border: none;
+            width: 100%;
+            cursor: pointer;
+            font-family: var(--font-main);
+            transition: background-color 0.2s ease;
+        }
+
+        .menu-item:not(:last-child) {
+            border-bottom: 1px solid var(--color-border);
+        }
+
+        .menu-item:hover {
+            background-color: var(--color-vanilla-soft);
+        }
+
+        .menu-item-left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .menu-icon-wrapper {
+            width: 28px;
+            height: 28px;
+            border-radius: 8px;
+            background-color: var(--color-bg-light);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--color-brunswick);
+            flex-shrink: 0;
+        }
+
+        .menu-icon-wrapper svg {
+            width: 16px;
+            height: 16px;
+            stroke: currentColor;
+            fill: none;
+            stroke-width: 2.2;
+        }
+
+        .menu-item-text {
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: var(--color-dark-brown);
+        }
+
+        .menu-item-right {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .menu-badge {
+            font-size: 0.68rem;
+            font-weight: 800;
+            background-color: rgba(235, 125, 0, 0.12);
+            color: var(--color-tangerine);
+            padding: 2px 8px;
+            border-radius: 6px;
+        }
+
+        .chevron-icon {
+            width: 16px;
+            height: 16px;
+            stroke: var(--color-muted);
+            fill: none;
+            stroke-width: 2.2;
+        }
+
+        .menu-item.logout .menu-icon-wrapper {
+            background-color: rgba(220, 38, 38, 0.1);
+            color: var(--color-red-alert);
+        }
+
+        .menu-item.logout .menu-item-text {
+            color: var(--color-red-alert);
+        }
+
+        /* Fixed Restaurant Bottom Navigation Bar */
+        .bottom-nav {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 62px;
+            background-color: var(--color-white);
+            border-top: 1px solid var(--color-border);
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            z-index: 100;
+        }
+
+        .nav-link {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 3px;
+            color: var(--color-muted);
+            text-decoration: none;
+            font-size: 0.68rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: color 0.2s ease;
+        }
+
+        .nav-link.active {
+            color: var(--color-tangerine);
+        }
+
+        .nav-link svg {
+            width: 20px;
+            height: 20px;
+            stroke: currentColor;
+            fill: none;
+            stroke-width: 2.2;
+        }
+
+        /* Modals Overlay */
+        .modal-overlay {
+            position: absolute;
+            inset: 0;
+            background: rgba(46, 41, 16, 0.75);
+            backdrop-filter: blur(4px);
+            z-index: 500;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .modal-card {
+            background-color: var(--color-white);
+            border-radius: 24px;
+            padding: 22px 20px;
+            width: 100%;
+            max-width: 360px;
+            text-align: center;
+            border: 1px solid var(--color-border);
+            box-shadow: 0 20px 48px rgba(0,0,0,0.25);
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .modal-icon-badge {
+            width: 52px;
+            height: 52px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto;
+            flex-shrink: 0;
+        }
+
+        .modal-icon-badge.logout-badge {
+            background-color: rgba(220, 38, 38, 0.12);
+            color: var(--color-red-alert);
+            border: 2px solid var(--color-red-alert);
+        }
+
+        .modal-icon-badge.info-badge {
+            background-color: rgba(44, 87, 69, 0.12);
+            color: var(--color-brunswick);
+            border: 2px solid var(--color-brunswick);
+        }
+
+        .modal-icon-badge svg {
+            width: 26px;
+            height: 26px;
+            stroke: currentColor;
+            fill: none;
+            stroke-width: 2.2;
+        }
+
+        .modal-title {
+            font-size: 1.05rem;
+            font-weight: 800;
+            color: var(--color-dark-brown);
+        }
+
+        .modal-desc {
+            font-size: 0.78rem;
+            color: var(--color-muted);
+            line-height: 1.45;
+            font-weight: 500;
+        }
+
+        .modal-actions {
+            display: flex;
+            gap: 8px;
+            margin-top: 6px;
+        }
+
+        .btn-modal-cancel {
+            flex: 1;
+            padding: 11px;
+            border-radius: 12px;
+            border: 1px solid var(--color-border);
+            background-color: var(--color-bg-light);
+            color: var(--color-dark-brown);
+            font-family: var(--font-main);
+            font-size: 0.82rem;
+            font-weight: 800;
+            cursor: pointer;
+        }
+
+        .btn-modal-confirm {
+            flex: 1;
+            padding: 11px;
+            border-radius: 12px;
+            border: none;
+            background-color: var(--color-red-alert);
+            color: var(--color-white);
+            font-family: var(--font-main);
+            font-size: 0.82rem;
+            font-weight: 800;
+            cursor: pointer;
+        }
+
+        .btn-modal-close-single {
+            width: 100%;
+            padding: 11px;
+            border-radius: 12px;
+            border: none;
+            background-color: var(--color-brunswick);
+            color: var(--color-vanilla);
+            font-family: var(--font-main);
+            font-size: 0.82rem;
+            font-weight: 800;
+            cursor: pointer;
+            margin-top: 4px;
+        }
+
+        .policy-list {
+            text-align: left;
+            background-color: var(--color-vanilla-soft);
+            border: 1px solid var(--color-border);
+            border-radius: 14px;
+            padding: 12px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            font-size: 0.75rem;
+            color: var(--color-dark-brown);
+        }
+
+        .policy-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 8px;
+            line-height: 1.35;
+        }
+
+        .policy-item svg {
+            width: 14px;
+            height: 14px;
+            stroke: var(--color-brunswick);
+            fill: none;
+            stroke-width: 2.5;
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+    </style>
+</head>
+<body>
+
+    <main class="app-viewport">
+        
+        <!-- Header Banner -->
+        <header class="profile-header">
+            <div class="header-top-bar">
+                <h1 class="header-title">Profil Restoran</h1>
+                <div class="role-pill">
+                    <svg viewBox="0 0 24 24"><path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2"/><path d="M7 2v20"/><path d="M21 15V2v0a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3Zm0 0v7"/></svg>
+                    <span>Mitra Resto</span>
+                </div>
+            </div>
+
+            <!-- Store Avatar & Identity -->
+            <div class="store-hero">
+                <div class="store-avatar-frame">
+                    <div class="store-avatar">
+                        <svg viewBox="0 0 24 24"><path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2"/><path d="M7 2v20"/><path d="M21 15V2v0a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3Zm0 0v7"/></svg>
+                    </div>
+                </div>
+                <div class="store-info">
+                    <h2 class="store-name">Nama Restoran</h2>
+                    <span class="store-email">mitra.resto@medan.id</span>
+                    <div class="verified-badge">
+                        <svg viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                        <span>Mitra Verifikasi Rebite</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Store Status Toggle Banner -->
+            <div class="status-toggle-box">
+                <div class="status-toggle-info">
+                    <div class="status-dot" id="statusDot"></div>
+                    <div>
+                        <div class="status-text-title" id="statusTitle">Toko Buka (Menerima Surplus)</div>
+                        <div class="status-text-sub" id="statusSub">Siap menerbitkan & melayani pickup</div>
+                    </div>
+                </div>
+                <label class="switch">
+                    <input type="checkbox" id="storeStatusSwitch" checked onchange="handleStatusToggle(this)">
+                    <span class="slider"></span>
+                </label>
+            </div>
+        </header>
+
+        <!-- Main Scrollable Content -->
+        <div class="scrollable-content">
+
+            <!-- Daily Surplus Posting Quota -->
+            <section class="quota-card">
+                <div class="quota-card-header">
+                    <div class="quota-card-title">
+                        <svg viewBox="0 0 24 24"><path d="M12 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+                        <span>Kuota Posting Surplus Harian</span>
+                    </div>
+                    <span class="quota-counter-badge">3 / 5 Postingan</span>
+                </div>
+
+                <div class="quota-progress-bg">
+                    <div class="quota-progress-fill"></div>
+                </div>
+
+                <div class="quota-subtext">
+                    <span>Tersisa <strong>2 postingan lagi</strong> hari ini</span>
+                    <span class="quota-reset-time">Reset Pukul 00:00 WIB</span>
+                </div>
+            </section>
+
+            <!-- Impact Stats Grid (3 Columns) -->
+            <section class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon-box">
+                        <svg viewBox="0 0 24 24"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
+                    </div>
+                    <div class="stat-value">142</div>
+                    <div class="stat-label">Total Porsi Terselamatkan</div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon-box">
+                        <svg viewBox="0 0 24 24"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+                    </div>
+                    <div class="stat-value">18</div>
+                    <div class="stat-label">Misi Sidejob Selesai</div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon-box">
+                        <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                    </div>
+                    <div class="stat-value">4.9 ★</div>
+                    <div class="stat-label">Rating & Dampak 71kg CO₂e</div>
+                </div>
+            </section>
+
+            <!-- Settings Menu Group 1: Kelola Restoran -->
+            <section class="menu-section">
+                <div class="menu-section-title">Kelola Toko & Operasional</div>
+                <div class="menu-card">
+                    
+                    <button class="menu-item" onclick="openInfoModal('Kelola Toko', 'Perbarui alamat store, titik koordinat peta, dan kontak operasional WhatsApp.')">
+                        <div class="menu-item-left">
+                            <div class="menu-icon-wrapper">
+                                <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+                            </div>
+                            <span class="menu-item-text">Kelola Toko & Profil Alamat</span>
+                        </div>
+                        <div class="menu-item-right">
+                            <svg class="chevron-icon" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
+                        </div>
+                    </button>
+
+                    <button class="menu-item" onclick="openInfoModal('Jam Pickup Regular', 'Atur jendela jam pengambilan default harian (e.g., 18:00 - 20:00 WIB) agar otomatis terisi saat posting surplus.')">
+                        <div class="menu-item-left">
+                            <div class="menu-icon-wrapper">
+                                <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                            </div>
+                            <span class="menu-item-text">Atur Jam Pickup Regular</span>
+                        </div>
+                        <div class="menu-item-right">
+                            <span class="menu-badge">18:00 WIB</span>
+                            <svg class="chevron-icon" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
+                        </div>
+                    </button>
+
+                    <button class="menu-item" onclick="openInfoModal('Laporan & Rekap Surplus', 'Unduh laporan bulanan porsi surplus terselamatkan, total kontribusi donasi homeless, dan dampak pengurangan sampah organik.')">
+                        <div class="menu-item-left">
+                            <div class="menu-icon-wrapper">
+                                <svg viewBox="0 0 24 24"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+                            </div>
+                            <span class="menu-item-text">Laporan & Rekap Surplus</span>
+                        </div>
+                        <div class="menu-item-right">
+                            <svg class="chevron-icon" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
+                        </div>
+                    </button>
+
+                    <button class="menu-item" onclick="openQcModal()">
+                        <div class="menu-item-left">
+                            <div class="menu-icon-wrapper">
+                                <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                            </div>
+                            <span class="menu-item-text">Kebijakan Anonim & Quality Control</span>
+                        </div>
+                        <div class="menu-item-right">
+                            <svg class="chevron-icon" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
+                        </div>
+                    </button>
+
+                </div>
+            </section>
+
+            <!-- Settings Menu Group 2: Bantuan & Sesi -->
+            <section class="menu-section">
+                <div class="menu-section-title">Layanan Partner & Keamanan</div>
+                <div class="menu-card">
+                    
+                    <button class="menu-item" onclick="openInfoModal('Pusat Bantuan Partner', 'Hubungi Tim Merchant Support Rebite via WhatsApp Merchant Hotline 0812-REBITE-RESTO.')">
+                        <div class="menu-item-left">
+                            <div class="menu-icon-wrapper">
+                                <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+                            </div>
+                            <span class="menu-item-text">Pusat Bantuan Partner</span>
+                        </div>
+                        <div class="menu-item-right">
+                            <svg class="chevron-icon" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
+                        </div>
+                    </button>
+
+                    <button class="menu-item logout" onclick="openLogoutModal()">
+                        <div class="menu-item-left">
+                            <div class="menu-icon-wrapper">
+                                <svg viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+                            </div>
+                            <span class="menu-item-text">Keluar / Logout</span>
+                        </div>
+                        <div class="menu-item-right">
+                            <svg class="chevron-icon" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
+                        </div>
+                    </button>
+
+                </div>
+            </section>
+
+        </div>
+
+        <!-- Fixed Restaurant Bottom Navigation -->
+        <nav class="bottom-nav">
+            <a class="nav-link" onclick="location.href='resto-dashboard.html'">
+                <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+                <span>Dashboard</span>
+            </a>
+            <a class="nav-link" onclick="location.href='post-surplus.html'">
+                <svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                <span>Post Surplus</span>
+            </a>
+            <a class="nav-link" onclick="location.href='sidejob-missions.html'">
+                <svg viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
+                <span>Sidejob</span>
+            </a>
+            <a class="nav-link" onclick="location.href='claim-history.html'">
+                <svg viewBox="0 0 24 24"><path d="M12 8v4l3 3"/><circle cx="12" cy="12" r="9"/></svg>
+                <span>Riwayat</span>
+            </a>
+            <a class="nav-link active">
+                <svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                <span>Profil</span>
+            </a>
+        </nav>
+
+        <!-- Logout Confirmation Modal -->
+        <div class="modal-overlay" id="logoutModal">
+            <div class="modal-card">
+                <div class="modal-icon-badge logout-badge">
+                    <svg viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+                </div>
+                <h3 class="modal-title">Keluar dari Akun Restoran?</h3>
+                <p class="modal-desc">Sesi toko Anda akan diakhiri. Postingan surplus yang sedang aktif tetap dapat diklaim oleh pengguna.</p>
+                <div class="modal-actions">
+                    <button class="btn-modal-cancel" onclick="closeLogoutModal()">Batal</button>
+                    <button class="btn-modal-confirm" onclick="confirmLogout()">Ya, Keluar</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Quality Control & Anonymity Modal -->
+        <div class="modal-overlay" id="qcModal">
+            <div class="modal-card">
+                <div class="modal-icon-badge info-badge">
+                    <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                </div>
+                <h3 class="modal-title">Quality Control & Anonimitas</h3>
+                <p class="modal-desc">Standar keselamatan & privasi posting surplus restoran:</p>
+
+                <div class="policy-list">
+                    <div class="policy-item">
+                        <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                        <span>Gunakan label anonim gizi umum (Karbohidrat, Roti, Siap Saji) untuk menjaga kejutan.</span>
+                    </div>
+                    <div class="policy-item">
+                        <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                        <span>Pastikan makanan masih layak konsumsi (Maks. 24 jam pembuatan) dan dikemas higienis.</span>
+                    </div>
+                    <div class="policy-item">
+                        <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                        <span>Verifikasi QR Code atau PIN Klaim dari Claimer/Kurir Sidejob saat penjemputan.</span>
+                    </div>
+                </div>
+
+                <button class="btn-modal-close-single" onclick="closeQcModal()">Paham & Patuhi Standar</button>
+            </div>
+        </div>
+
+        <!-- General Info Modal -->
+        <div class="modal-overlay" id="infoModal">
+            <div class="modal-card">
+                <div class="modal-icon-badge info-badge">
+                    <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+                </div>
+                <h3 class="modal-title" id="infoModalTitle">Informasi</h3>
+                <p class="modal-desc" id="infoModalDesc">Keterangan informasi...</p>
+                <button class="btn-modal-close-single" onclick="closeInfoModal()">Tutup</button>
+            </div>
+        </div>
+
+    </main>
+
+    <script>
+        function handleStatusToggle(checkbox) {
+            const statusDot = document.getElementById('statusDot');
+            const statusTitle = document.getElementById('statusTitle');
+            const statusSub = document.getElementById('statusSub');
+
+            if (checkbox.checked) {
+                statusDot.classList.remove('off');
+                statusTitle.textContent = 'Toko Buka (Menerima Surplus)';
+                statusSub.textContent = 'Siap menerbitkan & melayani pickup';
+            } else {
+                statusDot.classList.add('off');
+                statusTitle.textContent = 'Toko Tutup (Posting Nonaktif)';
+                statusSub.textContent = 'Surplus baru tidak dapat ditambahkan';
+            }
+        }
+
+        function openLogoutModal() {
+            document.getElementById('logoutModal').style.display = 'flex';
+        }
+
+        function closeLogoutModal() {
+            document.getElementById('logoutModal').style.display = 'none';
+        }
+
+        function confirmLogout() {
+            closeLogoutModal();
+            location.href = 'index.html';
+        }
+
+        function openQcModal() {
+            document.getElementById('qcModal').style.display = 'flex';
+        }
+
+        function closeQcModal() {
+            document.getElementById('qcModal').style.display = 'none';
+        }
+
+        function openInfoModal(title, text) {
+            document.getElementById('infoModalTitle').textContent = title;
+            document.getElementById('infoModalDesc').innerText = text;
+            document.getElementById('infoModal').style.display = 'flex';
+        }
+
+        function closeInfoModal() {
+            document.getElementById('infoModal').style.display = 'none';
+        }
+    </script>
+</body>
+</html>
