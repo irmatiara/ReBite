@@ -877,7 +877,7 @@
                 <div class="menu-section-title">Layanan Partner & Keamanan</div>
                 <div class="menu-card">
                     
-                    <button class="menu-item" onclick="openInfoModal('Pusat Bantuan Partner', 'Hubungi Tim Merchant Support Rebite via WhatsApp Merchant Hotline 0812-REBITE-RESTO.')">
+                    <button class="menu-item" onclick="location.href='help-center.html'">
                         <div class="menu-item-left">
                             <div class="menu-icon-wrapper">
                                 <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
@@ -908,23 +908,23 @@
 
         <!-- Fixed Restaurant Bottom Navigation -->
         <nav class="bottom-nav">
-            <a class="nav-link" onclick="location.href='resto-dashboard.html'">
+            <a href="rebite_restaurant_partner_dashboard.html" class="nav-link">
                 <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
                 <span>Dashboard</span>
             </a>
-            <a class="nav-link" onclick="location.href='post-surplus.html'">
+            <a href="form_post_surplus_makanan.html" class="nav-link">
                 <svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
                 <span>Post Surplus</span>
             </a>
-            <a class="nav-link" onclick="location.href='sidejob-missions.html'">
+            <a href="sidejob-missions.html" class="nav-link">
                 <svg viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
                 <span>Sidejob</span>
             </a>
-            <a class="nav-link" onclick="location.href='claim-history.html'">
+            <a href="claim-history.html" class="nav-link">
                 <svg viewBox="0 0 24 24"><path d="M12 8v4l3 3"/><circle cx="12" cy="12" r="9"/></svg>
                 <span>Riwayat</span>
             </a>
-            <a class="nav-link active">
+            <a href="rebite_restaurant_profile.html" class="nav-link active">
                 <svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
                 <span>Profil</span>
             </a>
@@ -1014,7 +1014,7 @@
 
         function confirmLogout() {
             closeLogoutModal();
-            location.href = 'index.html';
+            location.href = 'rebite_partner_login.html';
         }
 
         function openQcModal() {

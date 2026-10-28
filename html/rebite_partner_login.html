@@ -562,14 +562,14 @@
 
         <!-- Logo Container with Fallback -->
         <div class="logo-container">
-            <div class="logo-wrapper">
+            <a href="rebite_onboarding.html" class="logo-wrapper" title="Kembali ke Onboarding">
                 <img 
                     src="assets/logo.jpe" 
                     alt="Rebite Logo" 
                     class="logo-img"
                     onerror="this.onerror=null; this.src='https://via.placeholder.com/120/EBE3A7/2C5745?text=ReBite';"
                 >
-            </div>
+            </a>
         </div>
 
         <!-- Form & Controls Area -->
@@ -684,7 +684,7 @@
             <!-- Registration Redirect Link -->
             <div class="footer-note">
                 <span>Ingin bergabung sebagai mitra?</span>
-                <a href="#" class="register-link" onclick="triggerToast('Membuka formulir pendaftaran Mitra Restoran Baru...'); return false;">Daftar Mitra Restoran Baru</a>
+                <a href="rebite_partner_claimer_signup.html?role=resto" class="register-link">Daftar Mitra Restoran Baru</a>
             </div>
 
         </div>
@@ -704,7 +704,7 @@
         let selectedRole = 'resto';
 
         // Role Switcher Handler
-        function selectRole(role) {
+        function selectRole(role, navigate = true) {
             selectedRole = role;
             const indicator = document.getElementById('roleIndicator');
             const btnClaimer = document.getElementById('btnRoleClaimer');
@@ -724,6 +724,11 @@
                 btnResto.classList.remove('active');
                 btnSubmitText.textContent = 'Masuk sebagai Claimer';
                 roleContextText.textContent = 'Akses peta food bank, dapatkan makanan gratis atau potongan harga, dan ambil sidejob antar makanan.';
+                if (navigate) {
+                    setTimeout(() => {
+                        window.location.href = 'rebite_professional_login_page.html';
+                    }, 250);
+                }
             }
         }
 
@@ -750,6 +755,13 @@
             const email = document.getElementById('merchantEmail').value;
             const roleLabel = selectedRole === 'resto' ? 'Dashboard Mitra Restoran' : 'Akun Claimer';
             triggerToast(`Berhasil masuk ke ${roleLabel} (${email})`);
+            setTimeout(() => {
+                if (selectedRole === 'resto') {
+                    window.location.href = 'rebite_restaurant_partner_dashboard.html';
+                } else {
+                    window.location.href = 'rebite_claimer_dashboard_map.html';
+                }
+            }, 600);
         }
 
         // Custom Toast Notification System
@@ -768,7 +780,7 @@
         }
 
         // Initialize state on page load
-        selectRole('resto');
+        selectRole('resto', false);
     </script>
 
 </body>

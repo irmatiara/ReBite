@@ -732,6 +732,18 @@
                         </div>
                     </button>
 
+                    <button class="menu-item" onclick="location.href='sidejob-register.html'">
+                        <div class="menu-item-left">
+                            <div class="menu-icon-wrapper">
+                                <svg viewBox="0 0 24 24"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+                            </div>
+                            <span class="menu-item-text">Registrasi Kurir Sidejob</span>
+                        </div>
+                        <div class="menu-item-right">
+                            <svg class="chevron-icon" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
+                        </div>
+                    </button>
+
                     <button class="menu-item" onclick="openAnonymityModal()">
                         <div class="menu-item-left">
                             <div class="menu-icon-wrapper">
@@ -752,7 +764,7 @@
                 <div class="menu-section-title">Layanan & Keamanan</div>
                 <div class="menu-card">
                     
-                    <button class="menu-item" onclick="openInfoModal('Pusat Bantuan', 'Butuh bantuan terkait klaim atau lokasi penjemputan? Hubungi Layanan Pelanggan Rebite via WhatsApp di 0812-REBITE-HELP.')">
+                    <button class="menu-item" onclick="location.href='help-center.html'">
                         <div class="menu-item-left">
                             <div class="menu-icon-wrapper">
                                 <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
@@ -783,19 +795,19 @@
 
         <!-- Fixed Claimer Bottom Navigation -->
         <nav class="bottom-nav">
-            <a class="nav-link" onclick="location.href='dashboard.html'">
+            <a href="rebite_claimer_dashboard_map.html" class="nav-link">
                 <svg viewBox="0 0 24 24"><polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"/><line x1="8" y1="2" x2="8" y2="18"/><line x1="16" y1="6" x2="16" y2="22"/></svg>
                 <span>Peta Food</span>
             </a>
-            <a class="nav-link" onclick="location.href='sidejob-missions.html'">
+            <a href="sidejob-missions.html" class="nav-link">
                 <svg viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
                 <span>Sidejob</span>
             </a>
-            <a class="nav-link" onclick="location.href='claim-history.html'">
+            <a href="claim-history.html" class="nav-link">
                 <svg viewBox="0 0 24 24"><path d="M12 8v4l3 3"/><circle cx="12" cy="12" r="9"/></svg>
                 <span>Riwayat</span>
             </a>
-            <a class="nav-link active">
+            <a href="rebite_claimer_profile.html" class="nav-link active">
                 <svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
                 <span>Profil</span>
             </a>
@@ -869,7 +881,7 @@
 
         function confirmLogout() {
             closeLogoutModal();
-            location.href = 'index.html';
+            location.href = 'rebite_professional_login_page.html';
         }
 
         function openAnonymityModal() {

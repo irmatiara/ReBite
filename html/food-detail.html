@@ -407,7 +407,7 @@
     <main class="app-viewport">
         <!-- Floating Navigation -->
         <header class="header-nav">
-            <a href="dashboard.html" class="btn-circle-nav">
+            <a href="rebite_claimer_dashboard_map.html" class="btn-circle-nav">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
             </a>
             <button class="btn-circle-nav" onclick="alert('Link berhasil disalin!')">
@@ -526,6 +526,72 @@
     </main>
 
     <script>
+        const foodData = {
+            '1': {
+                badge: 'Free Food / Donasi',
+                title: 'Surplus Meal Box: Karbohidrat & Protein',
+                priceMain: 'GRATIS',
+                priceOrig: 'Rp 35.000',
+                avatar: 'R',
+                restoName: 'Restoran Sederhana Food Bank',
+                address: 'Jl. Gajah Mada No. 12 (0.4 km)',
+                time: '16:00 - 18:00 WIB',
+                deadline: 'Hari Ini, 18:00 WIB'
+            },
+            '2': {
+                badge: 'Deep Discount 70%',
+                title: 'Surplus Box: Olahan Roti & Pastry',
+                priceMain: 'Rp 12.000',
+                priceOrig: 'Rp 40.000',
+                avatar: 'A',
+                restoName: 'Aroma Bakery Rescue Spot',
+                address: 'Jl. Merdeka No. 45, Kesawan (0.8 km)',
+                time: '18:00 - 20:30 WIB',
+                deadline: 'Hari Ini, 20:30 WIB'
+            },
+            '3': {
+                badge: 'Free Food / Donasi',
+                title: 'Makanan Siap Saji: Nasi & Lauk',
+                priceMain: 'GRATIS',
+                priceOrig: 'Rp 25.000',
+                avatar: 'W',
+                restoName: 'Warung Berkah Harmoni',
+                address: 'Jl. S. Parman No. 88, Medan Baru (1.2 km)',
+                time: '17:30 - 19:00 WIB',
+                deadline: 'Hari Ini, 19:00 WIB'
+            },
+            '4': {
+                badge: 'Pakan Ternak',
+                title: 'Pakan Ternak & Sayuran Sisa Bersih',
+                priceMain: 'GRATIS',
+                priceOrig: 'Peternak',
+                avatar: 'D',
+                restoName: 'Dapur Hijau Organik',
+                address: 'Jl. Gatot Subroto No. 104 (2.1 km)',
+                time: '08:00 - 16:00 WIB',
+                deadline: 'Hari Ini, 16:00 WIB'
+            }
+        };
+
+        const itemId = new URLSearchParams(window.location.search).get('id');
+        if (itemId && foodData[itemId]) {
+            const item = foodData[itemId];
+            document.querySelector('.hero-badge-tag').textContent = item.badge;
+            document.querySelector('.food-title').textContent = item.title;
+            document.querySelector('.price-main').textContent = item.priceMain;
+            document.querySelector('.price-original').textContent = item.priceOrig;
+            document.querySelector('.resto-avatar').textContent = item.avatar;
+            document.querySelector('.resto-name').textContent = item.restoName;
+            document.querySelector('.resto-sub span').textContent = item.address;
+            document.querySelectorAll('.meta-value')[0].textContent = item.time;
+            const modalBox = document.querySelector('#confirmModal .modal-card > div');
+            if (modalBox) {
+                modalBox.children[0].textContent = item.restoName;
+                modalBox.children[1].textContent = item.address;
+                modalBox.children[2].textContent = 'Batas Ambil: ' + item.deadline;
+            }
+        }
+
         function openConfirmModal() {
             document.getElementById('confirmModal').style.display = 'flex';
         }

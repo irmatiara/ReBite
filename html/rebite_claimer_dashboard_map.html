@@ -681,7 +681,7 @@
         
         <!-- Header Viewport -->
         <header class="dashboard-header">
-            <div class="user-profile">
+            <div class="user-profile" onclick="window.location.href='rebite_claimer_profile.html'" style="cursor: pointer;">
                 <div class="user-avatar">P</div>
                 <div class="user-meta">
                     <div class="role-badge">
@@ -691,7 +691,7 @@
                     <div class="user-name">Nama Pengguna</div>
                 </div>
             </div>
-            <div class="quota-box">
+            <div class="quota-box" onclick="window.location.href='claim-history.html'" style="cursor: pointer;">
                 <div class="quota-label">Limit Klaim</div>
                 <div class="quota-value">2 / 3 Hari Ini</div>
             </div>
@@ -735,7 +735,7 @@
                         <div style="font-size: 0.68rem; opacity: 0.85;">Antar makanan donasi & dapatkan poin reward.</div>
                     </div>
                 </div>
-                <button class="sidejob-action-btn" onclick="alert('Membuka Misi Sidejob Antar Makanan...')">Ambil Misi</button>
+                <button class="sidejob-action-btn" onclick="window.location.href='sidejob-register.html'">Ambil Misi</button>
             </div>
 
             <!-- List View Section Header -->
@@ -756,7 +756,7 @@
                         <span class="label-type">Karbohidrat & Protein</span>
                         <span class="badge-price free">GRATIS</span>
                     </div>
-                    <h3 class="place-name">Restoran Sederhana Food Bank</h3>
+                    <h3 class="place-name" onclick="window.location.href='food-detail.html?id=1'" style="cursor: pointer;">Restoran Sederhana Food Bank</h3>
                     <div class="place-address">
                         <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
                         <span>Jl. Gajah Mada No. 12, Petisah Tengah, Medan</span>
@@ -779,7 +779,7 @@
                             <svg viewBox="0 0 24 24"><polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"/><line x1="8" y1="2" x2="8" y2="18"/><line x1="16" y1="6" x2="16" y2="22"/></svg>
                             <span>Lihat di Peta</span>
                         </button>
-                        <button class="btn-claim-item" onclick="openClaimModal('Restoran Sederhana')">
+                        <button class="btn-claim-item" onclick="window.location.href='food-detail.html?id=1'">
                             <span>Klaim Kuota</span>
                             <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
                         </button>
@@ -792,7 +792,7 @@
                         <span class="label-type">Olahan Roti & Pastry</span>
                         <span class="badge-price discount">Diskon 70% (Rp 12.000)</span>
                     </div>
-                    <h3 class="place-name">Aroma Bakery Rescue Spot</h3>
+                    <h3 class="place-name" onclick="window.location.href='food-detail.html?id=2'" style="cursor: pointer;">Aroma Bakery Rescue Spot</h3>
                     <div class="place-address">
                         <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
                         <span>Jl. Merdeka No. 45, Kesawan, Medan</span>
@@ -815,7 +815,7 @@
                             <svg viewBox="0 0 24 24"><polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"/><line x1="8" y1="2" x2="8" y2="18"/><line x1="16" y1="6" x2="16" y2="22"/></svg>
                             <span>Lihat di Peta</span>
                         </button>
-                        <button class="btn-claim-item" onclick="openClaimModal('Aroma Bakery')">
+                        <button class="btn-claim-item" onclick="window.location.href='food-detail.html?id=2'">
                             <span>Klaim Kuota</span>
                             <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
                         </button>
@@ -828,7 +828,7 @@
                         <span class="label-type">Makanan Siap Saji (Nasi & Lauk)</span>
                         <span class="badge-price free">GRATIS</span>
                     </div>
-                    <h3 class="place-name">Warung Berkah Harmoni</h3>
+                    <h3 class="place-name" onclick="window.location.href='food-detail.html?id=3'" style="cursor: pointer;">Warung Berkah Harmoni</h3>
                     <div class="place-address">
                         <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
                         <span>Jl. S. Parman No. 88, Medan Baru, Medan</span>
@@ -851,7 +851,7 @@
                             <svg viewBox="0 0 24 24"><polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"/><line x1="8" y1="2" x2="8" y2="18"/><line x1="16" y1="6" x2="16" y2="22"/></svg>
                             <span>Lihat di Peta</span>
                         </button>
-                        <button class="btn-claim-item" onclick="openClaimModal('Warung Berkah')">
+                        <button class="btn-claim-item" onclick="window.location.href='food-detail.html?id=3'">
                             <span>Klaim Kuota</span>
                             <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
                         </button>
@@ -864,7 +864,7 @@
                         <span class="label-type">Pakan Ternak & Sayuran Sisa</span>
                         <span class="badge-price pet">Free - Peternak</span>
                     </div>
-                    <h3 class="place-name">Dapur Hijau Organik</h3>
+                    <h3 class="place-name" onclick="window.location.href='food-detail.html?id=4'" style="cursor: pointer;">Dapur Hijau Organik</h3>
                     <div class="place-address">
                         <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
                         <span>Jl. Gatot Subroto No. 104, Sei Sikambing, Medan</span>
@@ -887,7 +887,7 @@
                             <svg viewBox="0 0 24 24"><polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"/><line x1="8" y1="2" x2="8" y2="18"/><line x1="16" y1="6" x2="16" y2="22"/></svg>
                             <span>Lihat di Peta</span>
                         </button>
-                        <button class="btn-claim-item" onclick="openClaimModal('Dapur Hijau Organik')">
+                        <button class="btn-claim-item" onclick="window.location.href='food-detail.html?id=4'">
                             <span>Klaim Kuota</span>
                             <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
                         </button>
@@ -900,7 +900,7 @@
                         <span class="label-type">Makanan Olahan & Katering</span>
                         <span class="badge-price free">Sidejob Pickup</span>
                     </div>
-                    <h3 class="place-name">Katering Bunda & Partner</h3>
+                    <h3 class="place-name" onclick="window.location.href='sidejob-missions.html'" style="cursor: pointer;">Katering Bunda & Partner</h3>
                     <div class="place-address">
                         <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
                         <span>Jl. Diponegoro No. 29, Madras Hulu, Medan</span>
@@ -923,7 +923,7 @@
                             <svg viewBox="0 0 24 24"><polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"/><line x1="8" y1="2" x2="8" y2="18"/><line x1="16" y1="6" x2="16" y2="22"/></svg>
                             <span>Lihat di Peta</span>
                         </button>
-                        <button class="btn-claim-item" onclick="openClaimModal('Katering Bunda')">
+                        <button class="btn-claim-item" onclick="window.location.href='sidejob-missions.html'">
                             <span>Ambil Sidejob</span>
                             <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
                         </button>
@@ -948,19 +948,19 @@
 
         <!-- Fixed Bottom Navigation -->
         <nav class="bottom-nav">
-            <a class="nav-link active">
+            <a href="rebite_claimer_dashboard_map.html" class="nav-link active">
                 <svg viewBox="0 0 24 24"><polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"/><line x1="8" y1="2" x2="8" y2="18"/><line x1="16" y1="6" x2="16" y2="22"/></svg>
                 <span>Eksplor</span>
             </a>
-            <a class="nav-link">
+            <a href="sidejob-missions.html" class="nav-link">
                 <svg viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
                 <span>Sidejob</span>
             </a>
-            <a class="nav-link">
+            <a href="claim-history.html" class="nav-link">
                 <svg viewBox="0 0 24 24"><path d="M12 8v4l3 3"/><circle cx="12" cy="12" r="9"/></svg>
                 <span>Riwayat</span>
             </a>
-            <a class="nav-link">
+            <a href="rebite_claimer_profile.html" class="nav-link">
                 <svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
                 <span>Profil</span>
             </a>
@@ -988,7 +988,7 @@
                     <span id="countdownTimer">Kadaluarsa dalam: 44m 58s</span>
                 </div>
 
-                <button class="btn-modal-close" onclick="closeClaimModal()">Selesai & Simpan Tiket</button>
+                <button class="btn-modal-close" onclick="window.location.href='claim-history.html'">Selesai & Simpan Tiket</button>
             </div>
         </div>
 

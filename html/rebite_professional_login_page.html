@@ -452,9 +452,9 @@
 
         <!-- Brand Logo Badge -->
         <div class="logo-container">
-            <div class="logo-wrapper">
+            <a href="rebite_onboarding.html" class="logo-wrapper" title="Kembali ke Onboarding">
                 <img src="assets/logo.jpe" alt="Rebite Logo" onerror="this.onerror=null; this.src='https://via.placeholder.com/120/EBE3A7/2C5745?text=ReBite';">
-            </div>
+            </a>
         </div>
 
         <!-- Form Body -->
@@ -518,7 +518,7 @@
             </form>
 
             <div class="footer-note">
-                Belum memiliki akun Rebite? <a href="#">Daftar Akun</a>
+                Belum memiliki akun Rebite? <a href="rebite_partner_claimer_signup.html" id="signupLink">Daftar Akun</a>
             </div>
         </div>
     </main>
@@ -532,17 +532,23 @@
             const claimerBtn = document.getElementById('roleClaimerBtn');
             const restoBtn = document.getElementById('roleRestoBtn');
             const btnText = document.getElementById('btnText');
+            const signupLink = document.getElementById('signupLink');
 
             if (role === 'resto') {
                 indicator.style.transform = 'translateX(100%)';
                 restoBtn.classList.add('active');
                 claimerBtn.classList.remove('active');
                 btnText.textContent = 'Masuk sebagai Mitra Restoran';
+                if (signupLink) signupLink.href = 'rebite_partner_claimer_signup.html?role=resto';
+                setTimeout(() => {
+                    window.location.href = 'rebite_partner_login.html';
+                }, 250);
             } else {
                 indicator.style.transform = 'translateX(0%)';
                 claimerBtn.classList.add('active');
                 restoBtn.classList.remove('active');
                 btnText.textContent = 'Masuk sebagai Claimer';
+                if (signupLink) signupLink.href = 'rebite_partner_claimer_signup.html?role=claimer';
             }
         }
 
@@ -561,8 +567,11 @@
 
         function handleLogin(event) {
             event.preventDefault();
-            const email = document.getElementById('emailInput').value;
-            alert(`Berhasil login sebagai ${currentRole === 'claimer' ? 'Claimer' : 'Mitra Restoran'} (${email})`);
+            if (currentRole === 'resto') {
+                window.location.href = 'rebite_restaurant_partner_dashboard.html';
+            } else {
+                window.location.href = 'rebite_claimer_dashboard_map.html';
+            }
         }
     </script>
 </body>

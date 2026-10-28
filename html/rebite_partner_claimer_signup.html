@@ -543,14 +543,14 @@
 
         <!-- Logo Container -->
         <div class="logo-container">
-            <div class="logo-wrapper">
+            <a href="rebite_onboarding.html" class="logo-wrapper" title="Kembali ke Onboarding">
                 <img 
                     src="assets/logo.jpe" 
                     alt="Rebite Logo" 
                     class="logo-img"
                     onerror="this.onerror=null; this.src='https://via.placeholder.com/120/EBE3A7/2C5745?text=ReBite';"
                 >
-            </div>
+            </a>
         </div>
 
         <!-- Form Area -->
@@ -690,7 +690,7 @@
 
             <div class="footer-note">
                 <span>Sudah memiliki akun?</span>
-                <a href="index.html" class="login-link">Masuk Ke Portal Login</a>
+                <a href="rebite_professional_login_page.html" class="login-link" id="loginPortalLink">Masuk Ke Portal Login</a>
             </div>
 
         </div>
@@ -717,6 +717,7 @@
             const btnSubmitText = document.getElementById('btnSubmitText');
             const infoText = document.getElementById('infoText');
             const headlineTitle = document.getElementById('headlineTitle');
+            const loginPortalLink = document.getElementById('loginPortalLink');
             
             const sectionClaimer = document.getElementById('sectionClaimer');
             const sectionResto = document.getElementById('sectionResto');
@@ -732,6 +733,7 @@
                 headlineTitle.textContent = 'Daftar Mitra Restoran';
                 btnSubmitText.textContent = 'Daftar sebagai Mitra Restoran';
                 infoText.textContent = 'Daftarkan usaha Anda untuk mengelola kuota surplus makanan, jadwalkan donasi homeless, atau distribusikan pakan ternak.';
+                if (loginPortalLink) loginPortalLink.href = 'rebite_partner_login.html';
             } else {
                 indicator.style.transform = 'translateX(0%)';
                 btnClaimer.classList.add('active');
@@ -743,6 +745,7 @@
                 headlineTitle.textContent = 'Daftar sebagai Claimer';
                 btnSubmitText.textContent = 'Buat Akun Claimer';
                 infoText.textContent = 'Dapatkan akses peta food bank terdekat, notifikasi diskon besar & makanan gratis, serta kesempatan sidejob antar makanan.';
+                if (loginPortalLink) loginPortalLink.href = 'rebite_professional_login_page.html';
             }
         }
 
@@ -750,7 +753,14 @@
             event.preventDefault();
             const email = document.getElementById('userEmail').value;
             const roleName = selectedRole === 'resto' ? 'Mitra Restoran' : 'Claimer';
-            triggerToast(`Pendaftaran ${roleName} berhasil! Silakan cek email ${email}`);
+            triggerToast(`Pendaftaran ${roleName} berhasil! Mengalihkan ke dashboard...`);
+            setTimeout(() => {
+                if (selectedRole === 'resto') {
+                    window.location.href = 'rebite_restaurant_partner_dashboard.html';
+                } else {
+                    window.location.href = 'rebite_claimer_dashboard_map.html';
+                }
+            }, 800);
         }
 
         let toastTimer;
@@ -767,7 +777,12 @@
             }, 3500);
         }
 
-        selectRole('claimer');
+        const urlParams = new URLSearchParams(window.location.search);
+        if (urlParams.get('role') === 'resto') {
+            selectRole('resto');
+        } else {
+            selectRole('claimer');
+        }
     </script>
 
 </body>
