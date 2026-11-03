@@ -1,16 +1,27 @@
+// File: lib/main.dart
 import 'package:flutter/material.dart';
+import 'rebite_claimer_dashboard_map.dart';
 
 void main() {
-  runApp(const MainApp());
+  runApp(const MyApp());
 }
 
-class MainApp extends StatelessWidget {
-  const MainApp({super.key});
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      home: Scaffold(body: Center(child: Text('Hello World!'))),
+    return MaterialApp(
+      title: 'Rebite Claimer',
+      debugShowCheckedModeBanner: false,
+      theme: ThemeData(
+        useMaterial3: true,
+        colorScheme: ColorScheme.fromSeed(
+          seedColor: const Color(0xFF2C5745),
+        ),
+        scaffoldBackgroundColor: const Color(0xFFF7F5EB),
+      ),
+      home: const RebiteClaimerDashboardMap(),
     );
   }
 }
