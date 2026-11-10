@@ -6,7 +6,6 @@ import 'package:flutter/material.dart';
 
 import 'claim_history.dart';
 import 'rebite_claimer_dashboard_map.dart';
-import 'rebite_claimer_profile.dart';
 import 'sidejob_register.dart';
 
 // ============================================================
@@ -478,59 +477,65 @@ class _SidejobMissionsState extends State<SidejobMissions> {
   // BANNER REGISTRASI → SidejobRegister
   // ==========================================================
   Widget _buildRegisterBanner() {
-    return GestureDetector(
-      onTap: () => _push(const SidejobRegister()),
-      child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
-        decoration: BoxDecoration(
-          color: _kVanilla,
-          borderRadius: BorderRadius.circular(16),
-          border: Border.all(color: _kBorder),
-        ),
-        child: Row(
-          children: [
-            const Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    'Belum Terdaftar Kurir Relawan?',
-                    style: TextStyle(
-                      fontSize: 12.5,
-                      fontWeight: FontWeight.w800,
-                      color: _kDarkBrown,
+    return Material(
+      color: _kVanilla,
+      borderRadius: BorderRadius.circular(16),
+      child: InkWell(
+        borderRadius: BorderRadius.circular(16),
+        onTap: () => _push(const SidejobRegister()),
+        child: Container(
+          padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(16),
+            border: Border.all(color: _kBorder),
+          ),
+          child: Row(
+            children: [
+              const Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'Belum Terdaftar Kurir Relawan?',
+                      style: TextStyle(
+                        fontSize: 12.5,
+                        fontWeight: FontWeight.w800,
+                        color: _kDarkBrown,
+                      ),
                     ),
-                  ),
-                  SizedBox(height: 2),
-                  Text(
-                    'Verifikasi akun untuk mengaktifkan pengantaran',
-                    style: TextStyle(
-                      fontSize: 11,
-                      fontWeight: FontWeight.w600,
-                      color: _kMuted,
+                    SizedBox(height: 2),
+                    Text(
+                      'Verifikasi akun untuk mengaktifkan pengantaran',
+                      style: TextStyle(
+                        fontSize: 11,
+                        fontWeight: FontWeight.w600,
+                        color: _kMuted,
+                      ),
                     ),
-                  ),
-                ],
-              ),
-            ),
-            const SizedBox(width: 8),
-            Container(
-              padding:
-                  const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
-              decoration: BoxDecoration(
-                color: _kBrunswick,
-                borderRadius: BorderRadius.circular(10),
-              ),
-              child: const Text(
-                'Daftar Kurir',
-                style: TextStyle(
-                  fontSize: 11.5,
-                  fontWeight: FontWeight.w800,
-                  color: _kVanilla,
+                  ],
                 ),
               ),
-            ),
-          ],
+              const SizedBox(width: 8),
+              Container(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 10,
+                  vertical: 6,
+                ),
+                decoration: BoxDecoration(
+                  color: _kBrunswick,
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child: const Text(
+                  'Daftar Kurir',
+                  style: TextStyle(
+                    fontSize: 11.5,
+                    fontWeight: FontWeight.w800,
+                    color: _kVanilla,
+                  ),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
@@ -566,7 +571,9 @@ class _SidejobMissionsState extends State<SidejobMissions> {
                   alignment: Alignment.centerLeft,
                   child: Container(
                     padding: const EdgeInsets.symmetric(
-                        horizontal: 10, vertical: 4),
+                      horizontal: 10,
+                      vertical: 4,
+                    ),
                     decoration: BoxDecoration(
                       color: _kVanilla,
                       borderRadius: BorderRadius.circular(8),
@@ -587,8 +594,10 @@ class _SidejobMissionsState extends State<SidejobMissions> {
               ),
               const SizedBox(width: 8),
               Container(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 10,
+                  vertical: 4,
+                ),
                 decoration: BoxDecoration(
                   color: const Color(0x1FEB7D00),
                   borderRadius: BorderRadius.circular(8),
@@ -626,8 +635,11 @@ class _SidejobMissionsState extends State<SidejobMissions> {
             ),
             child: Row(
               children: [
-                const Icon(Icons.inventory_2_outlined,
-                    size: 14, color: _kDarkBrown),
+                const Icon(
+                  Icons.inventory_2_outlined,
+                  size: 14,
+                  color: _kDarkBrown,
+                ),
                 const SizedBox(width: 6),
                 Expanded(
                   child: Text(
@@ -641,8 +653,11 @@ class _SidejobMissionsState extends State<SidejobMissions> {
                   ),
                 ),
                 const SizedBox(width: 8),
-                const Icon(Icons.location_on_outlined,
-                    size: 14, color: _kDarkBrown),
+                const Icon(
+                  Icons.location_on_outlined,
+                  size: 14,
+                  color: _kDarkBrown,
+                ),
                 const SizedBox(width: 4),
                 Text(
                   mission.distance,
@@ -751,10 +766,7 @@ class _SidejobMissionsState extends State<SidejobMissions> {
               const SizedBox(height: 2),
               Text(
                 step.address,
-                style: const TextStyle(
-                  fontSize: 12,
-                  color: _kMuted,
-                ),
+                style: const TextStyle(fontSize: 12, color: _kMuted),
               ),
             ],
           ),
@@ -769,11 +781,7 @@ class _SidejobMissionsState extends State<SidejobMissions> {
         SizedBox(
           width: 16,
           child: Center(
-            child: Container(
-              width: 2,
-              height: 12,
-              color: _kBorder,
-            ),
+            child: Container(width: 2, height: 12, color: _kBorder),
           ),
         ),
       ],
@@ -817,7 +825,6 @@ class _SidejobMissionsState extends State<SidejobMissions> {
                 icon: Icons.person_outline,
                 label: 'Profil',
                 active: false,
-                onTap: () => _push(const RebiteClaimerProfile()),
               ),
             ],
           ),

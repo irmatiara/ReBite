@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 
 import 'claim_history.dart';
 import 'food_detail.dart';
-import 'rebite_claimer_profile.dart';
+import 'help_center.dart';
 import 'sidejob_missions.dart';
-import 'sidejob_register.dart';
+
 // ============================================================
 // 1. PALET WARNA
 // ============================================================
@@ -87,7 +87,7 @@ const List<FoodSpot> _spots = [
     time: '16:00 - 18:00 WIB',
     stock: 'Tersisa 4 Porsi',
     stockColor: kTangerine,
-    actionLabel: 'Klaim Kuota',
+    actionLabel: 'Lihat Detail',
     x: 0.36,
     y: 0.42,
   ),
@@ -103,7 +103,7 @@ const List<FoodSpot> _spots = [
     time: '18:00 - 20:30 WIB',
     stock: 'Tersisa 2 Box',
     stockColor: kBrunswick,
-    actionLabel: 'Klaim Kuota',
+    actionLabel: 'Lihat Detail',
     x: 0.62,
     y: 0.26,
   ),
@@ -119,7 +119,7 @@ const List<FoodSpot> _spots = [
     time: '17:30 - 19:00 WIB',
     stock: 'Tersisa 5 Porsi',
     stockColor: kTangerine,
-    actionLabel: 'Klaim Kuota',
+    actionLabel: 'Lihat Detail',
     x: 0.24,
     y: 0.66,
   ),
@@ -135,7 +135,7 @@ const List<FoodSpot> _spots = [
     time: '08:00 - 16:00 WIB',
     stock: 'Tersisa 8 Kg',
     stockColor: kDarkBrown,
-    actionLabel: 'Klaim Kuota',
+    actionLabel: 'Lihat Detail',
     x: 0.75,
     y: 0.72,
   ),
@@ -179,20 +179,18 @@ class _RebiteClaimerDashboardMapState extends State<RebiteClaimerDashboardMap> {
   // ------------------------------------------------------------
   // NAVIGASI — helper
 
-void _push(Widget page) {
-  Navigator.of(context).push(
-    MaterialPageRoute(builder: (_) => page),
-  );
-}
-
-/// Card 1–4 → FoodDetail(id) | Card 5 (sidejob) → SidejobMissions
-void _onSpotTap(FoodSpot spot) {
-  if (spot.category == 'sidejob') {
-    _push(const SidejobMissions());
-  } else {
-    _push(FoodDetail(id: spot.id));
+  void _push(Widget page) {
+    Navigator.of(context).push(MaterialPageRoute(builder: (_) => page));
   }
-}
+
+  /// Card 1–4 → FoodDetail(id) | Card 5 (sidejob) → SidejobMissions
+  void _onSpotTap(FoodSpot spot) {
+    if (spot.category == 'sidejob') {
+      _push(const SidejobMissions());
+    } else {
+      _push(FoodDetail(id: spot.id));
+    }
+  }
 
   // ------------------------------------------------------------
   // PETA
@@ -248,9 +246,7 @@ void _onSpotTap(FoodSpot spot) {
                     _buildHeader(),
                     _buildFilterChips(),
                     Expanded(
-                      child: isWide
-                          ? _buildWideLayout()
-                          : _buildMobileLayout(),
+                      child: isWide ? _buildWideLayout() : _buildMobileLayout(),
                     ),
                     _buildBottomNav(),
                   ],
@@ -269,8 +265,9 @@ void _onSpotTap(FoodSpot spot) {
   // ==========================================================
   Widget _buildMobileLayout() {
     final double screenHeight = MediaQuery.of(context).size.height;
-    final double mapHeight =
-        (screenHeight * 0.34).clamp(200.0, 320.0).toDouble();
+    final double mapHeight = (screenHeight * 0.34)
+        .clamp(200.0, 320.0)
+        .toDouble();
     final bool isShort = screenHeight < 700;
 
     return Center(
@@ -367,7 +364,6 @@ void _onSpotTap(FoodSpot spot) {
         children: [
           // === user-profile → rebite_claimer_profile.html ===
           GestureDetector(
-            onTap: () => _push(const RebiteClaimerProfile()),
             child: Row(
               children: [
                 Container(
@@ -394,7 +390,9 @@ void _onSpotTap(FoodSpot spot) {
                   children: [
                     Container(
                       padding: const EdgeInsets.symmetric(
-                          horizontal: 8, vertical: 2),
+                        horizontal: 8,
+                        vertical: 2,
+                      ),
                       decoration: BoxDecoration(
                         color: const Color(0x40EB7D00),
                         borderRadius: BorderRadius.circular(12),
@@ -403,8 +401,11 @@ void _onSpotTap(FoodSpot spot) {
                       child: const Row(
                         mainAxisSize: MainAxisSize.min,
                         children: [
-                          Icon(Icons.person_outline,
-                              size: 11, color: kTangerine),
+                          Icon(
+                            Icons.person_outline,
+                            size: 11,
+                            color: kTangerine,
+                          ),
                           SizedBox(width: 4),
                           Text(
                             'CLAIMER',
@@ -433,6 +434,18 @@ void _onSpotTap(FoodSpot spot) {
             ),
           ),
           const Spacer(),
+          IconButton(
+            tooltip: 'Pusat Bantuan',
+            onPressed: () => _push(const HelpCenter()),
+            icon: const Icon(Icons.help_outline, color: kVanilla),
+            style: IconButton.styleFrom(
+              backgroundColor: const Color(0x26EBE3A7),
+              side: const BorderSide(color: kVanilla),
+              minimumSize: const Size(40, 40),
+              padding: EdgeInsets.zero,
+            ),
+          ),
+          const SizedBox(width: 8),
           // === quota-box → claim-history.html ===
           GestureDetector(
             onTap: () => _push(const ClaimHistory()),
@@ -495,9 +508,7 @@ void _onSpotTap(FoodSpot spot) {
                   decoration: BoxDecoration(
                     color: active ? kBrunswick : kBgLight,
                     borderRadius: BorderRadius.circular(12),
-                    border: Border.all(
-                      color: active ? kBrunswick : kBorder,
-                    ),
+                    border: Border.all(color: active ? kBrunswick : kBorder),
                   ),
                   child: Row(
                     mainAxisSize: MainAxisSize.min,
@@ -569,21 +580,25 @@ void _onSpotTap(FoodSpot spot) {
             ),
           ),
           const SizedBox(width: 8),
-          GestureDetector(
-            onTap: () => _push(const SidejobRegister()),
-            child: Container(
+          Material(
+            color: kTangerine,
+            borderRadius: BorderRadius.circular(10),
+            child: InkWell(
+              borderRadius: BorderRadius.circular(10),
+              onTap: () => _push(const SidejobMissions()),
+              child: Container(
               padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 7),
               decoration: BoxDecoration(
-                color: kTangerine,
                 borderRadius: BorderRadius.circular(10),
               ),
               child: const Text(
-                'Ambil Misi',
+                'Lihat Misi',
                 style: TextStyle(
                   fontSize: 11.5,
                   fontWeight: FontWeight.w800,
                   color: Colors.white,
                 ),
+              ),
               ),
             ),
           ),
@@ -636,21 +651,27 @@ void _onSpotTap(FoodSpot spot) {
   Widget _buildFoodCard(FoodSpot spot) {
     final index = _spots.indexOf(spot);
 
-    return Container(
-      padding: const EdgeInsets.all(14),
-      decoration: BoxDecoration(
-        color: Colors.white,
+    return Material(
+      color: Colors.white,
+      borderRadius: BorderRadius.circular(20),
+      child: InkWell(
         borderRadius: BorderRadius.circular(20),
-        border: Border.all(color: kBorder),
-        boxShadow: const [
-          BoxShadow(
-            color: Color(0x0D2E2910),
-            blurRadius: 14,
-            offset: Offset(0, 4),
+        onTap: () => _onSpotTap(spot),
+        child: Container(
+          padding: const EdgeInsets.all(14),
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(20),
+            border: Border.all(color: kBorder),
+            boxShadow: const [
+              BoxShadow(
+                color: Color(0x0D2E2910),
+                blurRadius: 14,
+                offset: Offset(0, 4),
+              ),
+            ],
           ),
-        ],
-      ),
-      child: Column(
+          child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(
@@ -661,7 +682,9 @@ void _onSpotTap(FoodSpot spot) {
                   alignment: Alignment.centerLeft,
                   child: Container(
                     padding: const EdgeInsets.symmetric(
-                        horizontal: 9, vertical: 4),
+                      horizontal: 9,
+                      vertical: 4,
+                    ),
                     decoration: BoxDecoration(
                       color: kVanilla,
                       borderRadius: BorderRadius.circular(8),
@@ -706,8 +729,11 @@ void _onSpotTap(FoodSpot spot) {
             children: [
               const Padding(
                 padding: EdgeInsets.only(top: 2),
-                child: Icon(Icons.location_on_outlined,
-                    size: 14, color: kTangerine),
+                child: Icon(
+                  Icons.location_on_outlined,
+                  size: 14,
+                  color: kTangerine,
+                ),
               ),
               const SizedBox(width: 5),
               Expanded(
@@ -757,8 +783,7 @@ void _onSpotTap(FoodSpot spot) {
                 Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    const Icon(Icons.access_time,
-                        size: 14, color: kBrunswick),
+                    const Icon(Icons.access_time, size: 14, color: kBrunswick),
                     const SizedBox(width: 5),
                     Text(
                       spot.time,
@@ -799,8 +824,7 @@ void _onSpotTap(FoodSpot spot) {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: const [
-                        Icon(Icons.map_outlined,
-                            size: 14, color: kDarkBrown),
+                        Icon(Icons.map_outlined, size: 14, color: kDarkBrown),
                         SizedBox(width: 5),
                         Text(
                           'Lihat di Peta',
@@ -842,8 +866,11 @@ void _onSpotTap(FoodSpot spot) {
                           ),
                         ),
                         const SizedBox(width: 5),
-                        const Icon(Icons.arrow_forward,
-                            size: 14, color: kVanilla),
+                        const Icon(
+                          Icons.arrow_forward,
+                          size: 14,
+                          color: kVanilla,
+                        ),
                       ],
                     ),
                   ),
@@ -852,6 +879,8 @@ void _onSpotTap(FoodSpot spot) {
             ],
           ),
         ],
+          ),
+        ),
       ),
     );
   }
@@ -1097,10 +1126,7 @@ void _onSpotTap(FoodSpot spot) {
           decoration: BoxDecoration(
             color: fill,
             shape: BoxShape.circle,
-            border: Border.all(
-              color: Colors.white,
-              width: selected ? 3 : 2,
-            ),
+            border: Border.all(color: Colors.white, width: selected ? 3 : 2),
             boxShadow: [
               BoxShadow(
                 color: selected
@@ -1216,34 +1242,23 @@ void _onSpotTap(FoodSpot spot) {
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               // Eksplor = halaman ini (aktif, tanpa aksi)
-              _navItem(
-                Icons.map_outlined,
-                'Peta Food',
-                active: true,
-              ),
+              _navItem(Icons.map_outlined, 'Peta Food', active: true),
               // Sidejob → sidejob-missions.html
               _navItem(
                 Icons.work_outline,
                 'Sidejob',
                 active: false,
-                onTap: () =>
-                    _push(const SidejobMissions()),
+                onTap: () => _push(const SidejobMissions()),
               ),
               // Riwayat → claim-history.html
               _navItem(
                 Icons.history,
                 'Riwayat',
                 active: false,
-                onTap: () =>
-                    _push(const ClaimHistory()),
+                onTap: () => _push(const ClaimHistory()),
               ),
               // Profil → rebite_claimer_profile.html
-              _navItem(
-                Icons.person_outline,
-                'Profil',
-                active: false,
-                onTap: () => _push(const RebiteClaimerProfile()),
-              ),
+              _navItem(Icons.person_outline, 'Profil', active: false),
             ],
           ),
         ),
@@ -1325,8 +1340,7 @@ void _onSpotTap(FoodSpot spot) {
                       ),
                       GestureDetector(
                         onTap: _closeModal,
-                        child: const Icon(Icons.close,
-                            size: 20, color: kMuted),
+                        child: const Icon(Icons.close, size: 20, color: kMuted),
                       ),
                     ],
                   ),
@@ -1349,8 +1363,7 @@ void _onSpotTap(FoodSpot spot) {
                       child: const Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Icon(Icons.qr_code_2,
-                              size: 100, color: kBrunswick),
+                          Icon(Icons.qr_code_2, size: 100, color: kBrunswick),
                           SizedBox(height: 2),
                           Text(
                             'REBITE-8829-MEDAN',
@@ -1369,7 +1382,9 @@ void _onSpotTap(FoodSpot spot) {
                   const SizedBox(height: 14),
                   Container(
                     padding: const EdgeInsets.symmetric(
-                        horizontal: 12, vertical: 6),
+                      horizontal: 12,
+                      vertical: 6,
+                    ),
                     decoration: BoxDecoration(
                       color: const Color(0x1ADC2626),
                       borderRadius: BorderRadius.circular(10),
@@ -1378,8 +1393,7 @@ void _onSpotTap(FoodSpot spot) {
                     child: const Row(
                       mainAxisSize: MainAxisSize.min,
                       children: [
-                        Icon(Icons.access_time,
-                            size: 14, color: kRedAlert),
+                        Icon(Icons.access_time, size: 14, color: kRedAlert),
                         SizedBox(width: 6),
                         Text(
                           'Kadaluarsa dalam: 44m 58s',
@@ -1451,10 +1465,7 @@ class _DestinationPlaceholder extends StatelessWidget {
         elevation: 0,
         title: Text(
           title,
-          style: const TextStyle(
-            fontSize: 16,
-            fontWeight: FontWeight.w800,
-          ),
+          style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w800),
         ),
       ),
       body: Center(
@@ -1506,7 +1517,9 @@ class _DestinationPlaceholder extends StatelessWidget {
                 onTap: () => Navigator.of(context).pop(),
                 child: Container(
                   padding: const EdgeInsets.symmetric(
-                      horizontal: 24, vertical: 12),
+                    horizontal: 24,
+                    vertical: 12,
+                  ),
                   decoration: BoxDecoration(
                     color: kTangerine,
                     borderRadius: BorderRadius.circular(12),

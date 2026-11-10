@@ -7,7 +7,6 @@ import 'package:flutter/material.dart';
 
 import 'food_detail.dart';
 import 'rebite_claimer_dashboard_map.dart';
-import 'rebite_claimer_profile.dart';
 import 'sidejob_missions.dart';
 
 // ============================================================
@@ -588,7 +587,6 @@ class _ClaimHistoryState extends State<ClaimHistory> {
                 icon: Icons.person_outline,
                 label: 'Profil',
                 active: false,
-                onTap: () => _push(const RebiteClaimerProfile()),
               ),
             ],
           ),
