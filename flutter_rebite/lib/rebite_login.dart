@@ -200,16 +200,19 @@ class _RebiteLoginFormViewState extends State<RebiteLoginFormView> {
         _errorMessage = null;
       });
 
-      // 6. Navigasi Menggunakan Navigator.push()
-      Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) => LoginSuccessDestinationPage(
-            role: _selectedRole,
-            userEmail: email,
-          ),
-        ),
-      );
+      if (_selectedRole == 'resto') {
+  Navigator.pushNamed(context, '/restaurant-dashboard');
+} else {
+  Navigator.push(
+    context,
+    MaterialPageRoute(
+      builder: (context) => LoginSuccessDestinationPage(
+        role: _selectedRole,
+        userEmail: email,
+      ),
+    ),
+  );
+}
     } else {
       setState(() {
         _errorMessage = 'Email atau kata sandi salah!\nGunakan: $kDefaultEmail / $kDefaultPassword';

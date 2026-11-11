@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'rebite_onboarding.dart';
-
+import 'rebite_restaurant_dashboard.dart';
 void main() {
   runApp(const RebiteApp());
 }
@@ -24,6 +24,10 @@ class RebiteApp extends StatelessWidget {
         ),
         textTheme: GoogleFonts.plusJakartaSansTextTheme(),
       ),
+          routes: {
+      '/restaurant-dashboard': (context) =>
+          const RebiteRestaurantDashboard(),
+    },
       home: const RebiteOnboarding(),
     );
   }
