@@ -105,102 +105,104 @@ class FoodDetail extends StatelessWidget {
             Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                    Stack(
-                      children: [
-                        _buildHero(context, item),
-                        Positioned(
-                          left: 16,
-                          right: 16,
-                          top: 14,
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              _circleAction(
-                                icon: Icons.arrow_back,
-                                onTap: () => Navigator.of(context).maybePop(),
-                              ),
-                              _circleAction(
-                                icon: Icons.share_outlined,
-                                onTap: () => ScaffoldMessenger.of(context)
-                                    .showSnackBar(
-                                      const SnackBar(
-                                        content: Text('Link berhasil disalin!'),
-                                      ),
-                                    ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.fromLTRB(20, 20, 20, 24),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
+                Stack(
+                  children: [
+                    _buildHero(context, item),
+                    Positioned(
+                      left: 16,
+                      right: 16,
+                      top: 14,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          _buildTitlePrice(item),
-                          const SizedBox(height: 16),
-                          _buildRestaurant(item),
-                          const SizedBox(height: 14),
-                          _buildPrivacyNotice(),
-                          const SizedBox(height: 14),
-                          Row(
-                            children: [
-                              Expanded(
-                                child: _buildMetaCard(
-                                  'Jam Pengambilan',
-                                  item.pickupTime,
-                                ),
-                              ),
-                              const SizedBox(width: 10),
-                              Expanded(
-                                child: _buildMetaCard(
-                                  'Metode Ambil',
-                                  item.pickupMethod,
-                                ),
-                              ),
-                            ],
+                          _circleAction(
+                            icon: Icons.arrow_back,
+                            onTap: () => Navigator.of(context).maybePop(),
                           ),
-                          const SizedBox(height: 16),
-                          const Text(
-                            'KOMPOSISI KATEGORI',
-                            style: TextStyle(
-                              fontSize: 11,
-                              fontWeight: FontWeight.w800,
-                              color: _kMuted,
-                              letterSpacing: 0.4,
-                            ),
-                          ),
-                          const SizedBox(height: 8),
-                          Wrap(
-                            spacing: 8,
-                            runSpacing: 8,
-                            children: item.tags
-                                .map(
-                                  (tag) => Container(
-                                    padding: const EdgeInsets.symmetric(
-                                      horizontal: 12,
-                                      vertical: 7,
-                                    ),
-                                    decoration: BoxDecoration(
-                                      color: _kVanilla,
-                                      borderRadius: BorderRadius.circular(10),
-                                    ),
-                                    child: Text(
-                                      tag,
-                                      style: const TextStyle(
-                                        fontSize: 12,
-                                        fontWeight: FontWeight.w700,
-                                        color: _kDarkBrown,
-                                      ),
-                                    ),
+                          _circleAction(
+                            icon: Icons.share_outlined,
+                            onTap: () => ScaffoldMessenger.of(context)
+                                .showSnackBar(
+                                  const SnackBar(
+                                    content: Text('Link berhasil disalin!'),
                                   ),
-                                )
-                                .toList(),
+                                ),
                           ),
                         ],
                       ),
                     ),
+                  ],
+                ),
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(20, 20, 20, 24),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      _buildTitlePrice(item),
+                      const SizedBox(height: 16),
+                      _buildRestaurant(item),
+                      const SizedBox(height: 14),
+                      _buildPrivacyNotice(),
+                      const SizedBox(height: 14),
+                      _buildAllergenNotice(),
+                      const SizedBox(height: 14),
+                      Row(
+                        children: [
+                          Expanded(
+                            child: _buildMetaCard(
+                              'Jam Pengambilan',
+                              item.pickupTime,
+                            ),
+                          ),
+                          const SizedBox(width: 10),
+                          Expanded(
+                            child: _buildMetaCard(
+                              'Metode Ambil',
+                              item.pickupMethod,
+                            ),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(height: 16),
+                      const Text(
+                        'KOMPOSISI KATEGORI',
+                        style: TextStyle(
+                          fontSize: 11,
+                          fontWeight: FontWeight.w800,
+                          color: _kMuted,
+                          letterSpacing: 0.4,
+                        ),
+                      ),
+                      const SizedBox(height: 8),
+                      Wrap(
+                        spacing: 8,
+                        runSpacing: 8,
+                        children: item.tags
+                            .map(
+                              (tag) => Container(
+                                padding: const EdgeInsets.symmetric(
+                                  horizontal: 12,
+                                  vertical: 7,
+                                ),
+                                decoration: BoxDecoration(
+                                  color: _kVanilla,
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
+                                child: Text(
+                                  tag,
+                                  style: const TextStyle(
+                                    fontSize: 12,
+                                    fontWeight: FontWeight.w700,
+                                    color: _kDarkBrown,
+                                  ),
+                                ),
+                              ),
+                            )
+                            .toList(),
+                      ),
+                    ],
+                  ),
+                ),
               ],
             ),
           ],
@@ -491,6 +493,46 @@ class FoodDetail extends StatelessWidget {
                 fontSize: 11.5,
                 height: 1.45,
               ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildAllergenNotice() {
+    return Container(
+      padding: const EdgeInsets.all(14),
+      decoration: BoxDecoration(
+        color: const Color(0x14EB7D00),
+        border: Border.all(color: _kTangerine),
+        borderRadius: BorderRadius.circular(16),
+      ),
+      child: const Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Icon(Icons.warning_amber_rounded, color: _kTangerine, size: 21),
+          SizedBox(width: 10),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  'Informasi alergen belum tersedia',
+                  style: TextStyle(
+                    color: _kDarkBrown,
+                    fontSize: 12,
+                    fontWeight: FontWeight.w800,
+                  ),
+                ),
+                SizedBox(height: 4),
+                Text(
+                  'Komposisi alergen dan risiko kontaminasi silang belum '
+                  'dikonfirmasi. Jika Anda memiliki alergi, tanyakan kepada '
+                  'restoran sebelum mengklaim atau mengonsumsi makanan.',
+                  style: TextStyle(color: _kMuted, fontSize: 11, height: 1.45),
+                ),
+              ],
             ),
           ),
         ],
