@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'session_storage.dart';
 import 'rebite_partner_claimer_signup.dart' show RebitePartnerClaimerSignupPage;
+import 'rebite_restaurant_dashboard.dart' show RebiteRestaurantDashboard;
 import 'rebite_login.dart' show RebiteLoginPage;
 import 'rebite_onboarding.dart' show RebiteOnboarding;
 
@@ -253,13 +254,13 @@ class _PartnerLoginFormViewState extends State<PartnerLoginFormView> {
         'Berhasil masuk ke Dashboard Mitra Restoran ($email)',
       );
 
-      // 6. Navigasi Menggunakan Navigator.push() ke Halaman Dashboard Mitra
+      // 6. Navigasi Menggunakan Navigator.push() ke Halaman Dashboard Mitra Restoran
       Future.delayed(const Duration(milliseconds: 600), () {
         if (!mounted) return;
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => const PartnerLoginSuccessPage(),
+            builder: (context) => const RebiteRestaurantDashboard(),
           ),
         );
       });

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'session_storage.dart';
+import 'rebite_claimer_dashboard_map.dart' show RebiteClaimerDashboardMap;
+import 'rebite_restaurant_dashboard.dart' show RebiteRestaurantDashboard;
 import 'rebite_login.dart' show RebiteLoginPage;
 import 'rebite_partner_login.dart' show RebitePartnerLoginPage;
 import 'rebite_onboarding.dart' show RebiteOnboarding;
@@ -327,15 +329,15 @@ class _PartnerClaimerSignupFormViewState extends State<PartnerClaimerSignupFormV
 
       RebiteAuthSession.registerUser(newUser);
 
-      _showCustomToast('Pendaftaran Claimer berhasil! Akun tersimpan di sesi.');
+      _showCustomToast('Pendaftaran Claimer berhasil! Mengalihkan ke dashboard...');
 
-      // Navigasi ke Login Claimer dengan Navigator.push
+      // Navigasi ke Dashboard Claimer dengan Navigator.push
       Future.delayed(const Duration(milliseconds: 700), () {
         if (!mounted) return;
         Navigator.pushReplacement(
           context,
           MaterialPageRoute(
-            builder: (context) => const RebiteLoginPage(),
+            builder: (context) => const RebiteClaimerDashboardMap(),
           ),
         );
       });
@@ -376,15 +378,15 @@ class _PartnerClaimerSignupFormViewState extends State<PartnerClaimerSignupFormV
 
       RebiteAuthSession.registerUser(newUser);
 
-      _showCustomToast('Pendaftaran Mitra Restoran berhasil! Akun tersimpan di sesi.');
+      _showCustomToast('Pendaftaran Mitra Restoran berhasil! Mengalihkan ke dashboard...');
 
-      // Navigasi ke Login Mitra Restoran dengan Navigator.push
+      // Navigasi ke Dashboard Mitra Restoran dengan Navigator.push
       Future.delayed(const Duration(milliseconds: 700), () {
         if (!mounted) return;
         Navigator.pushReplacement(
           context,
           MaterialPageRoute(
-            builder: (context) => const RebitePartnerLoginPage(),
+            builder: (context) => const RebiteRestaurantDashboard(),
           ),
         );
       });

@@ -3,6 +3,8 @@ import 'package:google_fonts/google_fonts.dart';
 import 'rebite_partner_login.dart' show RebitePartnerLoginPage;
 import 'session_storage.dart';
 import 'rebite_partner_claimer_signup.dart' show RebitePartnerClaimerSignupPage;
+import 'rebite_claimer_dashboard_map.dart' show RebiteClaimerDashboardMap;
+import 'rebite_restaurant_dashboard.dart' show RebiteRestaurantDashboard;
 
 // ============================================================================
 // 1. PALET WARNA RESMI REBITE (Sesuai rebite_professional_login_page.html)
@@ -206,19 +208,14 @@ class _RebiteLoginFormViewState extends State<RebiteLoginFormView> {
         _errorMessage = null;
       });
 
-      if (_selectedRole == 'resto') {
-  Navigator.pushNamed(context, '/restaurant-dashboard');
-} else {
-  Navigator.push(
-    context,
-    MaterialPageRoute(
-      builder: (context) => LoginSuccessDestinationPage(
-        role: _selectedRole,
-        userEmail: email,
-      ),
-    ),
-  );
-}
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => _selectedRole == 'resto'
+              ? const RebiteRestaurantDashboard()
+              : const RebiteClaimerDashboardMap(),
+        ),
+      );
     } else {
       setState(() {
         _errorMessage = 'Email atau kata sandi salah!\nGunakan: $kDefaultEmail / $kDefaultPassword';
