@@ -5,6 +5,7 @@ import 'food_detail.dart';
 import 'rebite_claimer_profile.dart';
 import 'sidejob_missions.dart';
 import 'sidejob_register.dart';
+import 'rebite_route_tracker.dart';
 // ============================================================
 // 1. PALET WARNA
 // ============================================================
@@ -180,9 +181,7 @@ class _RebiteClaimerDashboardMapState extends State<RebiteClaimerDashboardMap> {
   // NAVIGASI — helper
 
 void _push(Widget page) {
-  Navigator.of(context).push(
-    MaterialPageRoute(builder: (_) => page),
-  );
+  RebiteRouteTracker.push(context, page);
 }
 
 /// Card 1–4 → FoodDetail(id) | Card 5 (sidejob) → SidejobMissions

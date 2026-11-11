@@ -7,6 +7,16 @@ class SidejobRegister extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back),
+          onPressed: () {
+            if (Navigator.canPop(context)) {
+              Navigator.pop(context);
+            } else {
+              Navigator.pushReplacementNamed(context, '/sidejob-missions');
+            }
+          },
+        ),
         title: const Text('Daftar Relawan Sidejob'),
         backgroundColor: const Color(0xFF2C5745),
         foregroundColor: const Color(0xFFEBE3A7),

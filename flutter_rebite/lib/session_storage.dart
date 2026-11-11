@@ -1,7 +1,11 @@
 // ============================================================================
-// SESSION STORAGE SERVICE (Penyimpanan Sementara Dalam Memori Aplikasi)
-// Data tersimpan selama aplikasi belum ditutup / di-restart.
+// SESSION STORAGE SERVICE (Penyimpanan Terpadu In-Memory & Persistent Storage)
+// Data dan sesi halaman tetap tersimpan meskipun browser / aplikasi di-refresh.
 // ============================================================================
+
+import 'dart:convert';
+import 'package:flutter/foundation.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 /// Model data akun yang didaftarkan oleh user
 class RegisteredUser {
@@ -48,24 +52,83 @@ class RegisteredUser {
   }
 }
 
-/// Implementasi sessionStorage in-memory
+/// Implementasi sessionStorage dengan persistent storage (SharedPreferences)
 class SessionStorage {
   static final Map<String, dynamic> _storage = {};
+  static SharedPreferences? _prefs;
+  static bool _initialized = false;
 
-  static void setItem(String key, dynamic value) {
-    _storage[key] = value;
+  /// Inisialisasi awal saat aplikasi dijalankan (sebelum runApp)
+  static Future<void> init() async {
+    if (_initialized) return;
+    try {
+      _prefs = await SharedPreferences.getInstance();
+      final keys = _prefs?.getKeys() ?? {};
+      for (final key in keys) {
+        final val = _prefs?.get(key);
+        if (val is String) {
+          final trimmed = val.trim();
+          if ((trimmed.startsWith('{') && trimmed.endsWith('}')) ||
+              (trimmed.startsWith('[') && trimmed.endsWith(']'))) {
+            try {
+              _storage[key] = jsonDecode(trimmed);
+              continue;
+            } catch (_) {
+              // Jika bukan JSON valid, gunakan string aslinya
+            }
+          }
+        }
+        if (val != null) {
+          _storage[key] = val;
+        }
+      }
+      _initialized = true;
+    } catch (e) {
+      debugPrint('[SessionStorage] SharedPreferences init error: $e');
+    }
   }
 
+  /// Simpan data ke memory & persistent storage
+  static void setItem(String key, dynamic value) {
+    _storage[key] = value;
+    try {
+      if (_prefs != null) {
+        if (value is String) {
+          _prefs!.setString(key, value);
+        } else if (value is bool) {
+          _prefs!.setBool(key, value);
+        } else if (value is int) {
+          _prefs!.setInt(key, value);
+        } else if (value is double) {
+          _prefs!.setDouble(key, value);
+        } else {
+          _prefs!.setString(key, jsonEncode(value));
+        }
+      }
+    } catch (e) {
+      debugPrint('[SessionStorage] setItem error: $e');
+    }
+  }
+
+  /// Ambil data dari storage
   static dynamic getItem(String key) {
     return _storage[key];
   }
 
+  /// Hapus satu item
   static void removeItem(String key) {
     _storage.remove(key);
+    try {
+      _prefs?.remove(key);
+    } catch (_) {}
   }
 
+  /// Bersihkan seluruh data
   static void clear() {
     _storage.clear();
+    try {
+      _prefs?.clear();
+    } catch (_) {}
   }
 
   static bool containsKey(String key) {

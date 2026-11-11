@@ -1,3 +1,4 @@
+import 'rebite_route_tracker.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'rebite_login.dart';
@@ -98,12 +99,10 @@ class _RebiteOnboardingState extends State<RebiteOnboarding> {
 
   // Navigasi ke Halaman Login (Navigator.push)
   void _navigateToLogin() {
-    Navigator.push(
+    RebiteRouteTracker.push(
       context,
-      MaterialPageRoute(
-        settings: const RouteSettings(name: '/login'),
-        builder: (context) => const RebiteLoginPage(),
-      ),
+      const RebiteLoginPage(),
+      routeName: AppRoutes.login,
     );
   }
 

@@ -1,8 +1,9 @@
+import 'rebite_route_tracker.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'session_storage.dart';
 import 'rebite_partner_claimer_signup.dart' show RebitePartnerClaimerSignupPage;
-import 'rebite_restaurant_dashboard.dart' show RebiteRestaurantDashboard;
+
 import 'rebite_login.dart' show RebiteLoginPage;
 import 'rebite_onboarding.dart' show RebiteOnboarding;
 
@@ -257,12 +258,8 @@ class _PartnerLoginFormViewState extends State<PartnerLoginFormView> {
       // 6. Navigasi Menggunakan Navigator.push() ke Halaman Dashboard Mitra Restoran
       Future.delayed(const Duration(milliseconds: 600), () {
         if (!mounted) return;
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => const RebiteRestaurantDashboard(),
-          ),
-        );
+        RebiteRouteTracker.lockRoute(AppRoutes.restaurantDashboard);
+        Navigator.pushReplacementNamed(context, AppRoutes.restaurantDashboard);
       });
     } else {
       setState(() {
@@ -289,11 +286,10 @@ class _PartnerLoginFormViewState extends State<PartnerLoginFormView> {
       Future.delayed(const Duration(milliseconds: 250), () {
         if (!mounted) return;
         // 6. Navigasi Menggunakan Navigator.push() ke Halaman Claimer Login
-        Navigator.push(
+        RebiteRouteTracker.push(
           context,
-          MaterialPageRoute(
-            builder: (context) => const RebiteLoginPage(),
-          ),
+          const RebiteLoginPage(),
+          routeName: AppRoutes.login,
         ).then((_) {
           // Ketika kembali dari halaman claimer, reset ke resto
           if (mounted) {
@@ -324,11 +320,10 @@ class _PartnerLoginFormViewState extends State<PartnerLoginFormView> {
               child: PartnerBrandLogoAvatar(
                 onTapLogo: () {
                   // 6. Navigasi Menggunakan Navigator.push() kembali ke Onboarding
-                  Navigator.push(
+                  RebiteRouteTracker.push(
                     context,
-                    MaterialPageRoute(
-                      builder: (context) => const RebiteOnboarding(),
-                    ),
+                    const RebiteOnboarding(),
+                    routeName: AppRoutes.onboarding,
                   );
                 },
               ),
@@ -545,11 +540,10 @@ class _PartnerLoginFormViewState extends State<PartnerLoginFormView> {
                         child: GestureDetector(
                           onTap: () {
                             // 6. Navigasi Menggunakan Navigator.push() ke Form Pendaftaran Mitra
-                            Navigator.push(
+                            RebiteRouteTracker.push(
                               context,
-                              MaterialPageRoute(
-                                builder: (context) => const RebitePartnerClaimerSignupPage(initialRole: 'resto'),
-                              ),
+                              const RebitePartnerClaimerSignupPage(initialRole: 'resto'),
+                              routeName: AppRoutes.partnerSignup,
                             );
                           },
                           child: Text(

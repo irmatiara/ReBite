@@ -1,3 +1,4 @@
+import 'rebite_route_tracker.dart';
 // File: lib/sidejob_missions.dart
 // Halaman Misi Sidejob & Delivery — Front-End only.
 // Responsif: mobile (<900px) single column, web/desktop (>=900px) dua kolom.
@@ -126,7 +127,7 @@ class _SidejobMissionsState extends State<SidejobMissions> {
   int _selectedTab = 0;
 
   void _push(Widget page) {
-    Navigator.of(context).push(MaterialPageRoute(builder: (_) => page));
+    RebiteRouteTracker.push(context, page);
   }
 
   /// Setara openMissionModal() + closeMissionModal() di HTML:

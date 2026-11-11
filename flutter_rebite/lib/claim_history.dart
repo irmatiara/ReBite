@@ -1,3 +1,4 @@
+import 'rebite_route_tracker.dart';
 // File: lib/claim_history.dart
 // Halaman Riwayat Klaim & Tiket QR — Front-End only.
 // Responsif: mobile (<900px) single column dengan tab filter,
@@ -41,7 +42,7 @@ class _ClaimHistoryState extends State<ClaimHistory> {
   // Navigasi & dialog
   // ------------------------------------------------------------
   void _push(Widget page) {
-    Navigator.of(context).push(MaterialPageRoute(builder: (_) => page));
+    RebiteRouteTracker.push(context, page);
   }
 
   /// Setara cancelClaim() di HTML: confirm → alert.

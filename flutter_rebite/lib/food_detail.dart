@@ -9,6 +9,16 @@ class FoodDetail extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back),
+          onPressed: () {
+            if (Navigator.canPop(context)) {
+              Navigator.pop(context);
+            } else {
+              Navigator.pushReplacementNamed(context, '/claimer-dashboard');
+            }
+          },
+        ),
         title: Text('Detail Makanan #${id ?? 1}'),
         backgroundColor: const Color(0xFF2C5745),
         foregroundColor: const Color(0xFFEBE3A7),
