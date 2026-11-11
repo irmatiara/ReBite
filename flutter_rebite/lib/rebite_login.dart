@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'rebite_partner_login.dart' show RebitePartnerLoginPage;
 
 // ============================================================================
 // 1. PALET WARNA RESMI REBITE (Sesuai rebite_professional_login_page.html)
@@ -217,6 +218,45 @@ class _RebiteLoginFormViewState extends State<RebiteLoginFormView> {
     }
   }
 
+  void _onRoleChanged(String newRole) {
+    if (newRole == _selectedRole) return;
+
+    setState(() {
+      _selectedRole = newRole;
+    });
+
+    if (newRole == 'resto') {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          backgroundColor: kDarkBrown,
+          behavior: SnackBarBehavior.floating,
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+          content: Text(
+            'Beralih ke Portal Mitra Restoran...',
+            style: GoogleFonts.plusJakartaSans(color: kVanilla, fontWeight: FontWeight.w600),
+          ),
+          duration: const Duration(milliseconds: 1500),
+        ),
+      );
+
+      Future.delayed(const Duration(milliseconds: 250), () {
+        if (!mounted) return;
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => const RebitePartnerLoginPage(),
+          ),
+        ).then((_) {
+          if (mounted) {
+            setState(() {
+              _selectedRole = 'claimer';
+            });
+          }
+        });
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     // 3. Multi-Child Widget: SingleChildScrollView dengan ClampingScrollPhysics
@@ -256,11 +296,7 @@ class _RebiteLoginFormViewState extends State<RebiteLoginFormView> {
                 // 2. Reusable Widget: Role Switcher (Pencari / Claimer vs Mitra Resto)
                 RoleSwitcherPill(
                   selectedRole: _selectedRole,
-                  onRoleChanged: (newRole) {
-                    setState(() {
-                      _selectedRole = newRole;
-                    });
-                  },
+                  onRoleChanged: _onRoleChanged,
                 ),
 
                 const SizedBox(height: 18),
