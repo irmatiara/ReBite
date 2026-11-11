@@ -1,3 +1,5 @@
+import 'rebite_route_tracker.dart';
+import 'rebite_claimer_dashboard_map.dart';
 import 'package:flutter/material.dart';
 
 class FoodDetail extends StatelessWidget {
@@ -15,7 +17,7 @@ class FoodDetail extends StatelessWidget {
             if (Navigator.canPop(context)) {
               Navigator.pop(context);
             } else {
-              Navigator.pushReplacementNamed(context, '/claimer-dashboard');
+              Navigator.push(context, RebiteRouteTracker.createPageRoute(const RebiteClaimerDashboardMap()));
             }
           },
         ),

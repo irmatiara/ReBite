@@ -1,3 +1,5 @@
+import 'rebite_claimer_dashboard_map.dart';
+import 'rebite_restaurant_dashboard.dart';
 import 'rebite_route_tracker.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -209,11 +211,13 @@ class _RebiteLoginFormViewState extends State<RebiteLoginFormView> {
         _errorMessage = null;
       });
 
-      final destRoute = _selectedRole == 'resto'
-          ? AppRoutes.restaurantDashboard
-          : AppRoutes.claimerDashboard;
-      RebiteRouteTracker.lockRoute(destRoute);
-      Navigator.pushReplacementNamed(context, destRoute);
+      final destWidget = _selectedRole == 'resto'
+          ? const RebiteRestaurantDashboard()
+          : const RebiteClaimerDashboardMap();
+      Navigator.push(
+        context,
+        RebiteRouteTracker.createPageRoute(destWidget),
+      );
     } else {
       setState(() {
         _errorMessage = 'Email atau kata sandi salah!\nGunakan: $kDefaultEmail / $kDefaultPassword';

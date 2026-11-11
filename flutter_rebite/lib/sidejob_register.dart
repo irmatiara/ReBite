@@ -1,3 +1,5 @@
+import 'rebite_route_tracker.dart';
+import 'sidejob_missions.dart';
 import 'package:flutter/material.dart';
 
 class SidejobRegister extends StatelessWidget {
@@ -13,7 +15,7 @@ class SidejobRegister extends StatelessWidget {
             if (Navigator.canPop(context)) {
               Navigator.pop(context);
             } else {
-              Navigator.pushReplacementNamed(context, '/sidejob-missions');
+              Navigator.push(context, RebiteRouteTracker.createPageRoute(const SidejobMissions()));
             }
           },
         ),

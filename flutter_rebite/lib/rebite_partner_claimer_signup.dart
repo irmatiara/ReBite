@@ -1,3 +1,5 @@
+import 'rebite_claimer_dashboard_map.dart';
+import 'rebite_restaurant_dashboard.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'session_storage.dart';
@@ -335,8 +337,10 @@ class _PartnerClaimerSignupFormViewState extends State<PartnerClaimerSignupFormV
       // Navigasi ke Dashboard Claimer dengan Navigator.push
       Future.delayed(const Duration(milliseconds: 700), () {
         if (!mounted) return;
-        RebiteRouteTracker.lockRoute(AppRoutes.claimerDashboard);
-        Navigator.pushReplacementNamed(context, AppRoutes.claimerDashboard);
+        Navigator.push(
+          context,
+          RebiteRouteTracker.createPageRoute(const RebiteClaimerDashboardMap()),
+        );
       });
     } else {
       // Peran: Mitra Restoran
@@ -380,8 +384,10 @@ class _PartnerClaimerSignupFormViewState extends State<PartnerClaimerSignupFormV
       // Navigasi ke Dashboard Mitra Restoran dengan Navigator.push
       Future.delayed(const Duration(milliseconds: 700), () {
         if (!mounted) return;
-        RebiteRouteTracker.lockRoute(AppRoutes.restaurantDashboard);
-        Navigator.pushReplacementNamed(context, AppRoutes.restaurantDashboard);
+        Navigator.push(
+          context,
+          RebiteRouteTracker.createPageRoute(const RebiteRestaurantDashboard()),
+        );
       });
     }
   }

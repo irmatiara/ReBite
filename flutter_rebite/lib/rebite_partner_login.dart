@@ -1,3 +1,4 @@
+import 'rebite_restaurant_dashboard.dart';
 import 'rebite_route_tracker.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -258,8 +259,10 @@ class _PartnerLoginFormViewState extends State<PartnerLoginFormView> {
       // 6. Navigasi Menggunakan Navigator.push() ke Halaman Dashboard Mitra Restoran
       Future.delayed(const Duration(milliseconds: 600), () {
         if (!mounted) return;
-        RebiteRouteTracker.lockRoute(AppRoutes.restaurantDashboard);
-        Navigator.pushReplacementNamed(context, AppRoutes.restaurantDashboard);
+        Navigator.push(
+          context,
+          RebiteRouteTracker.createPageRoute(const RebiteRestaurantDashboard()),
+        );
       });
     } else {
       setState(() {
