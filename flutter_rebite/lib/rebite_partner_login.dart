@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'session_storage.dart';
+import 'rebite_partner_claimer_signup.dart' show RebitePartnerClaimerSignupPage;
 import 'rebite_login.dart' show RebiteLoginPage;
 import 'rebite_onboarding.dart' show RebiteOnboarding;
 
@@ -238,7 +240,10 @@ class _PartnerLoginFormViewState extends State<PartnerLoginFormView> {
       return;
     }
 
-    if (email == _kDefaultEmail && password == _kDefaultPassword) {
+    final isAuthValid = RebiteAuthSession.validateLogin(email, password, role: 'resto') ||
+        (email == _kDefaultEmail && password == _kDefaultPassword);
+
+    if (isAuthValid) {
       setState(() {
         _errorMessage = null;
       });
@@ -254,10 +259,7 @@ class _PartnerLoginFormViewState extends State<PartnerLoginFormView> {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => PartnerLoginSuccessPage(
-              role: _selectedRole,
-              userEmail: email,
-            ),
+            builder: (context) => const PartnerLoginSuccessPage(),
           ),
         );
       });
@@ -268,7 +270,7 @@ class _PartnerLoginFormViewState extends State<PartnerLoginFormView> {
       });
       _showCustomToast(
         context,
-        'Kredensial tidak cocok. Gunakan akun default: $_kDefaultEmail',
+        'Kredensial tidak cocok. Silakan daftar jika belum memiliki akun.',
       );
     }
   }
@@ -541,11 +543,11 @@ class _PartnerLoginFormViewState extends State<PartnerLoginFormView> {
                       WidgetSpan(
                         child: GestureDetector(
                           onTap: () {
-                            // 6. Navigasi Menggunakan Navigator.push() ke Form Pendaftaran
+                            // 6. Navigasi Menggunakan Navigator.push() ke Form Pendaftaran Mitra
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                builder: (context) => const PartnerRegisterPage(),
+                                builder: (context) => const RebitePartnerClaimerSignupPage(initialRole: 'resto'),
                               ),
                             );
                           },

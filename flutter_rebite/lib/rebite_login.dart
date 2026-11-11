@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'rebite_partner_login.dart' show RebitePartnerLoginPage;
+import 'session_storage.dart';
+import 'rebite_partner_claimer_signup.dart' show RebitePartnerClaimerSignupPage;
 
 // ============================================================================
 // 1. PALET WARNA RESMI REBITE (Sesuai rebite_professional_login_page.html)
@@ -195,8 +197,11 @@ class _RebiteLoginFormViewState extends State<RebiteLoginFormView> {
       return;
     }
 
-    // Validasi akun default: admin@rebite.com & 12345678
-    if (email == kDefaultEmail && password == kDefaultPassword) {
+    // Validasi akun (mendukung default & session storage)
+    final isAuthValid = RebiteAuthSession.validateLogin(email, password, role: 'claimer') ||
+        (email == kDefaultEmail && password == kDefaultPassword);
+
+    if (isAuthValid) {
       setState(() {
         _errorMessage = null;
       });
@@ -495,7 +500,7 @@ class _RebiteLoginFormViewState extends State<RebiteLoginFormView> {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (context) => const SimpleRegisterPlaceholder(),
+                                  builder: (context) => const RebitePartnerClaimerSignupPage(initialRole: 'claimer'),
                                 ),
                               );
                             },
