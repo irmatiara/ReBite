@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'rebite_login.dart';
+import 'rebite_partner_claimer_signup.dart';
 
 // ============================================================================
 // 1. PALET WARNA RESMI REBITE (Sesuai file rebite_onboarding.html)
@@ -100,6 +101,7 @@ class _RebiteOnboardingState extends State<RebiteOnboarding> {
     Navigator.push(
       context,
       MaterialPageRoute(
+        settings: const RouteSettings(name: '/login'),
         builder: (context) => const RebiteLoginPage(),
       ),
     );
@@ -107,14 +109,63 @@ class _RebiteOnboardingState extends State<RebiteOnboarding> {
 
   // Navigasi ke Halaman Registrasi (Navigator.push)
   void _navigateToSignup() {
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => const OnboardingDestinationPlaceholder(
-          title: 'Halaman Registrasi Baru (Signup)',
-          subtitle: 'Langkah berikutnya: Form pendaftaran akun baru ReBite.',
-          icon: Icons.person_add_alt_1_rounded,
+    // Tampilkan pilihan jenis akun (Mitra Restoran atau Claimer)
+    showDialog(
+      context: context,
+      builder: (ctx) => AlertDialog(
+        backgroundColor: kBgLight,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+        title: Text(
+          'Pilih Jenis Akun',
+          style: GoogleFonts.plusJakartaSans(
+            fontWeight: FontWeight.w700,
+            color: kDarkBrown,
+          ),
         ),
+        content: Text(
+          'Silakan pilih jenis akun yang ingin Anda daftarkan.',
+          style: GoogleFonts.plusJakartaSans(color: kMuted),
+        ),
+        actions: [
+          TextButton(
+            onPressed: () {
+              Navigator.of(ctx).pop();
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  settings: const RouteSettings(name: '/partner-signup'),
+                  builder: (_) => const RebitePartnerClaimerSignupPage(initialRole: 'resto'),
+                ),
+              );
+            },
+            child: Text(
+              'Mitra Restoran',
+              style: GoogleFonts.plusJakartaSans(
+                fontWeight: FontWeight.w700,
+                color: kBrunswick,
+              ),
+            ),
+          ),
+          TextButton(
+            onPressed: () {
+              Navigator.of(ctx).pop();
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  settings: const RouteSettings(name: '/claimer-signup'),
+                  builder: (_) => const RebitePartnerClaimerSignupPage(initialRole: 'claimer'),
+                ),
+              );
+            },
+            child: Text(
+              'Claimer',
+              style: GoogleFonts.plusJakartaSans(
+                fontWeight: FontWeight.w700,
+                color: kTangerine,
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }

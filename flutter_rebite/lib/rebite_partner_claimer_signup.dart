@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'session_storage.dart';
+import 'rebite_route_tracker.dart';
 import 'rebite_claimer_dashboard_map.dart' show RebiteClaimerDashboardMap;
 import 'rebite_restaurant_dashboard.dart' show RebiteRestaurantDashboard;
 import 'rebite_login.dart' show RebiteLoginPage;
@@ -399,6 +400,7 @@ class _PartnerClaimerSignupFormViewState extends State<PartnerClaimerSignupFormV
       Navigator.push(
         context,
         MaterialPageRoute(
+          settings: const RouteSettings(name: '/partner-login'),
           builder: (context) => const RebitePartnerLoginPage(),
         ),
       );
@@ -406,6 +408,7 @@ class _PartnerClaimerSignupFormViewState extends State<PartnerClaimerSignupFormV
       Navigator.push(
         context,
         MaterialPageRoute(
+          settings: const RouteSettings(name: '/login'),
           builder: (context) => const RebiteLoginPage(),
         ),
       );
@@ -433,6 +436,7 @@ class _PartnerClaimerSignupFormViewState extends State<PartnerClaimerSignupFormV
                   Navigator.push(
                     context,
                     MaterialPageRoute(
+                      settings: const RouteSettings(name: '/onboarding'),
                       builder: (context) => const RebiteOnboarding(),
                     ),
                   );
