@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'rebite_login.dart';
 
 // ============================================================================
 // 1. PALET WARNA RESMI REBITE (Sesuai file rebite_onboarding.html)
@@ -99,11 +100,7 @@ class _RebiteOnboardingState extends State<RebiteOnboarding> {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => const OnboardingDestinationPlaceholder(
-          title: 'Halaman Login Claimer & Mitra Resto',
-          subtitle: 'Langkah berikutnya: Form login akun ReBite.',
-          icon: Icons.login_rounded,
-        ),
+        builder: (context) => const RebiteLoginPage(),
       ),
     );
   }
