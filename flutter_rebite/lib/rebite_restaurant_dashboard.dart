@@ -300,150 +300,149 @@ class _RebiteRestaurantDashboardState
   // HEADER
   // ==========================================================
 
-  Widget _buildHeader() {
-    return Container(
-      color: _rBrunswick,
-      padding: const EdgeInsets.symmetric(
-        horizontal: 18,
-        vertical: 15,
-      ),
-      child: Row(
-        children: [
-          Expanded(
-            child: InkWell(
-              onTap: () {
-                _openFeature(widget.onOpenProfile, 'Profil Restoran');
-              },
-              borderRadius: BorderRadius.circular(12),
-              child: Row(
-                children: [
-                  Container(
-                    width: 42,
-                    height: 42,
-                    decoration: BoxDecoration(
-                      color: _rVanilla,
-                      shape: BoxShape.circle,
-                      border: Border.all(
-                        color: _rTangerine,
-                        width: 2,
-                      ),
-                    ),
-                    alignment: Alignment.center,
-                    child: const Text(
-                      'R',
-                      style: TextStyle(
-                        color: _rBrunswick,
-                        fontSize: 19,
-                        fontWeight: FontWeight.w800,
-                      ),
-                    ),
+
+Widget _buildHeader() {
+  return Container(
+    color: _rBrunswick,
+    padding: const EdgeInsets.symmetric(
+      horizontal: 18,
+      vertical: 15,
+    ),
+    child: Row(
+      children: [
+        Container(
+          width: 42,
+          height: 42,
+          decoration: BoxDecoration(
+            color: _rVanilla,
+            shape: BoxShape.circle,
+            border: Border.all(
+              color: _rTangerine,
+              width: 2,
+            ),
+          ),
+          alignment: Alignment.center,
+          child: const Text(
+            'R',
+            style: TextStyle(
+              color: _rBrunswick,
+              fontSize: 19,
+              fontWeight: FontWeight.w800,
+            ),
+          ),
+        ),
+
+        const SizedBox(width: 10),
+
+        Expanded(
+          child: InkWell(
+            onTap: () {
+              _openFeature(widget.onOpenProfile, 'Profil Restoran');
+            },
+            borderRadius: BorderRadius.circular(12),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Container(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 8,
+                    vertical: 3,
                   ),
-
-                  const SizedBox(width: 10),
-
-                  Flexible(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
+                  decoration: BoxDecoration(
+                    color: _rTangerine.withValues(alpha: 0.20),
+                    border: Border.all(
+                      color: _rTangerine,
+                    ),
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  child: const FittedBox(
+                    fit: BoxFit.scaleDown,
+                    alignment: Alignment.centerLeft,
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
                       children: [
-                        Container(
-                          padding: const EdgeInsets.symmetric(
-                            horizontal: 8,
-                            vertical: 3,
-                          ),
-                          decoration: BoxDecoration(
-                            color: _rTangerine.withValues(alpha: 0.20),
-                            border: Border.all(
-                              color: _rTangerine,
-                            ),
-                            borderRadius: BorderRadius.circular(12),
-                          ),
-                          child: const Row(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              Icon(
-                                Icons.storefront_outlined,
-                                size: 11,
-                                color: _rVanilla,
-                              ),
-                              SizedBox(width: 4),
-                              Text(
-                                'MITRA RESTORAN',
-                                style: TextStyle(
-                                  fontSize: 9,
-                                  fontWeight: FontWeight.w800,
-                                  color: _rVanilla,
-                                ),
-                              ),
-                            ],
-                          ),
+                        Icon(
+                          Icons.storefront_outlined,
+                          size: 11,
+                          color: _rVanilla,
                         ),
-
-                        const SizedBox(height: 4),
-
-                        const Text(
-                          'Nama Restoran',
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
+                        SizedBox(width: 4),
+                        Text(
+                          'MITRA RESTORAN',
                           style: TextStyle(
-                            fontSize: 14,
+                            fontSize: 9,
                             fontWeight: FontWeight.w800,
-                            color: _rWhite,
+                            color: _rVanilla,
                           ),
                         ),
                       ],
                     ),
                   ),
-                ],
-              ),
-            ),
-          ),
-
-          const SizedBox(width: 8),
-
-          InkWell(
-            onTap: _toggleStoreStatus,
-            borderRadius: BorderRadius.circular(18),
-            child: Container(
-              padding: const EdgeInsets.symmetric(
-                horizontal: 10,
-                vertical: 8,
-              ),
-              decoration: BoxDecoration(
-                color: _rWhite.withValues(alpha: 0.12),
-                border: Border.all(
-                  color: _rVanilla.withValues(alpha: 0.4),
                 ),
-                borderRadius: BorderRadius.circular(18),
-              ),
-              child: Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Container(
-                    width: 8,
-                    height: 8,
-                    decoration: BoxDecoration(
-                      color: _isStoreOpen ? _rGreenStatus : _rRed,
-                      shape: BoxShape.circle,
-                    ),
+
+                const SizedBox(height: 4),
+
+                const Text(
+                  'Nama Restoran',
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  style: TextStyle(
+                    fontSize: 14,
+                    fontWeight: FontWeight.w800,
+                    color: _rWhite,
                   ),
-                  const SizedBox(width: 6),
-                  Text(
-                    _isStoreOpen ? 'TOKO BUKA' : 'TOKO TUTUP',
-                    style: const TextStyle(
-                      fontSize: 9,
-                      fontWeight: FontWeight.w800,
-                      color: _rWhite,
-                    ),
-                  ),
-                ],
-              ),
+                ),
+              ],
             ),
           ),
-        ],
-      ),
-    );
-  }
+        ),
 
+        const SizedBox(width: 8),
+
+        InkWell(
+          onTap: _toggleStoreStatus,
+          borderRadius: BorderRadius.circular(18),
+          child: Container(
+            padding: const EdgeInsets.symmetric(
+              horizontal: 8,
+              vertical: 8,
+            ),
+            decoration: BoxDecoration(
+              color: _rWhite.withValues(alpha: 0.12),
+              border: Border.all(
+                color: _rVanilla.withValues(alpha: 0.4),
+              ),
+              borderRadius: BorderRadius.circular(18),
+            ),
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Container(
+                  width: 8,
+                  height: 8,
+                  decoration: BoxDecoration(
+                    color: _isStoreOpen ? _rGreenStatus : _rRed,
+                    shape: BoxShape.circle,
+                  ),
+                ),
+                const SizedBox(width: 5),
+                Text(
+                  _isStoreOpen ? 'TOKO BUKA' : 'TOKO TUTUP',
+                  style: const TextStyle(
+                    fontSize: 9,
+                    fontWeight: FontWeight.w800,
+                    color: _rWhite,
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ],
+    ),
+  );
+}
   // ==========================================================
   // STATISTIK
   // ==========================================================
