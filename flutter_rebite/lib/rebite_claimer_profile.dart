@@ -1,3 +1,5 @@
+import 'rebite_route_tracker.dart';
+import 'session_storage.dart';
 
 import 'package:flutter/material.dart';
 
@@ -14,9 +16,7 @@ class RebiteClaimerProfile extends StatelessWidget {
   // ============================================================
 
   void _openPage(BuildContext context, Widget page) {
-    Navigator.of(context).push(
-      MaterialPageRoute(builder: (_) => page),
-    );
+    RebiteRouteTracker.push(context, page);
   }
 
   // ============================================================
@@ -249,8 +249,10 @@ class RebiteClaimerProfile extends StatelessWidget {
     );
 
     if (confirmed == true && context.mounted) {
-      // Kembali ke halaman pertama aplikasi.
-      Navigator.of(context).popUntil((route) => route.isFirst);
+      // Kembali ke halaman onboarding dan reset kunci halaman.
+      RebiteRouteTracker.clearLockedRoute();
+      SessionStorage.removeItem('current_logged_user');
+      Navigator.of(context).pushNamedAndRemoveUntil(AppRoutes.onboarding, (route) => false);
     }
   }
 

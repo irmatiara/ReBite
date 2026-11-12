@@ -1,26 +1,29 @@
+
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+
 import 'session_storage.dart';
-import 'rebite_partner_claimer_signup.dart' show RebitePartnerClaimerSignupPage;
-// import 'rebite_restaurant_dashboard.dart' show RebiteRestaurantDashboard;
+import 'rebite_route_tracker.dart';
+import 'rebite_partner_claimer_signup.dart'
+    show RebitePartnerClaimerSignupPage;
 import 'rebite_login.dart' show RebiteLoginPage;
 import 'rebite_onboarding.dart' show RebiteOnboarding;
 
 // ============================================================================
 // 4. TEMA DAN DESAIN (Material Design 3 & Palet Warna rebite_partner_login.html)
 // ============================================================================
-const Color _kDarkBrown     = Color(0xFF2E2910); // --c-dark-brown: #2E2910
-const Color _kBrunswick     = Color(0xFF2C5745); // --c-brunswick: #2C5745
-const Color _kBrunswickDark = Color(0xFF1E3F32); // --c-brunswick-dark: #1E3F32
-const Color _kTangerine     = Color(0xFFEB7D00); // --c-tangerine: #EB7D00
-const Color _kTangerineHover= Color(0xFFD47000); // --c-tangerine-hover: #D47000
-const Color _kVanilla       = Color(0xFFEBE3A7); // --c-vanilla: #EBE3A7
-const Color _kVanillaSoft   = Color(0xFFFAF7E8); // --c-vanilla-soft: #FAF7E8
-const Color _kBgLight       = Color(0xFFF7F5EB); // --c-bg-light: #F7F5EB
-const Color _kWhite         = Color(0xFFFFFFFF); // --c-white: #FFFFFF
-const Color _kTextMuted     = Color(0xFF6B654C); // --c-text-muted: #6B654C
-const Color _kBorder        = Color(0xFFD8D0A8); // --c-border: #D8D0A8
-const Color _kBorderFocus   = Color(0xFFEB7D00); // --c-border-focus: #EB7D00
+const Color _kDarkBrown = Color(0xFF2E2910);
+const Color _kBrunswick = Color(0xFF2C5745);
+const Color _kBrunswickDark = Color(0xFF1E3F32);
+const Color _kTangerine = Color(0xFFEB7D00);
+const Color _kTangerineHover = Color(0xFFD47000);
+const Color _kVanilla = Color(0xFFEBE3A7);
+const Color _kVanillaSoft = Color(0xFFFAF7E8);
+const Color _kBgLight = Color(0xFFF7F5EB);
+const Color _kWhite = Color(0xFFFFFFFF);
+const Color _kTextMuted = Color(0xFF6B654C);
+const Color _kBorder = Color(0xFFD8D0A8);
+const Color _kBorderFocus = Color(0xFFEB7D00);
 
 // ============================================================================
 // ENTRY POINT MANDIRI (Dapat Dijalankan Terpisah)
@@ -37,7 +40,6 @@ class RebitePartnerLoginApp extends StatelessWidget {
     return MaterialApp(
       title: 'Rebite - Portal Mitra Restoran',
       debugShowCheckedModeBanner: false,
-      // 4. Tema Material Design 3
       theme: ThemeData(
         useMaterial3: true,
         scaffoldBackgroundColor: _kBgLight,
@@ -62,30 +64,30 @@ class RebitePartnerLoginPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // 5. Responsive Design: MediaQuery & Orientation
     final mediaQuery = MediaQuery.of(context);
     final orientation = mediaQuery.orientation;
 
     return Scaffold(
-      backgroundColor: const Color(0xFFE2DFD2), // Kanvas latar belakang netral
+      backgroundColor: const Color(0xFFE2DFD2),
       body: SafeArea(
         top: false,
         bottom: false,
-        // 5. Responsive Design: LayoutBuilder
         child: LayoutBuilder(
           builder: (context, constraints) {
             final isDesktop = constraints.maxWidth > 520;
             final isLandscape = orientation == Orientation.landscape;
 
-            // 3. Single-Child Widget: Center & Container (Viewport Frame 440px sesuai HTML)
             return Center(
               child: Container(
                 width: isDesktop ? 440 : double.infinity,
                 height: isDesktop && !isLandscape ? 920 : double.infinity,
                 decoration: BoxDecoration(
                   color: _kBgLight,
-                  borderRadius: isDesktop ? BorderRadius.circular(24) : BorderRadius.zero,
-                  border: isDesktop ? Border.all(color: _kBorder, width: 1) : null,
+                  borderRadius:
+                      isDesktop ? BorderRadius.circular(24) : BorderRadius.zero,
+                  border: isDesktop
+                      ? Border.all(color: _kBorder, width: 1)
+                      : null,
                   boxShadow: isDesktop
                       ? const [
                           BoxShadow(
@@ -97,11 +99,10 @@ class RebitePartnerLoginPage extends StatelessWidget {
                       : null,
                 ),
                 child: ClipRRect(
-                  borderRadius: isDesktop ? BorderRadius.circular(24) : BorderRadius.zero,
-                  // 3. Multi-Child Widget: Stack (Ambient Blobs + Konten Form)
+                  borderRadius:
+                      isDesktop ? BorderRadius.circular(24) : BorderRadius.zero,
                   child: const Stack(
                     children: [
-                      // Dekorasi Ambient Background Blobs (.bg-decorations)
                       IgnorePointer(
                         child: Stack(
                           children: [
@@ -110,7 +111,7 @@ class RebitePartnerLoginPage extends StatelessWidget {
                               right: -80,
                               child: _AmbientDecorBlob(
                                 size: 400,
-                                color: Color(0x1FEB7D00), // rgba(235, 125, 0, 0.12)
+                                color: Color(0x1FEB7D00),
                               ),
                             ),
                             Positioned(
@@ -118,14 +119,12 @@ class RebitePartnerLoginPage extends StatelessWidget {
                               left: -80,
                               child: _AmbientDecorBlob(
                                 size: 450,
-                                color: Color(0x1F2C5745), // rgba(44, 87, 69, 0.12)
+                                color: Color(0x1F2C5745),
                               ),
                             ),
                           ],
                         ),
                       ),
-
-                      // Tampilan Form Interaktif Login Mitra
                       PartnerLoginFormView(),
                     ],
                   ),
@@ -140,28 +139,28 @@ class RebitePartnerLoginPage extends StatelessWidget {
 }
 
 // ============================================================================
-// KONTEN FORM LOGIN MITRA RESTORAN (StatefulWidget untuk Logika & Validasi)
+// KONTEN FORM LOGIN MITRA RESTORAN
 // ============================================================================
 class PartnerLoginFormView extends StatefulWidget {
   const PartnerLoginFormView({super.key});
 
   @override
-  State<PartnerLoginFormView> createState() => _PartnerLoginFormViewState();
+  State<PartnerLoginFormView> createState() =>
+      _PartnerLoginFormViewState();
 }
 
 class _PartnerLoginFormViewState extends State<PartnerLoginFormView> {
-  // Akun Default Sesuai Ketentuan Tugas
-  static const String _kDefaultEmail    = 'adminResto@rebite.com';
+  static const String _kDefaultEmail = 'adminResto@rebite.com';
   static const String _kDefaultPassword = '12345678';
 
-  // Controller Input Form
-  final TextEditingController _emailController    = TextEditingController(text: _kDefaultEmail);
-  final TextEditingController _passwordController = TextEditingController(text: _kDefaultPassword);
+  final TextEditingController _emailController =
+      TextEditingController(text: _kDefaultEmail);
+  final TextEditingController _passwordController =
+      TextEditingController(text: _kDefaultPassword);
 
-  // Status Form
-  String _selectedRole    = 'resto'; // 'resto' (Mitra Restoran) | 'claimer'
-  bool   _obscurePassword = true;
-  bool   _rememberMe      = true;
+  String _selectedRole = 'resto';
+  bool _obscurePassword = true;
+  bool _rememberMe = true;
   String? _errorMessage;
 
   @override
@@ -171,29 +170,39 @@ class _PartnerLoginFormViewState extends State<PartnerLoginFormView> {
     super.dispose();
   }
 
-  // Isi Otomatis Akun Default Mitra
   void _fillDefaultCredentials() {
     setState(() {
-      _emailController.text    = _kDefaultEmail;
+      _emailController.text = _kDefaultEmail;
       _passwordController.text = _kDefaultPassword;
-      _errorMessage            = null;
+      _errorMessage = null;
     });
-    _showCustomToast(context, 'Akun demo adminResto@rebite.com berhasil diisi!');
+
+    _showCustomToast(
+      context,
+      'Akun demo adminResto@rebite.com berhasil diisi!',
+    );
   }
 
-  // Notifikasi Toast Kustom (Sesuai .toast-msg di rebite_partner_login.html)
   void _showCustomToast(BuildContext context, String message) {
     ScaffoldMessenger.of(context).hideCurrentSnackBar();
+
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
         behavior: SnackBarBehavior.floating,
-        margin: const EdgeInsets.only(bottom: 24, left: 16, right: 16),
+        margin: const EdgeInsets.only(
+          bottom: 24,
+          left: 16,
+          right: 16,
+        ),
         duration: const Duration(seconds: 3),
         content: Center(
           child: Container(
-            padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 12),
+            padding: const EdgeInsets.symmetric(
+              horizontal: 18,
+              vertical: 12,
+            ),
             decoration: BoxDecoration(
               color: _kDarkBrown,
               borderRadius: BorderRadius.circular(14),
@@ -209,7 +218,11 @@ class _PartnerLoginFormViewState extends State<PartnerLoginFormView> {
             child: Row(
               mainAxisSize: MainAxisSize.min,
               children: [
-                const Icon(Icons.check_circle_outline_rounded, color: _kTangerine, size: 18),
+                const Icon(
+                  Icons.check_circle_outline_rounded,
+                  color: _kTangerine,
+                  size: 18,
+                ),
                 const SizedBox(width: 10),
                 Flexible(
                   child: Text(
@@ -229,9 +242,11 @@ class _PartnerLoginFormViewState extends State<PartnerLoginFormView> {
     );
   }
 
-  // Logika Autentikasi Login Mitra Restoran
+  // ==========================================================================
+  // LOGIKA LOGIN MITRA RESTORAN
+  // ==========================================================================
   void _handleLogin() {
-    final email    = _emailController.text.trim();
+    final email = _emailController.text.trim();
     final password = _passwordController.text.trim();
 
     if (email.isEmpty || password.isEmpty) {
@@ -241,8 +256,10 @@ class _PartnerLoginFormViewState extends State<PartnerLoginFormView> {
       return;
     }
 
-    final isAuthValid = RebiteAuthSession.validateLogin(email, password, role: 'resto') ||
-        (email == _kDefaultEmail && password == _kDefaultPassword);
+    final isAuthValid =
+        RebiteAuthSession.validateLogin(email, password, role: 'resto') ||
+            (email == _kDefaultEmail &&
+                password == _kDefaultPassword);
 
     if (isAuthValid) {
       setState(() {
@@ -254,16 +271,23 @@ class _PartnerLoginFormViewState extends State<PartnerLoginFormView> {
         'Berhasil masuk ke Dashboard Mitra Restoran ($email)',
       );
 
-      // 6. Navigasi Menggunakan Navigator.push() ke Halaman Dashboard Mitra Restoran
+      // Navigasi ke route dashboard yang sudah didaftarkan di main.dart.
+      // Dengan cara ini, callback profil dan form posting tetap berfungsi.
       Future.delayed(const Duration(milliseconds: 600), () {
-  if (!mounted) return;
-  Navigator.pushNamed(context, '/restaurant-dashboard');
-});
+        if (!mounted) return;
+
+        Navigator.pushNamed(
+          context,
+          '/restaurant-dashboard',
+        );
+      });
     } else {
       setState(() {
         _errorMessage =
-            'Email atau kata sandi salah!\nDefault: $_kDefaultEmail / $_kDefaultPassword';
+            'Email atau kata sandi salah!\n'
+            'Default: $_kDefaultEmail / $_kDefaultPassword';
       });
+
       _showCustomToast(
         context,
         'Kredensial tidak cocok. Silakan daftar jika belum memiliki akun.',
@@ -271,7 +295,9 @@ class _PartnerLoginFormViewState extends State<PartnerLoginFormView> {
     }
   }
 
-  // Ganti Peran (Pencari / Claimer vs Mitra Restoran)
+  // ==========================================================================
+  // GANTI PERAN: CLAIMER ATAU MITRA RESTORAN
+  // ==========================================================================
   void _onRoleChanged(String newRole) {
     if (newRole == _selectedRole) return;
 
@@ -280,17 +306,19 @@ class _PartnerLoginFormViewState extends State<PartnerLoginFormView> {
     });
 
     if (newRole == 'claimer') {
-      _showCustomToast(context, 'Beralih ke Portal Pencari / Claimer...');
+      _showCustomToast(
+        context,
+        'Beralih ke Portal Pencari / Claimer...',
+      );
+
       Future.delayed(const Duration(milliseconds: 250), () {
         if (!mounted) return;
-        // 6. Navigasi Menggunakan Navigator.push() ke Halaman Claimer Login
-        Navigator.push(
+
+        RebiteRouteTracker.push(
           context,
-          MaterialPageRoute(
-            builder: (context) => const RebiteLoginPage(),
-          ),
+          const RebiteLoginPage(),
+          routeName: AppRoutes.login,
         ).then((_) {
-          // Ketika kembali dari halaman claimer, reset ke resto
           if (mounted) {
             setState(() {
               _selectedRole = 'resto';
@@ -303,12 +331,11 @@ class _PartnerLoginFormViewState extends State<PartnerLoginFormView> {
 
   @override
   Widget build(BuildContext context) {
-    // 3. Multi-Child Widget: ListView (Dapat discroll lancar di semua ukuran layar)
     return ListView(
       padding: EdgeInsets.zero,
       physics: const ClampingScrollPhysics(),
       children: [
-        // ── 1. Hero Header Banner + Logo Avatar Menindih Rapi via Stack ──
+        // HERO HEADER DAN LOGO
         Stack(
           clipBehavior: Clip.none,
           alignment: Alignment.bottomCenter,
@@ -318,12 +345,10 @@ class _PartnerLoginFormViewState extends State<PartnerLoginFormView> {
               bottom: -44,
               child: PartnerBrandLogoAvatar(
                 onTapLogo: () {
-                  // 6. Navigasi Menggunakan Navigator.push() kembali ke Onboarding
-                  Navigator.push(
+                  RebiteRouteTracker.push(
                     context,
-                    MaterialPageRoute(
-                      builder: (context) => const RebiteOnboarding(),
-                    ),
+                    const RebiteOnboarding(),
+                    routeName: AppRoutes.onboarding,
                   );
                 },
               ),
@@ -331,21 +356,18 @@ class _PartnerLoginFormViewState extends State<PartnerLoginFormView> {
           ],
         ),
 
-        // Jarak presisi untuk tonjolan logo (44px) + jarak ke welcome text (16px)
         const SizedBox(height: 60),
 
-        // ── 2. Area Body Konten Form (.content-body) ──
+        // BODY FORM LOGIN
         Padding(
           padding: const EdgeInsets.fromLTRB(28, 0, 28, 36),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              // Welcome Text (.welcome-head)
               const PartnerWelcomeHeader(),
 
               const SizedBox(height: 22),
 
-              // 2. Reusable Widget: Role Switcher Pill (.role-switch-container)
               PartnerRoleSwitcherPill(
                 selectedRole: _selectedRole,
                 onRoleChanged: _onRoleChanged,
@@ -353,25 +375,34 @@ class _PartnerLoginFormViewState extends State<PartnerLoginFormView> {
 
               const SizedBox(height: 20),
 
-              // 2 & 3. Reusable Widget: Merchant Features Context Box (.merchant-features-box)
-              // Mengintegrasikan Carousel Fitur Unggulan Mitra Restoran
-              PartnerFeatureCarousel(selectedRole: _selectedRole),
+              PartnerFeatureCarousel(
+                selectedRole: _selectedRole,
+              ),
 
               const SizedBox(height: 16),
 
-              // Pesan Error Validasi
+              // PESAN ERROR
               if (_errorMessage != null)
                 Container(
                   margin: const EdgeInsets.only(bottom: 16),
-                  padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 14,
+                    vertical: 10,
+                  ),
                   decoration: BoxDecoration(
                     color: const Color(0xFFFFECEB),
                     borderRadius: BorderRadius.circular(12),
-                    border: Border.all(color: const Color(0xFFF5A3A0)),
+                    border: Border.all(
+                      color: const Color(0xFFF5A3A0),
+                    ),
                   ),
                   child: Row(
                     children: [
-                      const Icon(Icons.error_outline_rounded, color: Color(0xFFD32F2F), size: 20),
+                      const Icon(
+                        Icons.error_outline_rounded,
+                        color: Color(0xFFD32F2F),
+                        size: 20,
+                      ),
                       const SizedBox(width: 10),
                       Expanded(
                         child: Text(
@@ -387,7 +418,7 @@ class _PartnerLoginFormViewState extends State<PartnerLoginFormView> {
                   ),
                 ),
 
-              // Form Input 1: Email Restoran / ID Mitra
+              // INPUT EMAIL
               PartnerInputField(
                 label: 'Email Restoran / ID Mitra',
                 hintText: 'restoran@rebite.id atau ID-MITRA',
@@ -398,7 +429,7 @@ class _PartnerLoginFormViewState extends State<PartnerLoginFormView> {
 
               const SizedBox(height: 18),
 
-              // Form Input 2: Kata Sandi dengan Toggle Mata
+              // INPUT PASSWORD
               PartnerInputField(
                 label: 'Kata Sandi',
                 hintText: '••••••••',
@@ -407,7 +438,9 @@ class _PartnerLoginFormViewState extends State<PartnerLoginFormView> {
                 prefixIcon: Icons.lock_outline_rounded,
                 suffixIcon: IconButton(
                   icon: Icon(
-                    _obscurePassword ? Icons.visibility_outlined : Icons.visibility_off_outlined,
+                    _obscurePassword
+                        ? Icons.visibility_outlined
+                        : Icons.visibility_off_outlined,
                     color: _kTextMuted,
                     size: 20,
                   ),
@@ -421,11 +454,10 @@ class _PartnerLoginFormViewState extends State<PartnerLoginFormView> {
 
               const SizedBox(height: 16),
 
-              // 3. Multi-Child Widget: Row (Ingat Saya & Lupa Sandi)
+              // INGAT SAYA DAN LUPA PASSWORD
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  // Checkbox Ingat Saya Kustom
                   InkWell(
                     onTap: () {
                       setState(() {
@@ -436,7 +468,9 @@ class _PartnerLoginFormViewState extends State<PartnerLoginFormView> {
                     child: Row(
                       mainAxisSize: MainAxisSize.min,
                       children: [
-                        PartnerCustomCheckbox(isChecked: _rememberMe),
+                        PartnerCustomCheckbox(
+                          isChecked: _rememberMe,
+                        ),
                         const SizedBox(width: 8),
                         Text(
                           'Ingat Saya',
@@ -450,7 +484,6 @@ class _PartnerLoginFormViewState extends State<PartnerLoginFormView> {
                     ),
                   ),
 
-                  // Link Lupa Sandi (.forgot-link)
                   TextButton(
                     onPressed: () {
                       _showCustomToast(
@@ -459,10 +492,15 @@ class _PartnerLoginFormViewState extends State<PartnerLoginFormView> {
                       );
                     },
                     style: ButtonStyle(
-                      padding: const WidgetStatePropertyAll(EdgeInsets.zero),
-                      minimumSize: const WidgetStatePropertyAll(Size.zero),
+                      padding: const WidgetStatePropertyAll(
+                        EdgeInsets.zero,
+                      ),
+                      minimumSize: const WidgetStatePropertyAll(
+                        Size.zero,
+                      ),
                       tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                      foregroundColor: WidgetStateProperty.resolveWith((states) {
+                      foregroundColor:
+                          WidgetStateProperty.resolveWith((states) {
                         if (states.contains(WidgetState.hovered) ||
                             states.contains(WidgetState.pressed)) {
                           return _kTangerineHover;
@@ -483,7 +521,7 @@ class _PartnerLoginFormViewState extends State<PartnerLoginFormView> {
 
               const SizedBox(height: 22),
 
-              // Tombol Submit Utama (.btn-submit)
+              // TOMBOL LOGIN
               ElevatedButton(
                 onPressed: _handleLogin,
                 style: ElevatedButton.styleFrom(
@@ -510,21 +548,24 @@ class _PartnerLoginFormViewState extends State<PartnerLoginFormView> {
                       ),
                     ),
                     const SizedBox(width: 10),
-                    const Icon(Icons.arrow_forward_rounded, size: 20),
+                    const Icon(
+                      Icons.arrow_forward_rounded,
+                      size: 20,
+                    ),
                   ],
                 ),
               ),
 
               const SizedBox(height: 16),
 
-              // Baris Cepat Akun Demo Default
-              PartnerAccountQuickBar(onAutoFill: _fillDefaultCredentials),
+              // AKUN DEMO
+              PartnerAccountQuickBar(
+                onAutoFill: _fillDefaultCredentials,
+              ),
 
-              const SizedBox(height: 20),
+              const SizedBox(height: 40),
 
-              const SizedBox(height: 20),
-
-              // 2. Komponen Dasar: RichText Link Pendaftaran (.footer-note)
+              // LINK PENDAFTARAN MITRA
               Center(
                 child: RichText(
                   textAlign: TextAlign.center,
@@ -535,16 +576,18 @@ class _PartnerLoginFormViewState extends State<PartnerLoginFormView> {
                       color: _kTextMuted,
                     ),
                     children: [
-                      const TextSpan(text: 'Ingin bergabung sebagai mitra? '),
+                      const TextSpan(
+                        text: 'Ingin bergabung sebagai mitra? ',
+                      ),
                       WidgetSpan(
                         child: GestureDetector(
                           onTap: () {
-                            // 6. Navigasi Menggunakan Navigator.push() ke Form Pendaftaran Mitra
-                            Navigator.push(
+                            RebiteRouteTracker.push(
                               context,
-                              MaterialPageRoute(
-                                builder: (context) => const RebitePartnerClaimerSignupPage(initialRole: 'resto'),
+                              const RebitePartnerClaimerSignupPage(
+                                initialRole: 'resto',
                               ),
+                              routeName: AppRoutes.partnerSignup,
                             );
                           },
                           child: Text(
@@ -573,7 +616,7 @@ class _PartnerLoginFormViewState extends State<PartnerLoginFormView> {
 }
 
 // ============================================================================
-// 2 & 3. REUSABLE WIDGET: HERO BANNER HEADER (.hero-banner)
+// HERO BANNER HEADER
 // ============================================================================
 class PartnerHeroBanner extends StatelessWidget {
   const PartnerHeroBanner({super.key});
@@ -591,25 +634,36 @@ class PartnerHeroBanner extends StatelessWidget {
         gradient: LinearGradient(
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
-          colors: [_kBrunswick, _kBrunswickDark],
+          colors: [
+            _kBrunswick,
+            _kBrunswickDark,
+          ],
         ),
       ),
       child: Column(
         children: [
-          // 3. Single-Child Widget: Align (.merchant-pill-badge)
           Align(
             alignment: Alignment.center,
             child: Container(
-              padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 6),
+              padding: const EdgeInsets.symmetric(
+                horizontal: 14,
+                vertical: 6,
+              ),
               decoration: BoxDecoration(
-                color: const Color(0x33EB7D00), // rgba(235, 125, 0, 0.2)
+                color: const Color(0x33EB7D00),
                 borderRadius: BorderRadius.circular(20),
-                border: Border.all(color: const Color(0x66EB7D00)), // rgba 0.4
+                border: Border.all(
+                  color: const Color(0x66EB7D00),
+                ),
               ),
               child: Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  const Icon(Icons.storefront_rounded, size: 14, color: _kTangerine),
+                  const Icon(
+                    Icons.storefront_rounded,
+                    size: 14,
+                    color: _kTangerine,
+                  ),
                   const SizedBox(width: 8),
                   Text(
                     'PORTAL MITRA RESTORAN',
@@ -627,7 +681,6 @@ class PartnerHeroBanner extends StatelessWidget {
 
           const SizedBox(height: 12),
 
-          // 2. Komponen Dasar: RichText Judul Hero Typography Playfair Display (.hero-title)
           RichText(
             textAlign: TextAlign.center,
             text: TextSpan(
@@ -638,7 +691,9 @@ class PartnerHeroBanner extends StatelessWidget {
                 height: 1.25,
               ),
               children: [
-                const TextSpan(text: 'Kelola Surplus Makanan, Atur Kuota, '),
+                const TextSpan(
+                  text: 'Kelola Surplus Makanan, Atur Kuota, ',
+                ),
                 TextSpan(
                   text: '& Berdayakan Komunitas.',
                   style: GoogleFonts.playfairDisplay(
@@ -659,12 +714,15 @@ class PartnerHeroBanner extends StatelessWidget {
 }
 
 // ============================================================================
-// 2. REUSABLE WIDGET: BRAND LOGO AVATAR (.logo-wrapper)
+// BRAND LOGO AVATAR
 // ============================================================================
 class PartnerBrandLogoAvatar extends StatelessWidget {
   final VoidCallback onTapLogo;
 
-  const PartnerBrandLogoAvatar({super.key, required this.onTapLogo});
+  const PartnerBrandLogoAvatar({
+    super.key,
+    required this.onTapLogo,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -676,7 +734,10 @@ class PartnerBrandLogoAvatar extends StatelessWidget {
         decoration: BoxDecoration(
           color: _kVanilla,
           shape: BoxShape.circle,
-          border: Border.all(color: _kBgLight, width: 4),
+          border: Border.all(
+            color: _kBgLight,
+            width: 4,
+          ),
           boxShadow: const [
             BoxShadow(
               color: Color(0x262E2910),
@@ -685,7 +746,6 @@ class PartnerBrandLogoAvatar extends StatelessWidget {
             ),
           ],
         ),
-        // 2. Komponen Dasar: CircleAvatar & Image
         child: CircleAvatar(
           radius: 40,
           backgroundColor: _kVanilla,
@@ -695,7 +755,8 @@ class PartnerBrandLogoAvatar extends StatelessWidget {
               width: 60,
               height: 60,
               fit: BoxFit.contain,
-              errorBuilder: (context, error, stackTrace) => const Icon(
+              errorBuilder: (context, error, stackTrace) =>
+                  const Icon(
                 Icons.restaurant_rounded,
                 size: 38,
                 color: _kBrunswick,
@@ -709,7 +770,7 @@ class PartnerBrandLogoAvatar extends StatelessWidget {
 }
 
 // ============================================================================
-// 2. REUSABLE WIDGET: WELCOME HEADER (.welcome-head)
+// WELCOME HEADER
 // ============================================================================
 class PartnerWelcomeHeader extends StatelessWidget {
   const PartnerWelcomeHeader({super.key});
@@ -745,7 +806,7 @@ class PartnerWelcomeHeader extends StatelessWidget {
 }
 
 // ============================================================================
-// 2. REUSABLE WIDGET: ROLE SWITCHER PILL (.role-switch-container)
+// ROLE SWITCHER PILL
 // ============================================================================
 class PartnerRoleSwitcherPill extends StatelessWidget {
   final String selectedRole;
@@ -770,7 +831,6 @@ class PartnerRoleSwitcherPill extends StatelessWidget {
       ),
       child: Row(
         children: [
-          // 3. Multi-Child Widget: Expanded — Tombol Peran Claimer
           Expanded(
             child: GestureDetector(
               onTap: () => onRoleChanged('claimer'),
@@ -813,7 +873,6 @@ class PartnerRoleSwitcherPill extends StatelessWidget {
             ),
           ),
 
-          // 3. Multi-Child Widget: Expanded — Tombol Peran Mitra Restoran (Default Aktif)
           Expanded(
             child: GestureDetector(
               onTap: () => onRoleChanged('resto'),
@@ -862,19 +921,23 @@ class PartnerRoleSwitcherPill extends StatelessWidget {
 }
 
 // ============================================================================
-// 3. MULTI-CHILD WIDGET: CAROUSEL FITUR UNGGULAN MITRA RESTORAN
-// (Sesuai .merchant-features-box pada rebite_partner_login.html)
+// CAROUSEL FITUR UNGGULAN MITRA RESTORAN
 // ============================================================================
 class PartnerFeatureCarousel extends StatefulWidget {
   final String selectedRole;
 
-  const PartnerFeatureCarousel({super.key, required this.selectedRole});
+  const PartnerFeatureCarousel({
+    super.key,
+    required this.selectedRole,
+  });
 
   @override
-  State<PartnerFeatureCarousel> createState() => _PartnerFeatureCarouselState();
+  State<PartnerFeatureCarousel> createState() =>
+      _PartnerFeatureCarouselState();
 }
 
-class _PartnerFeatureCarouselState extends State<PartnerFeatureCarousel> {
+class _PartnerFeatureCarouselState
+    extends State<PartnerFeatureCarousel> {
   final PageController _pageController = PageController();
   int _currentCarouselIndex = 0;
 
@@ -882,22 +945,26 @@ class _PartnerFeatureCarouselState extends State<PartnerFeatureCarousel> {
     {
       'icon': Icons.tune_rounded,
       'title': 'Atur Kuota & Jadwal Claim',
-      'desc': 'Kelola batasan kuota claim surplus dan atur jadwal pembagian makanan secara fleksibel.',
+      'desc':
+          'Kelola batasan kuota claim surplus dan atur jadwal pembagian makanan secara fleksibel.',
     },
     {
       'icon': Icons.delivery_dining_rounded,
       'title': 'Misi Pickup Sidejob',
-      'desc': 'Post donasi makanan homeless dengan penjemputan oleh relawan sidejob kurir terverifikasi.',
+      'desc':
+          'Post donasi makanan homeless dengan penjemputan oleh relawan sidejob kurir terverifikasi.',
     },
     {
       'icon': Icons.pets_rounded,
       'title': 'Distribusi Pakan Ternak',
-      'desc': 'Salurkan sisa bahan organik ramah lingkungan tanpa terbuang sia-sia ke tempat pembuangan.',
+      'desc':
+          'Salurkan sisa bahan organik ramah lingkungan tanpa terbuang sia-sia ke tempat pembuangan.',
     },
     {
       'icon': Icons.analytics_outlined,
       'title': 'Laporan Dampak Sosial',
-      'desc': 'Pantau analitik pengurangan jejak karbon, tonase sampah terselamatkan, dan nilai CSR resto.',
+      'desc':
+          'Pantau analitik pengurangan jejak karbon, tonase sampah terselamatkan, dan nilai CSR resto.',
     },
   ];
 
@@ -912,20 +979,29 @@ class _PartnerFeatureCarouselState extends State<PartnerFeatureCarousel> {
     final isResto = widget.selectedRole == 'resto';
 
     if (!isResto) {
-      // Tampilan untuk peran Claimer
       return Container(
-        padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
+        padding: const EdgeInsets.symmetric(
+          horizontal: 14,
+          vertical: 12,
+        ),
         decoration: BoxDecoration(
           color: _kVanillaSoft,
           borderRadius: BorderRadius.circular(12),
           border: const Border(
-            left: BorderSide(color: _kTangerine, width: 3),
+            left: BorderSide(
+              color: _kTangerine,
+              width: 3,
+            ),
           ),
         ),
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Icon(Icons.info_outline_rounded, size: 18, color: _kTangerine),
+            const Icon(
+              Icons.info_outline_rounded,
+              size: 18,
+              color: _kTangerine,
+            ),
             const SizedBox(width: 10),
             Expanded(
               child: Text(
@@ -943,20 +1019,21 @@ class _PartnerFeatureCarouselState extends State<PartnerFeatureCarousel> {
       );
     }
 
-    // Tampilan Carousel Interaktif untuk Mitra Restoran
     return Container(
       padding: const EdgeInsets.fromLTRB(14, 12, 14, 10),
       decoration: BoxDecoration(
         color: _kVanillaSoft,
         borderRadius: BorderRadius.circular(12),
         border: const Border(
-          left: BorderSide(color: _kTangerine, width: 3),
+          left: BorderSide(
+            color: _kTangerine,
+            width: 3,
+          ),
         ),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          // 3. Multi-Child Widget: Carousel (PageView)
           SizedBox(
             height: 52,
             child: PageView.builder(
@@ -969,10 +1046,15 @@ class _PartnerFeatureCarouselState extends State<PartnerFeatureCarousel> {
               },
               itemBuilder: (context, index) {
                 final feature = _restoFeatures[index];
+
                 return Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Icon(feature['icon'] as IconData, size: 18, color: _kTangerine),
+                    Icon(
+                      feature['icon'] as IconData,
+                      size: 18,
+                      color: _kTangerine,
+                    ),
                     const SizedBox(width: 10),
                     Expanded(
                       child: Text(
@@ -993,7 +1075,6 @@ class _PartnerFeatureCarouselState extends State<PartnerFeatureCarousel> {
 
           const SizedBox(height: 6),
 
-          // Indikator Titik Carousel
           Row(
             mainAxisAlignment: MainAxisAlignment.end,
             children: List.generate(
@@ -1004,7 +1085,9 @@ class _PartnerFeatureCarouselState extends State<PartnerFeatureCarousel> {
                 width: _currentCarouselIndex == dotIndex ? 16 : 6,
                 height: 4,
                 decoration: BoxDecoration(
-                  color: _currentCarouselIndex == dotIndex ? _kTangerine : _kBorder,
+                  color: _currentCarouselIndex == dotIndex
+                      ? _kTangerine
+                      : _kBorder,
                   borderRadius: BorderRadius.circular(4),
                 ),
               ),
@@ -1017,7 +1100,7 @@ class _PartnerFeatureCarouselState extends State<PartnerFeatureCarousel> {
 }
 
 // ============================================================================
-// 2. REUSABLE WIDGET: PARTNER INPUT FIELD (.form-group & .input-field)
+// PARTNER INPUT FIELD
 // ============================================================================
 class PartnerInputField extends StatelessWidget {
   final String label;
@@ -1044,7 +1127,6 @@ class PartnerInputField extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        // Label Input (.form-label)
         Text(
           label.toUpperCase(),
           style: GoogleFonts.plusJakartaSans(
@@ -1054,14 +1136,17 @@ class PartnerInputField extends StatelessWidget {
             letterSpacing: 0.6,
           ),
         ),
+
         const SizedBox(height: 8),
 
-        // Kontainer Input Field (.input-wrapper)
         Container(
           decoration: BoxDecoration(
             color: _kWhite,
             borderRadius: BorderRadius.circular(14),
-            border: Border.all(color: _kBorder, width: 2),
+            border: Border.all(
+              color: _kBorder,
+              width: 2,
+            ),
           ),
           child: TextField(
             controller: controller,
@@ -1079,7 +1164,11 @@ class PartnerInputField extends StatelessWidget {
                 fontWeight: FontWeight.w500,
                 color: const Color(0xFFA39D83),
               ),
-              prefixIcon: Icon(prefixIcon, color: _kTextMuted, size: 20),
+              prefixIcon: Icon(
+                prefixIcon,
+                color: _kTextMuted,
+                size: 20,
+              ),
               suffixIcon: suffixIcon,
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(14),
@@ -1087,7 +1176,10 @@ class PartnerInputField extends StatelessWidget {
               ),
               focusedBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(14),
-                borderSide: const BorderSide(color: _kBorderFocus, width: 2),
+                borderSide: const BorderSide(
+                  color: _kBorderFocus,
+                  width: 2,
+                ),
               ),
               contentPadding: const EdgeInsets.symmetric(
                 horizontal: 16,
@@ -1102,12 +1194,15 @@ class PartnerInputField extends StatelessWidget {
 }
 
 // ============================================================================
-// REUSABLE WIDGET: CHECKBOX KUSTOM (.custom-checkbox)
+// CHECKBOX KUSTOM
 // ============================================================================
 class PartnerCustomCheckbox extends StatelessWidget {
   final bool isChecked;
 
-  const PartnerCustomCheckbox({super.key, required this.isChecked});
+  const PartnerCustomCheckbox({
+    super.key,
+    required this.isChecked,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -1123,19 +1218,26 @@ class PartnerCustomCheckbox extends StatelessWidget {
         ),
       ),
       child: isChecked
-          ? const Icon(Icons.check, size: 12, color: _kVanilla)
+          ? const Icon(
+              Icons.check,
+              size: 12,
+              color: _kVanilla,
+            )
           : null,
     );
   }
 }
 
 // ============================================================================
-// REUSABLE WIDGET: BARIS CEPAT AKUN DEFAULT MITRA RESTORAN
+// BARIS CEPAT AKUN DEFAULT MITRA RESTORAN
 // ============================================================================
 class PartnerAccountQuickBar extends StatelessWidget {
   final VoidCallback onAutoFill;
 
-  const PartnerAccountQuickBar({super.key, required this.onAutoFill});
+  const PartnerAccountQuickBar({
+    super.key,
+    required this.onAutoFill,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -1143,16 +1245,23 @@ class PartnerAccountQuickBar extends StatelessWidget {
       onTap: onAutoFill,
       borderRadius: BorderRadius.circular(10),
       child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+        padding: const EdgeInsets.symmetric(
+          horizontal: 12,
+          vertical: 8,
+        ),
         decoration: BoxDecoration(
-          color: const Color(0x66EBE3A7), // _kVanilla 40%
+          color: const Color(0x66EBE3A7),
           borderRadius: BorderRadius.circular(10),
           border: Border.all(color: _kBorder),
         ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const Icon(Icons.key_rounded, size: 14, color: _kBrunswick),
+            const Icon(
+              Icons.key_rounded,
+              size: 14,
+              color: _kBrunswick,
+            ),
             const SizedBox(width: 8),
             Flexible(
               child: Text(
@@ -1172,13 +1281,16 @@ class PartnerAccountQuickBar extends StatelessWidget {
 }
 
 // ============================================================================
-// DEKORASI AMBIENT BLOB (.bg-blob-top & .bg-blob-bottom)
+// DEKORASI AMBIENT BLOB
 // ============================================================================
 class _AmbientDecorBlob extends StatelessWidget {
   final double size;
   final Color color;
 
-  const _AmbientDecorBlob({required this.size, required this.color});
+  const _AmbientDecorBlob({
+    required this.size,
+    required this.color,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -1188,7 +1300,10 @@ class _AmbientDecorBlob extends StatelessWidget {
       decoration: BoxDecoration(
         shape: BoxShape.circle,
         gradient: RadialGradient(
-          colors: [color, color.withValues(alpha: 0.0)],
+          colors: [
+            color,
+            color.withValues(alpha: 0.0),
+          ],
         ),
       ),
     );
@@ -1196,7 +1311,7 @@ class _AmbientDecorBlob extends StatelessWidget {
 }
 
 // ============================================================================
-// 6. HALAMAN SETELAH LOGIN RESTORAN (Halaman Kosong dengan Button Kembali)
+// HALAMAN SETELAH LOGIN RESTORAN
 // ============================================================================
 class PartnerLoginSuccessPage extends StatelessWidget {
   final String? role;
@@ -1216,7 +1331,10 @@ class PartnerLoginSuccessPage extends StatelessWidget {
         backgroundColor: _kBgLight,
         elevation: 0,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back_rounded, color: _kDarkBrown),
+          icon: const Icon(
+            Icons.arrow_back_rounded,
+            color: _kDarkBrown,
+          ),
           onPressed: () => Navigator.pop(context),
           tooltip: 'Kembali',
         ),
@@ -1227,10 +1345,12 @@ class PartnerLoginSuccessPage extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              // Button Kembali
               ElevatedButton.icon(
                 onPressed: () => Navigator.pop(context),
-                icon: const Icon(Icons.arrow_back_rounded, size: 18),
+                icon: const Icon(
+                  Icons.arrow_back_rounded,
+                  size: 18,
+                ),
                 label: Text(
                   'Kembali',
                   style: GoogleFonts.plusJakartaSans(
@@ -1241,7 +1361,10 @@ class PartnerLoginSuccessPage extends StatelessWidget {
                 style: ElevatedButton.styleFrom(
                   backgroundColor: _kBrunswick,
                   foregroundColor: _kVanilla,
-                  padding: const EdgeInsets.symmetric(horizontal: 28, vertical: 14),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 28,
+                    vertical: 14,
+                  ),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(14),
                   ),
@@ -1257,7 +1380,7 @@ class PartnerLoginSuccessPage extends StatelessWidget {
 }
 
 // ============================================================================
-// HALAMAN DESTINASI REGISTRASI MITRA BARU (Placeholder dengan Button Kembali)
+// HALAMAN DESTINASI REGISTRASI MITRA BARU
 // ============================================================================
 class PartnerRegisterPage extends StatelessWidget {
   const PartnerRegisterPage({super.key});
@@ -1270,7 +1393,10 @@ class PartnerRegisterPage extends StatelessWidget {
         backgroundColor: _kBgLight,
         elevation: 0,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back_rounded, color: _kDarkBrown),
+          icon: const Icon(
+            Icons.arrow_back_rounded,
+            color: _kDarkBrown,
+          ),
           onPressed: () => Navigator.pop(context),
           tooltip: 'Kembali',
         ),
@@ -1283,7 +1409,10 @@ class PartnerRegisterPage extends StatelessWidget {
             children: [
               ElevatedButton.icon(
                 onPressed: () => Navigator.pop(context),
-                icon: const Icon(Icons.arrow_back_rounded, size: 18),
+                icon: const Icon(
+                  Icons.arrow_back_rounded,
+                  size: 18,
+                ),
                 label: Text(
                   'Kembali',
                   style: GoogleFonts.plusJakartaSans(
@@ -1294,7 +1423,10 @@ class PartnerRegisterPage extends StatelessWidget {
                 style: ElevatedButton.styleFrom(
                   backgroundColor: _kBrunswick,
                   foregroundColor: _kVanilla,
-                  padding: const EdgeInsets.symmetric(horizontal: 28, vertical: 14),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 28,
+                    vertical: 14,
+                  ),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(14),
                   ),
@@ -1307,4 +1439,3 @@ class PartnerRegisterPage extends StatelessWidget {
     );
   }
 }
-

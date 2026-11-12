@@ -831,35 +831,35 @@ class _RebiteRestaurantProfileState extends State<RebiteRestaurantProfile> {
   }
 
   Widget _buildStatistics() {
-    return Row(
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: const [
-        Expanded(
-          child: _RestaurantStatCard(
-            icon: Icons.inventory_2_outlined,
-            value: '142',
-            label: 'Total Porsi Terselamatkan',
-          ),
+  return Row(
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: const [
+      Expanded(
+        child: _RestaurantStatCard(
+          icon: Icons.inventory_2_outlined,
+          value: '142',
+          label: 'Total Porsi Terselamatkan',
         ),
-        SizedBox(width: 8),
-        Expanded(
-          child: _RestaurantStatCard(
-            icon: Icons.local_shipping_outlined,
-            value: '18',
-            label: 'Misi Sidejob Selesai',
-          ),
+      ),
+      SizedBox(width: 8),
+      Expanded(
+        child: _RestaurantStatCard(
+          icon: Icons.local_shipping_outlined,
+          value: '18',
+          label: 'Misi Sidejob Selesai',
         ),
-        SizedBox(width: 8),
-        Expanded(
-          child: _RestaurantStatCard(
-            icon: Icons.star_outline_rounded,
-            value: '4.9 ★',
-            label: 'Rating & Dampak 71 kg CO₂e',
-          ),
+      ),
+      SizedBox(width: 8),
+      Expanded(
+        child: _RestaurantStatCard(
+          icon: Icons.star_outline_rounded,
+          value: '4.9 â˜…',
+          label: 'Rating & Dampak 71 kg COâ‚‚e',
         ),
-      ],
-    );
-  }
+      ),
+    ],
+  );
+}
 
   Widget _buildMenuSection({
     required String title,

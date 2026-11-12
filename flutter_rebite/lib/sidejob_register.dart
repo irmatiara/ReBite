@@ -1,3 +1,5 @@
+import 'rebite_route_tracker.dart';
+import 'sidejob_missions.dart';
 import 'package:flutter/material.dart';
 
 class SidejobRegister extends StatelessWidget {
@@ -7,6 +9,16 @@ class SidejobRegister extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back),
+          onPressed: () {
+            if (Navigator.canPop(context)) {
+              Navigator.pop(context);
+            } else {
+              Navigator.push(context, RebiteRouteTracker.createPageRoute(const SidejobMissions()));
+            }
+          },
+        ),
         title: const Text('Daftar Relawan Sidejob'),
         backgroundColor: const Color(0xFF2C5745),
         foregroundColor: const Color(0xFFEBE3A7),

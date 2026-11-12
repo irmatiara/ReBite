@@ -1,10 +1,13 @@
+import 'rebite_claimer_dashboard_map.dart';
+import 'rebite_restaurant_dashboard.dart';
+import 'rebite_route_tracker.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'rebite_partner_login.dart' show RebitePartnerLoginPage;
 import 'session_storage.dart';
 import 'rebite_partner_claimer_signup.dart' show RebitePartnerClaimerSignupPage;
-import 'rebite_claimer_dashboard_map.dart' show RebiteClaimerDashboardMap;
-import 'rebite_restaurant_dashboard.dart' show RebiteRestaurantDashboard;
+
+
 
 // ============================================================================
 // 1. PALET WARNA RESMI REBITE (Sesuai rebite_professional_login_page.html)
@@ -208,13 +211,12 @@ class _RebiteLoginFormViewState extends State<RebiteLoginFormView> {
         _errorMessage = null;
       });
 
+      final destWidget = _selectedRole == 'resto'
+          ? const RebiteRestaurantDashboard()
+          : const RebiteClaimerDashboardMap();
       Navigator.push(
         context,
-        MaterialPageRoute(
-          builder: (context) => _selectedRole == 'resto'
-              ? const RebiteRestaurantDashboard()
-              : const RebiteClaimerDashboardMap(),
-        ),
+        RebiteRouteTracker.createPageRoute(destWidget),
       );
     } else {
       setState(() {
@@ -246,11 +248,10 @@ class _RebiteLoginFormViewState extends State<RebiteLoginFormView> {
 
       Future.delayed(const Duration(milliseconds: 250), () {
         if (!mounted) return;
-        Navigator.push(
+        RebiteRouteTracker.push(
           context,
-          MaterialPageRoute(
-            builder: (context) => const RebitePartnerLoginPage(),
-          ),
+          const RebitePartnerLoginPage(),
+          routeName: AppRoutes.partnerLogin,
         ).then((_) {
           if (mounted) {
             setState(() {
@@ -497,11 +498,10 @@ class _RebiteLoginFormViewState extends State<RebiteLoginFormView> {
                         WidgetSpan(
                           child: GestureDetector(
                             onTap: () {
-                              Navigator.push(
+                              RebiteRouteTracker.push(
                                 context,
-                                MaterialPageRoute(
-                                  builder: (context) => const RebitePartnerClaimerSignupPage(initialRole: 'claimer'),
-                                ),
+                                const RebitePartnerClaimerSignupPage(initialRole: 'claimer'),
+                                routeName: AppRoutes.claimerSignup,
                               );
                             },
                             child: Text(
